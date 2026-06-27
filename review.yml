@@ -1,0 +1,77 @@
+aid: postiz
+name: Postiz
+review:
+  question: Does Postiz expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-25'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. The Postiz Public API is REST-only and
+    documents no streaming surface (neither WebSocket nor Server-Sent Events).
+    Postiz does support outbound webhooks (an HTTP POST to a user-configured URL
+    when a post is published), but webhooks are HTTP callbacks configured in the
+    app, not a WebSocket or SSE transport, and are not exposed as a Public API
+    endpoint.
+findings:
+  summary: |
+    Postiz does not publish a documented public WebSocket API. The Postiz Public
+    API is an HTTPS REST API served at https://api.postiz.com/public/v1 (Cloud)
+    and https://{your-domain}/api/public/v1 (self-hosted), authenticated with an
+    API key in the Authorization header. All documented operations - integrations,
+    groups, find-slot, posts (list/create/delete/status), uploads, analytics, and
+    notifications - are request/response REST calls. No realtime, bidirectional,
+    ws:// or wss:// endpoint is documented. Postiz offers outbound webhooks on
+    post publish, which are server-to-server HTTP POST callbacks, not WebSocket.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.postiz.com/public/v1
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST callback to a user-configured URL when a post is published. Configured in the app, not a Public API endpoint. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Postiz Public API reference as of the review date.
+  endpointsConfirmedRest:
+    - GET    https://api.postiz.com/public/v1/integrations
+    - GET    https://api.postiz.com/public/v1/groups
+    - DELETE https://api.postiz.com/public/v1/integrations/{id}
+    - GET    https://api.postiz.com/public/v1/social/{integration}
+    - GET    https://api.postiz.com/public/v1/integration-settings/{id}
+    - POST   https://api.postiz.com/public/v1/integration-trigger/{id}
+    - GET    https://api.postiz.com/public/v1/is-connected
+    - GET    https://api.postiz.com/public/v1/find-slot/{id}
+    - GET    https://api.postiz.com/public/v1/posts
+    - POST   https://api.postiz.com/public/v1/posts
+    - DELETE https://api.postiz.com/public/v1/posts/{id}
+    - DELETE https://api.postiz.com/public/v1/posts/group/{group}
+    - GET    https://api.postiz.com/public/v1/posts/{id}/missing
+    - PUT    https://api.postiz.com/public/v1/posts/{id}/release-id
+    - PUT    https://api.postiz.com/public/v1/posts/{id}/status
+    - GET    https://api.postiz.com/public/v1/analytics/{integration}
+    - GET    https://api.postiz.com/public/v1/analytics/post/{postId}
+    - POST   https://api.postiz.com/public/v1/upload
+    - POST   https://api.postiz.com/public/v1/upload-from-url
+    - GET    https://api.postiz.com/public/v1/notifications
+sources:
+  - url: https://docs.postiz.com/public-api
+    type: Documentation
+    note: Lists the REST base URLs and API-key auth; no WebSocket mentioned.
+  - url: https://docs.postiz.com/public-api/introduction
+    type: APIReference
+    note: All documented endpoints are HTTPS REST request/response calls.
+  - url: https://github.com/gitroomhq/postiz-app
+    type: SourceCode
+    note: AGPL-3.0 open-source app; the same Public API runs self-hosted. No documented WebSocket surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and the API documents no SSE stream
+    either, so no AsyncAPI document was authored. Outbound post-publish webhooks
+    are modeled descriptively as a Postiz Webhooks API entry in apis.yml, with the
+    HTTP-callback nature noted so it is never misrepresented as WebSocket or SSE.

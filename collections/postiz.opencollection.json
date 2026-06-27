@@ -1,0 +1,303 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Postiz Public API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "Authorization",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/integrations"
+          },
+          "docs": "Returns all connected social media channels for your organization."
+        },
+        {
+          "info": {
+            "name": "List all groups (customers)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/groups"
+          },
+          "docs": "Returns the customer groups configured for your organization."
+        },
+        {
+          "info": {
+            "name": "Delete a channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/integrations/{id}"
+          },
+          "docs": "Disconnects and deletes a connected channel by integration ID."
+        },
+        {
+          "info": {
+            "name": "Get OAuth connect URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/social/{integration}"
+          },
+          "docs": "Returns the OAuth URL used to connect a new channel for the given provider."
+        },
+        {
+          "info": {
+            "name": "Get settings and tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/integration-settings/{id}"
+          },
+          "docs": "Returns the available settings and tools for a connected channel."
+        },
+        {
+          "info": {
+            "name": "Trigger an integration tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/integration-trigger/{id}",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invokes a named tool/method exposed by a connected channel."
+        },
+        {
+          "info": {
+            "name": "Check connection status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/is-connected"
+          },
+          "docs": "Verifies that the API key is valid and the account is reachable."
+        },
+        {
+          "info": {
+            "name": "Find next available slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/find-slot/{id}"
+          },
+          "docs": "Get the next available time slot for posting to a specific channel."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/posts"
+          },
+          "docs": "Get posts within a date range."
+        },
+        {
+          "info": {
+            "name": "Create a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/posts",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"schedule\",\n  \"date\": \"2024-12-14T10:00:00.000Z\",\n  \"shortLink\": false,\n  \"tags\": [],\n  \"posts\": [\n    {\n      \"integration\": {\n        \"id\": \"your-integration-id\"\n      },\n      \"value\": [\n        {\n          \"content\": \"Hello from the Postiz API!\",\n          \"image\": []\n        }\n      ],\n      \"settings\": {\n        \"__type\": \"bluesky\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Create or schedule a new post. Set type to draft, schedule, or now. Each social media platform has its own settings schema selected via the settings.__type discriminator."
+        },
+        {
+          "info": {
+            "name": "Delete a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/posts/{id}"
+          },
+          "docs": "Deletes a post by ID. A 404 means the post is already deleted and is safe to ignore."
+        },
+        {
+          "info": {
+            "name": "Delete posts by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/posts/group/{group}"
+          },
+          "docs": "Deletes all posts that share the given group ID."
+        },
+        {
+          "info": {
+            "name": "Get missing content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/posts/{id}/missing"
+          },
+          "docs": "Returns content fields that still need to be supplied for a post."
+        },
+        {
+          "info": {
+            "name": "Update release ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.postiz.com/public/v1/posts/{id}/release-id",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the external release identifier associated with a post."
+        },
+        {
+          "info": {
+            "name": "Change post status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.postiz.com/public/v1/posts/{id}/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes a post's status between draft and schedule."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get platform analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/analytics/{integration}"
+          },
+          "docs": "Returns analytics for a connected channel over a date window."
+        },
+        {
+          "info": {
+            "name": "Get post analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/analytics/post/{postId}"
+          },
+          "docs": "Returns analytics for a single published post."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Upload a media file using multipart form data."
+        },
+        {
+          "info": {
+            "name": "Upload from URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/upload-from-url",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"url\": \"https://example.com/image.png\"\n}"
+            }
+          },
+          "docs": "Upload a file from an existing URL."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/notifications"
+          },
+          "docs": "Returns account notifications, paginated."
+        }
+      ]
+    }
+  ]
+}

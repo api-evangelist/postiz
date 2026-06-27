@@ -1,0 +1,106 @@
+aid: postiz
+url: https://raw.githubusercontent.com/api-evangelist/postiz/refs/heads/main/apis.yml
+name: Postiz
+kind: company
+description: Postiz is an open-source social media scheduling and management platform
+  for posting across 30+ social, video, community, and blogging channels from a single
+  calendar. It ships as a free AGPL-licensed self-hosted app and as a paid managed
+  Cloud. The Postiz Public API uses simple API-key auth to list connected channels,
+  upload media, and create, schedule, list, and delete posts.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Social Media
+- Scheduling
+- Open Source
+- Content
+- Marketing
+created: '2026-06-25'
+modified: '2026-06-25'
+specificationVersion: '0.19'
+apis:
+- aid: postiz:posts
+  name: Postiz Posts API
+  tags:
+  - Posts
+  - Scheduling
+  - Publishing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  properties:
+  - url: https://docs.postiz.com/public-api
+    type: Documentation
+  - url: https://docs.postiz.com/public-api/introduction
+    type: APIReference
+  - url: openapi/postiz-openapi.yml
+    type: OpenAPI
+  description: Create, schedule (draft / schedule / now), list by date range, and delete
+    posts across all connected channels, with per-platform settings selected by a
+    __type discriminator. Served identically by Postiz Cloud and self-hosted instances.
+- aid: postiz:integrations-channels
+  name: Postiz Integrations and Channels API
+  tags:
+  - Integrations
+  - Channels
+  - OAuth
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  properties:
+  - url: https://docs.postiz.com/public-api
+    type: Documentation
+  - url: openapi/postiz-openapi.yml
+    type: OpenAPI
+  description: List and manage connected social channels (integrations), list customer
+    groups, fetch OAuth connect URLs, check connection status, and find the next available
+    scheduling slot for a channel.
+- aid: postiz:uploads
+  name: Postiz Uploads API
+  tags:
+  - Uploads
+  - Media
+  - Files
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  properties:
+  - url: https://docs.postiz.com/public-api
+    type: Documentation
+  - url: openapi/postiz-openapi.yml
+    type: OpenAPI
+  description: Upload media files via multipart form data or by URL, returning a hosted
+    media object whose id and path are referenced as images when creating posts.
+- aid: postiz:webhooks
+  name: Postiz Webhooks
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  properties:
+  - url: https://docs.postiz.com/public-api
+    type: Documentation
+  description: Configure a webhook URL in Postiz to receive an HTTP POST notifying
+    your own systems when a post is published, so you can sync downstream tools such
+    as spreadsheets, Slack, or a CRM. Webhooks are configured in the app rather than
+    through a Public API endpoint.
+common:
+- type: GitHubOrganization
+  url: https://github.com/gitroomhq
+- type: LinkedIn
+  url: https://www.linkedin.com/company/postiz
+- type: Website
+  url: https://postiz.com
+- type: Documentation
+  url: https://docs.postiz.com
+- type: Plans
+  url: plans/postiz-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/postiz-rate-limits.yml
+- type: FinOps
+  url: finops/postiz-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

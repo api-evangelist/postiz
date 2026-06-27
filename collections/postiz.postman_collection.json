@@ -1,0 +1,736 @@
+{
+  "item": [
+    {
+      "id": "c079c80d-9ef2-4bfa-9a52-ce2cb1841183",
+      "name": "Integrations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "44334528-3296-4f8a-ae00-b8bddff77f1c",
+          "name": "List all integrations",
+          "request": {
+            "name": "List all integrations",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "group",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "6a9acedd-a18c-4472-b636-a1eced743d90",
+          "name": "List all groups (customers)",
+          "request": {
+            "name": "List all groups (customers)",
+            "description": {},
+            "url": {
+              "path": [
+                "groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "6281ccc8-406b-4818-b2a7-14cb711f18e6",
+          "name": "Delete a channel",
+          "request": {
+            "name": "Delete a channel",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations",
+                "{id}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "e4398229-11ce-41b1-9335-cab8172b84d2",
+          "name": "Get OAuth connect URL",
+          "request": {
+            "name": "Get OAuth connect URL",
+            "description": {},
+            "url": {
+              "path": [
+                "social",
+                "{integration}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "refresh",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "integration",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "941ac855-0168-42f5-918e-530f1ef6a402",
+          "name": "Get settings and tools",
+          "request": {
+            "name": "Get settings and tools",
+            "description": {},
+            "url": {
+              "path": [
+                "integration-settings",
+                "{id}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "41e4f86f-1f98-41e5-8737-21c79982ac31",
+          "name": "Trigger an integration tool",
+          "request": {
+            "name": "Trigger an integration tool",
+            "description": {},
+            "url": {
+              "path": [
+                "integration-trigger",
+                "{id}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "f0adf78f-a600-46dd-bb31-c4c7099b577c",
+          "name": "Check connection status",
+          "request": {
+            "name": "Check connection status",
+            "description": {},
+            "url": {
+              "path": [
+                "is-connected"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "9a63efaf-5d83-42ce-ae90-79afc412ad8d",
+          "name": "Find next available slot",
+          "request": {
+            "name": "Find next available slot",
+            "description": {},
+            "url": {
+              "path": [
+                "find-slot",
+                "{id}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "2730cb49-66fb-440e-b185-2912fd38c96e",
+      "name": "Posts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d1e9c90e-fd49-4242-ba1a-38d1ac9239b7",
+          "name": "List posts",
+          "request": {
+            "name": "List posts",
+            "description": {},
+            "url": {
+              "path": [
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": false
+                },
+                {
+                  "key": "customer",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "957948cd-dd66-4afa-8c7d-3aff2c68a2fc",
+          "name": "Create a post",
+          "request": {
+            "name": "Create a post",
+            "description": {},
+            "url": {
+              "path": [
+                "posts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"schedule\",\n  \"date\": \"2024-12-14T10:00:00.000Z\",\n  \"shortLink\": false,\n  \"tags\": [],\n  \"posts\": [\n    {\n      \"integration\": {\n        \"id\": \"your-integration-id\"\n      },\n      \"value\": [\n        {\n          \"content\": \"Hello from the Postiz API!\",\n          \"image\": []\n        }\n      ],\n      \"settings\": {\n        \"__type\": \"bluesky\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a07938b5-6fa6-4409-a37d-90ea6b46a69b",
+          "name": "Delete a post",
+          "request": {
+            "name": "Delete a post",
+            "description": {},
+            "url": {
+              "path": [
+                "posts",
+                "{id}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "1981f6ac-0dc0-4e91-b8ed-6e08a6cfec9e",
+          "name": "Delete posts by group",
+          "request": {
+            "name": "Delete posts by group",
+            "description": {},
+            "url": {
+              "path": [
+                "posts",
+                "group",
+                "{group}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "group",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "d3666429-0390-495d-b912-7225bf6f43fa",
+          "name": "Get missing content",
+          "request": {
+            "name": "Get missing content",
+            "description": {},
+            "url": {
+              "path": [
+                "posts",
+                "{id}",
+                "missing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7d17a939-3581-483b-8456-1f0a6a20b0ed",
+          "name": "Update release ID",
+          "request": {
+            "name": "Update release ID",
+            "description": {},
+            "url": {
+              "path": [
+                "posts",
+                "{id}",
+                "release-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "c0c0cdf9-e868-4440-a558-198538ebc297",
+          "name": "Change post status",
+          "request": {
+            "name": "Change post status",
+            "description": {},
+            "url": {
+              "path": [
+                "posts",
+                "{id}",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "158000fa-25bb-44b4-a81e-6c323840d8c0",
+      "name": "Analytics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a0de90ee-5dfe-4d02-9ce6-45e583c0c790",
+          "name": "Get platform analytics",
+          "request": {
+            "name": "Get platform analytics",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "{integration}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "integration",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "c0be66d1-214e-49aa-bf61-7fbdd335b3b7",
+          "name": "Get post analytics",
+          "request": {
+            "name": "Get post analytics",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "post",
+                "{postId}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": [
+                {
+                  "key": "postId",
+                  "value": ""
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "a11f3287-0f47-4ced-b351-8be57c4d8fb0",
+      "name": "Uploads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c86a7c2-e85d-4106-b951-a0c01b890da8",
+          "name": "Upload a file",
+          "request": {
+            "name": "Upload a file",
+            "description": {},
+            "url": {
+              "path": [
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "f3ffc9b7-7bd3-421c-8661-1b333fcef6f7",
+          "name": "Upload from URL",
+          "request": {
+            "name": "Upload from URL",
+            "description": {},
+            "url": {
+              "path": [
+                "upload-from-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://example.com/image.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "3fccd5c6-88e2-4414-87cf-002425a5299b",
+      "name": "Notifications",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e78842ad-69d9-455c-89aa-2ff9fa050c71",
+          "name": "List notifications",
+          "request": {
+            "name": "List notifications",
+            "description": {},
+            "url": {
+              "path": [
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "",
+                  "disabled": true
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.postiz.com/public/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "{{apiKey}}",
+      "key": "apiKey"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b69437b8-264c-494d-8d6c-9e7df4596eab",
+    "name": "Postiz Public API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST API for Postiz, the open-source social media scheduling platform. Same surface on Postiz Cloud and self-hosted. Auth: API key in the Authorization header.\n\nContact Support:\n Name: Postiz Support\n URL: https://docs.postiz.com/public-api",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Postiz
+providerId: postiz
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: false
+tags:
+- Social Media
+- Scheduling
+- Open Source
+- Content
+- Marketing
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Postiz Public API applies an hourly request rate limit per API key. Postiz
+  documents a default limit on the order of ~30 requests per hour; this counts API
+  requests, not published posts, so a single request can schedule many posts. On
+  self-hosted deployments the limit is configurable. Separately, Postiz Cloud plans
+  impose monthly post-volume and channel quotas (see plans), which are commercial
+  quotas rather than per-second API throttles.
+notes: >-
+  Exact request-per-hour values are not fully reconciled and differ between Cloud
+  and self-hosted (where the limit can be tuned). Verify current values in the Postiz
+  Public API documentation. Plan-level post and channel quotas live in the plans
+  artifact.
+sources:
+- https://docs.postiz.com/public-api
+- https://docs.postiz.com/public-api/introduction
+- https://postiz.com/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Hour
+  scope: api_key
+  metric: requests
+  limit: see provider documentation (~30/hour default)
+  notes: Counts API requests, not posts; configurable on self-hosted instances.
+- name: Monthly Posts (Cloud quota)
+  scope: account
+  metric: posts
+  limit: per plan (e.g. 400/month on Standard, unlimited on Team and above)
+  notes: Commercial plan quota, not a per-second API throttle.
+- name: Channels (Cloud quota)
+  scope: account
+  metric: channels
+  limit: per plan (5 / 10 / 30 / 100)
+  notes: Number of connectable integrations; unlimited concept does not apply on self-hosted.
+policies:
+- name: Configurable Self-Hosted Limits
+  description: Self-hosted operators can adjust the API rate limit for their own instance.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on HTTP 429 responses.
+- name: Idempotent Deletes
+  description: A 404 on a delete means the post is already gone and is safe to ignore.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,113 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Postiz
+providerId: postiz
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: true
+tags:
+- Social Media
+- Scheduling
+- Open Source
+- Content
+- Marketing
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Postiz spend. Postiz has two cost models. Self-hosting the AGPL-3.0
+  open-source app has no license fee; cost is your own compute, storage, and media
+  hosting plus any third-party platform/API costs. Postiz Cloud is a flat monthly
+  subscription per tier (Standard, Team, Pro, Ultimate), with tier choice driven by
+  channel count, monthly post volume, and AI image/video quota. The dominant cost
+  levers are tier selection (Cloud) versus infrastructure footprint (self-hosted).
+notes: >-
+  Cloud prices and AI quotas are subject to change; verify on the pricing page during
+  reconciliation. Self-hosted costs are entirely a function of the operator's chosen
+  infrastructure and are not billed by Postiz.
+sources:
+- https://postiz.com/pricing
+- https://github.com/gitroomhq/postiz-app
+- https://docs.postiz.com/public-api
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Postiz
+serviceCategory: Social Media Management
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Postiz Cloud
+  ServiceCategory: Social Media Management
+  ProviderName: Postiz
+  PublisherName: Postiz
+  InvoiceIssuerName: Postiz
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: subscription_tier
+  description: Flat monthly Cloud subscription charge for the selected tier.
+  unit: subscription
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: channels
+  description: Connected social channels (integrations) counted against the plan channel cap.
+  unit: channels
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: monthly_posts
+  description: Posts published per month, capped on Standard and unlimited on higher Cloud tiers.
+  unit: posts
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: ai_images
+  description: AI images generated per month against the plan quota.
+  unit: images
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: ai_videos
+  description: AI videos generated per month against the plan quota.
+  unit: videos
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: self_hosted_infrastructure
+  description: Operator-borne compute, storage, and media-hosting cost for self-hosted deployments (not billed by Postiz).
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+  - resource
+principles:
+- name: Visibility
+  description: Track channel count, monthly post volume, and AI generation against plan caps; for self-hosting, track infrastructure spend separately.
+- name: Allocation
+  description: Use customer groups to map channels/posts to clients or teams, and tag self-hosted resources to cost centers.
+- name: Optimization
+  description: Self-host on free open-source if you can run infrastructure cheaply; otherwise right-size the Cloud tier to actual channel and AI needs and prefer annual billing.
+- name: Accountability
+  description: Assign an owner per Cloud subscription or self-hosted instance and review tier fit and AI quota burn monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,149 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Postiz
+providerId: postiz
+created: '2026-06-25'
+modified: '2026-06-25'
+reconciled: true
+tags:
+- Social Media
+- Scheduling
+- Open Source
+- Content
+- Marketing
+- Plans
+description: >-
+  Postiz is dual-licensed. The open-source app (AGPL-3.0, github.com/gitroomhq/postiz-app)
+  is free to self-host with no per-seat or per-channel charge; you run and pay for
+  your own infrastructure. Postiz Cloud is a managed SaaS sold in flat monthly tiers
+  (Standard, Team, Pro, Ultimate) that differ by channel count, monthly post volume,
+  AI image/video quota, and team support. The same Public API is available on both
+  self-hosted and Cloud.
+notes: >-
+  Cloud prices and quotas are as published on the Postiz pricing page and may change;
+  verify on the page. Annual billing is typically discounted. Self-hosting is free
+  but you bear hosting, storage, and any third-party platform/API costs.
+sources:
+- https://postiz.com/pricing
+- https://github.com/gitroomhq/postiz-app
+- https://docs.postiz.com/public-api
+plans:
+- id: postiz-self-hosted
+  name: Self-Hosted (Open Source)
+  type: free
+  description: >-
+    Free, AGPL-3.0 licensed self-hosted deployment with the full feature set and
+    Public API. No channel, post, or seat limits imposed by Postiz; you provide and
+    pay for your own infrastructure.
+  entries:
+  - label: Self-Hosted License
+    name: self_hosted
+    type: flat
+    metric: license
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 (AGPL-3.0, self-hosted infrastructure costs apply)
+    userMultiplied: false
+  elements:
+  - name: All Channels
+  - name: Public API
+  - name: Picture Editor
+  - name: AI Copilot
+  - name: Analytics
+- id: postiz-standard
+  name: Standard
+  type: paid
+  description: >-
+    Entry Cloud tier for individuals: 5 channels and 400 posts per month with limited
+    AI, no team support.
+  entries:
+  - label: Standard Subscription
+    name: standard
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $29 per month
+    userMultiplied: false
+  elements:
+  - name: 5 Channels
+  - name: 400 Posts / month
+  - name: 3 AI Videos / month
+  - name: Public API
+- id: postiz-team
+  name: Team
+  type: paid
+  description: >-
+    Cloud tier for small teams: 10 channels, unlimited posts, AI image/video quota,
+    and unlimited team members.
+  entries:
+  - label: Team Subscription
+    name: team
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $39 per month
+    userMultiplied: false
+  elements:
+  - name: 10 Channels
+  - name: Unlimited Posts
+  - name: 100 AI Images + 10 AI Videos / month
+  - name: Unlimited Team Members
+  - name: Public API
+- id: postiz-pro
+  name: Pro
+  type: paid
+  description: >-
+    Cloud tier for growing teams: 30 channels, unlimited posts, larger AI quota, and
+    unlimited team members.
+  entries:
+  - label: Pro Subscription
+    name: pro
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $49 per month
+    userMultiplied: false
+  elements:
+  - name: 30 Channels
+  - name: Unlimited Posts
+  - name: 300 AI Images + 30 AI Videos / month
+  - name: Unlimited Team Members
+  - name: Public API
+- id: postiz-ultimate
+  name: Ultimate
+  type: paid
+  description: >-
+    Top Cloud tier: 100 channels, unlimited posts, the largest AI quota, and unlimited
+    team members.
+  entries:
+  - label: Ultimate Subscription
+    name: ultimate
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $99 per month
+    userMultiplied: false
+  elements:
+  - name: 100 Channels
+  - name: Unlimited Posts
+  - name: 500 AI Images + 60 AI Videos / month
+  - name: Unlimited Team Members
+  - name: Public API
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
