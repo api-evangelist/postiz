@@ -87,6 +87,10 @@ apis:
     as spreadsheets, Slack, or a CRM. Webhooks are configured in the app rather than
     through a Public API endpoint.
 common:
+- type: DomainSecurity
+  url: security/postiz-domain-security.yml
+- type: Authentication
+  url: authentication/postiz-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/gitroomhq
 - type: LinkedIn
@@ -95,6 +99,8 @@ common:
   url: https://postiz.com
 - type: Documentation
   url: https://docs.postiz.com
+- url: https://postiz.com/blog
+  type: Blog
 - type: Plans
   url: plans/postiz-plans-pricing.yml
 - type: RateLimits
