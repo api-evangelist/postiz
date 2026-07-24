@@ -1,0 +1,271 @@
+openapi: 3.0.1
+info:
+  title: Postiz Public Analytics Integrations API
+  description: Public REST API for Postiz, the open-source social media scheduling and management platform. The same API surface is served by Postiz Cloud (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance (https://{your-domain}/api/public/v1). Authenticate by sending your API key in the Authorization header. The API lets you list connected channels (integrations), find scheduling slots, upload media, and create, list, and delete posts across 30+ supported social, video, community, and blogging platforms.
+  termsOfService: https://postiz.com/terms
+  contact:
+    name: Postiz Support
+    url: https://docs.postiz.com/public-api
+  license:
+    name: AGPL-3.0
+    url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.postiz.com/public/v1
+  description: Postiz Cloud
+- url: https://{your-domain}/api/public/v1
+  description: Self-hosted
+  variables:
+    your-domain:
+      default: localhost:5000
+      description: Your Postiz instance domain
+security:
+- ApiKeyAuth: []
+tags:
+- name: Integrations
+  description: Connected social media channels and scheduling slots.
+paths:
+  /integrations:
+    get:
+      tags:
+      - Integrations
+      summary: List all integrations
+      description: Returns all connected social media channels for your organization.
+      operationId: listIntegrations
+      parameters:
+      - name: group
+        in: query
+        required: false
+        description: Filter integrations by customer (group) ID.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of integrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Integration'
+  /groups:
+    get:
+      tags:
+      - Integrations
+      summary: List all groups (customers)
+      description: Returns the customer groups configured for your organization.
+      operationId: listGroups
+      responses:
+        '200':
+          description: List of groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+  /integrations/{id}:
+    delete:
+      tags:
+      - Integrations
+      summary: Delete a channel
+      description: Disconnects and deletes a connected channel by integration ID.
+      operationId: deleteChannel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Integration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Channel deleted
+  /social/{integration}:
+    get:
+      tags:
+      - Integrations
+      summary: Get OAuth connect URL
+      description: Returns the OAuth URL used to connect a new channel for the given provider.
+      operationId: getIntegrationUrl
+      parameters:
+      - name: integration
+        in: path
+        required: true
+        description: Provider identifier (e.g. x, linkedin, facebook).
+        schema:
+          type: string
+      - name: refresh
+        in: query
+        required: false
+        description: Whether to refresh an existing connection.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OAuth connect URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+  /integration-settings/{id}:
+    get:
+      tags:
+      - Integrations
+      summary: Get settings and tools
+      description: Returns the available settings and tools for a connected channel.
+      operationId: getIntegrationSettings
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Integration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Integration settings and tools
+  /integration-trigger/{id}:
+    post:
+      tags:
+      - Integrations
+      summary: Trigger an integration tool
+      description: Invokes a named tool/method exposed by a connected channel.
+      operationId: triggerIntegrationTool
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Integration ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                methodName:
+                  type: string
+                data:
+                  type: object
+      responses:
+        '200':
+          description: Tool triggered
+  /is-connected:
+    get:
+      tags:
+      - Integrations
+      summary: Check connection status
+      description: Verifies that the API key is valid and the account is reachable.
+      operationId: isConnected
+      responses:
+        '200':
+          description: Connection status
+  /find-slot/{id}:
+    get:
+      tags:
+      - Integrations
+      summary: Find next available slot
+      description: Get the next available time slot for posting to a specific channel.
+      operationId: findSlot
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Integration ID
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Next available slot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date-time
+              example:
+                date: '2025-01-15T10:00:00.000Z'
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Integration:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique integration ID.
+        name:
+          type: string
+          description: Display name of the account.
+        identifier:
+          type: string
+          description: Provider identifier.
+          enum:
+          - x
+          - linkedin
+          - linkedin-page
+          - facebook
+          - instagram
+          - instagram-standalone
+          - threads
+          - bluesky
+          - mastodon
+          - warpcast
+          - nostr
+          - vk
+          - youtube
+          - tiktok
+          - reddit
+          - lemmy
+          - discord
+          - slack
+          - telegram
+          - kick
+          - twitch
+          - pinterest
+          - dribbble
+          - medium
+          - devto
+          - hashnode
+          - wordpress
+          - gmb
+          - listmonk
+          - moltbook
+          - skool
+          - whop
+        picture:
+          type: string
+          description: Profile picture URL.
+        disabled:
+          type: boolean
+          description: Whether the integration is disabled.
+        profile:
+          type: string
+          description: Profile handle/username.
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your Postiz API key, sent as the raw value of the Authorization header.

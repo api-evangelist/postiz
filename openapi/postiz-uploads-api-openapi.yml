@@ -1,0 +1,118 @@
+openapi: 3.0.1
+info:
+  title: Postiz Public Analytics Uploads API
+  description: Public REST API for Postiz, the open-source social media scheduling and management platform. The same API surface is served by Postiz Cloud (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance (https://{your-domain}/api/public/v1). Authenticate by sending your API key in the Authorization header. The API lets you list connected channels (integrations), find scheduling slots, upload media, and create, list, and delete posts across 30+ supported social, video, community, and blogging platforms.
+  termsOfService: https://postiz.com/terms
+  contact:
+    name: Postiz Support
+    url: https://docs.postiz.com/public-api
+  license:
+    name: AGPL-3.0
+    url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.postiz.com/public/v1
+  description: Postiz Cloud
+- url: https://{your-domain}/api/public/v1
+  description: Self-hosted
+  variables:
+    your-domain:
+      default: localhost:5000
+      description: Your Postiz instance domain
+security:
+- ApiKeyAuth: []
+tags:
+- name: Uploads
+  description: Upload media files referenced by posts.
+paths:
+  /upload:
+    post:
+      tags:
+      - Uploads
+      summary: Upload a file
+      description: Upload a media file using multipart form data.
+      operationId: uploadFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaFile'
+  /upload-from-url:
+    post:
+      tags:
+      - Uploads
+      summary: Upload from URL
+      description: Upload a file from an existing URL.
+      operationId: uploadFromUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the file to upload.
+            example:
+              url: https://example.com/image.png
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaFile'
+components:
+  schemas:
+    MediaFile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique file ID.
+        name:
+          type: string
+          description: File name.
+        path:
+          type: string
+          description: File URL.
+        organizationId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      example:
+        id: e639003b-f727-4a1e-87bd-74a2c48ae41e
+        name: image.png
+        path: https://uploads.postiz.com/image.png
+        organizationId: 85460a39-6329-4cf4-a252-187ce89a3480
+        createdAt: '2024-12-14T08:18:54.274Z'
+        updatedAt: '2024-12-14T08:18:54.274Z'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your Postiz API key, sent as the raw value of the Authorization header.

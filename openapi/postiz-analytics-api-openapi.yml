@@ -1,0 +1,92 @@
+openapi: 3.0.1
+info:
+  title: Postiz Public Analytics API
+  description: Public REST API for Postiz, the open-source social media scheduling and management platform. The same API surface is served by Postiz Cloud (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance (https://{your-domain}/api/public/v1). Authenticate by sending your API key in the Authorization header. The API lets you list connected channels (integrations), find scheduling slots, upload media, and create, list, and delete posts across 30+ supported social, video, community, and blogging platforms.
+  termsOfService: https://postiz.com/terms
+  contact:
+    name: Postiz Support
+    url: https://docs.postiz.com/public-api
+  license:
+    name: AGPL-3.0
+    url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
+  version: '1.0'
+servers:
+- url: https://api.postiz.com/public/v1
+  description: Postiz Cloud
+- url: https://{your-domain}/api/public/v1
+  description: Self-hosted
+  variables:
+    your-domain:
+      default: localhost:5000
+      description: Your Postiz instance domain
+security:
+- ApiKeyAuth: []
+tags:
+- name: Analytics
+  description: Platform- and post-level analytics.
+paths:
+  /analytics/{integration}:
+    get:
+      tags:
+      - Analytics
+      summary: Get platform analytics
+      description: Returns analytics for a connected channel over a date window.
+      operationId: getAnalytics
+      parameters:
+      - name: integration
+        in: path
+        required: true
+        description: Integration ID
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: false
+        description: Number of days to report on.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Platform analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsData'
+  /analytics/post/{postId}:
+    get:
+      tags:
+      - Analytics
+      summary: Get post analytics
+      description: Returns analytics for a single published post.
+      operationId: getPostAnalytics
+      parameters:
+      - name: postId
+        in: path
+        required: true
+        description: Post ID
+        schema:
+          type: string
+      - name: date
+        in: query
+        required: false
+        description: Number of days to report on.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Post analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsData'
+components:
+  schemas:
+    AnalyticsData:
+      type: object
+      description: Platform- or post-level analytics metrics returned by the analytics endpoints.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your Postiz API key, sent as the raw value of the Authorization header.
