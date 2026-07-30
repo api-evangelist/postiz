@@ -7,7 +7,20 @@ description: Postiz is an open-source social media scheduling and management pla
   calendar. It ships as a free AGPL-licensed self-hosted app and as a paid managed
   Cloud. The Postiz Public API uses simple API-key auth to list connected channels,
   upload media, and create, schedule, list, and delete posts.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/postiz.png
 tags:
 - Social Media
 - Scheduling
@@ -18,58 +31,6 @@ created: '2026-06-25'
 modified: '2026-06-25'
 specificationVersion: '0.19'
 apis:
-- aid: postiz:posts
-  name: Postiz Posts API
-  tags:
-  - Posts
-  - Scheduling
-  - Publishing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.postiz.com/public-api
-  baseURL: https://api.postiz.com/public/v1
-  properties:
-  - url: https://docs.postiz.com/public-api
-    type: Documentation
-  - url: https://docs.postiz.com/public-api/introduction
-    type: APIReference
-  - url: openapi/postiz-openapi.yml
-    type: OpenAPI
-  description: Create, schedule (draft / schedule / now), list by date range, and delete
-    posts across all connected channels, with per-platform settings selected by a
-    __type discriminator. Served identically by Postiz Cloud and self-hosted instances.
-- aid: postiz:integrations-channels
-  name: Postiz Integrations and Channels API
-  tags:
-  - Integrations
-  - Channels
-  - OAuth
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.postiz.com/public-api
-  baseURL: https://api.postiz.com/public/v1
-  properties:
-  - url: https://docs.postiz.com/public-api
-    type: Documentation
-  - url: openapi/postiz-openapi.yml
-    type: OpenAPI
-  description: List and manage connected social channels (integrations), list customer
-    groups, fetch OAuth connect URLs, check connection status, and find the next available
-    scheduling slot for a channel.
-- aid: postiz:uploads
-  name: Postiz Uploads API
-  tags:
-  - Uploads
-  - Media
-  - Files
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.postiz.com/public-api
-  baseURL: https://api.postiz.com/public/v1
-  properties:
-  - url: https://docs.postiz.com/public-api
-    type: Documentation
-  - url: openapi/postiz-openapi.yml
-    type: OpenAPI
-  description: Upload media files via multipart form data or by URL, returning a hosted
-    media object whose id and path are referenced as images when creating posts.
 - aid: postiz:webhooks
   name: Postiz Webhooks
   tags:
@@ -82,10 +43,80 @@ apis:
   properties:
   - url: https://docs.postiz.com/public-api
     type: Documentation
-  description: Configure a webhook URL in Postiz to receive an HTTP POST notifying
-    your own systems when a post is published, so you can sync downstream tools such
-    as spreadsheets, Slack, or a CRM. Webhooks are configured in the app rather than
-    through a Public API endpoint.
+  description: >-
+    Configure a webhook URL in Postiz to receive an HTTP POST notifying your own systems when a post is
+    published, so you can sync downstream tools such as spreadsheets, Slack, or a CRM. Webhooks are configured
+    in the app rather than through a Public API endpoint.
+- aid: postiz:postiz-analytics-api
+  name: Postiz Analytics API
+  description: Platform- and post-level analytics.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-integrations-api
+  name: Postiz Integrations API
+  description: Connected social media channels and scheduling slots.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-notifications-api
+  name: Postiz Notifications API
+  description: Account notifications.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-posts-api
+  name: Postiz Posts API
+  description: Create, schedule, list, and delete posts.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-posts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-uploads-api
+  name: Postiz Uploads API
+  description: Upload media files referenced by posts.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-uploads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
 common:
 - type: AgenticAccess
   url: agentic-access/postiz-agentic-access.yml
