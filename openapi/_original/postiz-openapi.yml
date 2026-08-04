@@ -1,0 +1,786 @@
+openapi: 3.0.1
+info:
+  title: Postiz Public API
+  description: >-
+    Public REST API for Postiz, the open-source social media scheduling and
+    management platform. The same API surface is served by Postiz Cloud
+    (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance
+    (https://{your-domain}/api/public/v1). Authenticate by sending your API key
+    in the Authorization header. The API lets you list connected channels
+    (integrations), find scheduling slots, upload media, and create, list, and
+    delete posts across 30+ supported social, video, community, and blogging
+    platforms.
+  termsOfService: https://postiz.com/terms
+  contact:
+    name: Postiz Support
+    url: https://docs.postiz.com/public-api
+  license:
+    name: AGPL-3.0
+    url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
+  version: '1.0'
+servers:
+  - url: https://api.postiz.com/public/v1
+    description: Postiz Cloud
+  - url: https://{your-domain}/api/public/v1
+    description: Self-hosted
+    variables:
+      your-domain:
+        default: localhost:5000
+        description: Your Postiz instance domain
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Integrations
+    description: Connected social media channels and scheduling slots.
+  - name: Posts
+    description: Create, schedule, list, and delete posts.
+  - name: Uploads
+    description: Upload media files referenced by posts.
+  - name: Analytics
+    description: Platform- and post-level analytics.
+  - name: Notifications
+    description: Account notifications.
+paths:
+  /integrations:
+    get:
+      tags:
+        - Integrations
+      summary: List all integrations
+      description: Returns all connected social media channels for your organization.
+      operationId: listIntegrations
+      parameters:
+        - name: group
+          in: query
+          required: false
+          description: Filter integrations by customer (group) ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of integrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Integration'
+  /groups:
+    get:
+      tags:
+        - Integrations
+      summary: List all groups (customers)
+      description: Returns the customer groups configured for your organization.
+      operationId: listGroups
+      responses:
+        '200':
+          description: List of groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+  /integrations/{id}:
+    delete:
+      tags:
+        - Integrations
+      summary: Delete a channel
+      description: Disconnects and deletes a connected channel by integration ID.
+      operationId: deleteChannel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Integration ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Channel deleted
+  /social/{integration}:
+    get:
+      tags:
+        - Integrations
+      summary: Get OAuth connect URL
+      description: Returns the OAuth URL used to connect a new channel for the given provider.
+      operationId: getIntegrationUrl
+      parameters:
+        - name: integration
+          in: path
+          required: true
+          description: Provider identifier (e.g. x, linkedin, facebook).
+          schema:
+            type: string
+        - name: refresh
+          in: query
+          required: false
+          description: Whether to refresh an existing connection.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OAuth connect URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+  /integration-settings/{id}:
+    get:
+      tags:
+        - Integrations
+      summary: Get settings and tools
+      description: Returns the available settings and tools for a connected channel.
+      operationId: getIntegrationSettings
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Integration ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Integration settings and tools
+  /integration-trigger/{id}:
+    post:
+      tags:
+        - Integrations
+      summary: Trigger an integration tool
+      description: Invokes a named tool/method exposed by a connected channel.
+      operationId: triggerIntegrationTool
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Integration ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                methodName:
+                  type: string
+                data:
+                  type: object
+      responses:
+        '200':
+          description: Tool triggered
+  /is-connected:
+    get:
+      tags:
+        - Integrations
+      summary: Check connection status
+      description: Verifies that the API key is valid and the account is reachable.
+      operationId: isConnected
+      responses:
+        '200':
+          description: Connection status
+  /find-slot/{id}:
+    get:
+      tags:
+        - Integrations
+      summary: Find next available slot
+      description: Get the next available time slot for posting to a specific channel.
+      operationId: findSlot
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Integration ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Next available slot
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  date:
+                    type: string
+                    format: date-time
+              example:
+                date: '2025-01-15T10:00:00.000Z'
+  /posts:
+    get:
+      tags:
+        - Posts
+      summary: List posts
+      description: Get posts within a date range.
+      operationId: listPosts
+      parameters:
+        - name: startDate
+          in: query
+          required: true
+          description: Start date in UTC ISO format.
+          schema:
+            type: string
+            format: date-time
+          example: '2024-12-01T00:00:00.000Z'
+        - name: endDate
+          in: query
+          required: true
+          description: End date in UTC ISO format.
+          schema:
+            type: string
+            format: date-time
+          example: '2024-12-31T23:59:59.000Z'
+        - name: customer
+          in: query
+          required: false
+          description: Filter by customer ID.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostsResponse'
+    post:
+      tags:
+        - Posts
+      summary: Create a post
+      description: >-
+        Create or schedule a new post. Set type to draft, schedule, or now.
+        Each social media platform has its own settings schema selected via the
+        settings.__type discriminator.
+      operationId: createPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+            example:
+              type: schedule
+              date: '2024-12-14T10:00:00.000Z'
+              shortLink: false
+              tags: []
+              posts:
+                - integration:
+                    id: your-integration-id
+                  value:
+                    - content: Hello from the Postiz API!
+                      image: []
+                  settings:
+                    __type: bluesky
+      responses:
+        '200':
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostsResponse'
+  /posts/{id}:
+    delete:
+      tags:
+        - Posts
+      summary: Delete a post
+      description: Deletes a post by ID. A 404 means the post is already deleted and is safe to ignore.
+      operationId: deletePost
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Post ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post deleted
+  /posts/group/{group}:
+    delete:
+      tags:
+        - Posts
+      summary: Delete posts by group
+      description: Deletes all posts that share the given group ID.
+      operationId: deletePostByGroup
+      parameters:
+        - name: group
+          in: path
+          required: true
+          description: Group ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Posts deleted
+  /posts/{id}/missing:
+    get:
+      tags:
+        - Posts
+      summary: Get missing content
+      description: Returns content fields that still need to be supplied for a post.
+      operationId: getMissingContent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Post ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Missing content items
+  /posts/{id}/release-id:
+    put:
+      tags:
+        - Posts
+      summary: Update release ID
+      description: Updates the external release identifier associated with a post.
+      operationId: updateReleaseId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Post ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                releaseId:
+                  type: string
+      responses:
+        '200':
+          description: Release ID updated
+  /posts/{id}/status:
+    put:
+      tags:
+        - Posts
+      summary: Change post status
+      description: Changes a post's status between draft and schedule.
+      operationId: changePostStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Post ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - draft
+                    - schedule
+      responses:
+        '200':
+          description: Status changed
+  /analytics/{integration}:
+    get:
+      tags:
+        - Analytics
+      summary: Get platform analytics
+      description: Returns analytics for a connected channel over a date window.
+      operationId: getAnalytics
+      parameters:
+        - name: integration
+          in: path
+          required: true
+          description: Integration ID
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          description: Number of days to report on.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Platform analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsData'
+  /analytics/post/{postId}:
+    get:
+      tags:
+        - Analytics
+      summary: Get post analytics
+      description: Returns analytics for a single published post.
+      operationId: getPostAnalytics
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          description: Post ID
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: false
+          description: Number of days to report on.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post analytics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsData'
+  /upload:
+    post:
+      tags:
+        - Uploads
+      summary: Upload a file
+      description: Upload a media file using multipart form data.
+      operationId: uploadFile
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload.
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaFile'
+  /upload-from-url:
+    post:
+      tags:
+        - Uploads
+      summary: Upload from URL
+      description: Upload a file from an existing URL.
+      operationId: uploadFromUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: URL of the file to upload.
+            example:
+              url: https://example.com/image.png
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaFile'
+  /notifications:
+    get:
+      tags:
+        - Notifications
+      summary: List notifications
+      description: Returns account notifications, paginated.
+      operationId: listNotifications
+      parameters:
+        - name: page
+          in: query
+          required: false
+          description: Zero-based page number.
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of notifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationsResponse'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your Postiz API key, sent as the raw value of the Authorization header.
+  schemas:
+    Integration:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique integration ID.
+        name:
+          type: string
+          description: Display name of the account.
+        identifier:
+          type: string
+          description: Provider identifier.
+          enum:
+            - x
+            - linkedin
+            - linkedin-page
+            - facebook
+            - instagram
+            - instagram-standalone
+            - threads
+            - bluesky
+            - mastodon
+            - warpcast
+            - nostr
+            - vk
+            - youtube
+            - tiktok
+            - reddit
+            - lemmy
+            - discord
+            - slack
+            - telegram
+            - kick
+            - twitch
+            - pinterest
+            - dribbble
+            - medium
+            - devto
+            - hashnode
+            - wordpress
+            - gmb
+            - listmonk
+            - moltbook
+            - skool
+            - whop
+        picture:
+          type: string
+          description: Profile picture URL.
+        disabled:
+          type: boolean
+          description: Whether the integration is disabled.
+        profile:
+          type: string
+          description: Profile handle/username.
+        customer:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    MediaFile:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique file ID.
+        name:
+          type: string
+          description: File name.
+        path:
+          type: string
+          description: File URL.
+        organizationId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      example:
+        id: e639003b-f727-4a1e-87bd-74a2c48ae41e
+        name: image.png
+        path: https://uploads.postiz.com/image.png
+        organizationId: 85460a39-6329-4cf4-a252-187ce89a3480
+        createdAt: '2024-12-14T08:18:54.274Z'
+        updatedAt: '2024-12-14T08:18:54.274Z'
+    PostsResponse:
+      type: object
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        publishDate:
+          type: string
+          format: date-time
+        releaseURL:
+          type: string
+          description: URL of the published post.
+        state:
+          type: string
+          enum:
+            - QUEUE
+            - PUBLISHED
+            - ERROR
+            - DRAFT
+        integration:
+          type: object
+          properties:
+            id:
+              type: string
+            providerIdentifier:
+              type: string
+            name:
+              type: string
+            picture:
+              type: string
+    CreatePostRequest:
+      type: object
+      required:
+        - type
+        - date
+        - shortLink
+        - tags
+      properties:
+        type:
+          type: string
+          enum:
+            - draft
+            - schedule
+            - now
+          description: Post type.
+        date:
+          type: string
+          format: date-time
+          description: Publish date in UTC ISO format.
+        shortLink:
+          type: boolean
+          description: Whether to use short links.
+        order:
+          type: string
+          description: Order of posts.
+        inter:
+          type: number
+          description: Interval between posts.
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        posts:
+          type: array
+          description: Required if type is not 'draft'.
+          items:
+            $ref: '#/components/schemas/PostItem'
+    PostItem:
+      type: object
+      required:
+        - integration
+        - value
+      properties:
+        integration:
+          type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              description: Integration ID.
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostContent'
+        group:
+          type: string
+          description: Group ID for related posts.
+        settings:
+          type: object
+          description: >-
+            Platform-specific settings, selected by the __type discriminator
+            (e.g. x, linkedin, instagram, youtube, tiktok, reddit, discord,
+            slack, telegram, mastodon, bluesky, wordpress, medium, devto).
+          properties:
+            __type:
+              type: string
+    PostContent:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          description: Post text content.
+        id:
+          type: string
+          description: Post ID (for updates).
+        image:
+          type: array
+          items:
+            $ref: '#/components/schemas/Media'
+    Media:
+      type: object
+      required:
+        - id
+        - path
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+    Tag:
+      type: object
+      required:
+        - value
+        - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+    AnalyticsData:
+      type: object
+      description: Platform- or post-level analytics metrics returned by the analytics endpoints.
+    NotificationsResponse:
+      type: object
+      properties:
+        notifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Notification'
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        link:
+          type: string
+        createdAt:
+          type: string
+          format: date-time

@@ -1,0 +1,22 @@
+{
+  "provider": "postiz",
+  "sources": [
+    "postiz-analytics-api-openapi.yml",
+    "postiz-integrations-api-openapi.yml",
+    "postiz-notifications-api-openapi.yml",
+    "postiz-posts-api-openapi.yml",
+    "postiz-uploads-api-openapi.yml"
+  ],
+  "outputs": [
+    "postiz-analytics-api-openapi.yml",
+    "postiz-integrations-api-openapi.yml",
+    "postiz-notifications-api-openapi.yml",
+    "postiz-posts-api-openapi.yml",
+    "postiz-uploads-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
