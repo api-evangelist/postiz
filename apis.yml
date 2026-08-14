@@ -27,8 +27,13 @@ tags:
 - Open Source
 - Content
 - Marketing
+- Agents
+- MCP
+- Automation
+- Publishing
+- Analytics
 created: '2026-06-25'
-modified: '2026-06-25'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
 - aid: postiz:webhooks
@@ -117,6 +122,72 @@ apis:
     url: https://docs.postiz.com/public-api
   - type: APIReference
     url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-public-api
+  name: Postiz Public API
+  description: >-
+    The complete, provider-published Postiz Public API — 23 operations across
+    integrations (channels), groups, posts, uploads, analytics, notifications and AI
+    video generation, served at https://api.postiz.com/public/v1 on Cloud and at
+    {NEXT_PUBLIC_BACKEND_URL}/public/v1 on any self-hosted instance. Harvested verbatim
+    from the OpenAPI 3.1.0 document Postiz links from its own llms.txt.
+  humanURL: https://docs.postiz.com/public-api/introduction
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Social Media
+  - Scheduling
+  - Posts
+  - Analytics
+  - Uploads
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-public-api-openapi.json
+  - type: Overlay
+    url: overlays/postiz-public-api-overlay.yaml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+- aid: postiz:postiz-mcp-server
+  name: Postiz MCP Server
+  description: >-
+    Hosted, remote Model Context Protocol server run as part of the Postiz backend,
+    exposing 11 tools for listing channels, reading platform settings schemas,
+    scheduling and re-settings posts, and generating AI images and video. Reachable
+    today at https://api.postiz.com/mcp with an API key or OAuth token as a Bearer
+    credential, at /mcp/{apiKey} for clients that only accept a URL, and at /mcp-oauth
+    as an OAuth-protected resource with RFC 8414 and RFC 9728 discovery.
+  humanURL: https://docs.postiz.com/mcp/introduction
+  baseURL: https://api.postiz.com/mcp
+  tags:
+  - MCP
+  - Agents
+  - Social Media
+  properties:
+  - type: MCPServer
+    url: mcp/postiz-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/postiz-tool-crosswalk.yml
+  - type: Documentation
+    url: https://docs.postiz.com/mcp/introduction
+- aid: postiz:postiz-platform-api
+  name: Postiz Platform API
+  description: >-
+    The full Postiz backend surface as published by the provider's own Swagger UI at
+    https://api.postiz.com/docs, machine-readable at /docs-json — 205 operations across
+    auth, integrations, posts, media, billing, settings, webhooks, notifications, admin
+    and the /public/v1 Public API. Auto-generated from the NestJS controllers and
+    served publicly; only the /public/v1 subset is a documented, supported contract.
+  humanURL: https://api.postiz.com/docs
+  baseURL: https://api.postiz.com
+  tags:
+  - Platform
+  - Internal
+  - Swagger
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-platform-swagger-openapi.json
+  - type: Documentation
+    url: https://api.postiz.com/docs
 common:
 - type: AgenticAccess
   url: agentic-access/postiz-agentic-access.yml
@@ -140,6 +211,77 @@ common:
   url: rate-limits/postiz-rate-limits.yml
 - type: FinOps
   url: finops/postiz-finops.yml
+- type: Packages
+  url: packages/postiz-packages.yml
+- type: SDKs
+  url: packages/postiz-packages.yml
+- type: CLI
+  url: cli/postiz-cli.yml
+- type: MCPServer
+  url: mcp/postiz-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/postiz-tool-crosswalk.yml
+- type: AgentCard
+  url: a2a/postiz-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/postiz-llms.txt
+- type: WellKnown
+  url: well-known/postiz-well-known.yml
+- type: OAuthScopes
+  url: scopes/postiz-scopes.yml
+- type: Conventions
+  url: conventions/postiz-conventions.yml
+- type: ErrorCatalog
+  url: errors/postiz-problem-types.yml
+- type: DataModel
+  url: data-model/postiz-data-model.yml
+- type: Conformance
+  url: conformance/postiz-conformance.yml
+- type: Lifecycle
+  url: lifecycle/postiz-lifecycle.yml
+- type: StatusPage
+  url: https://status.postiz.com
+- type: ChangeLog
+  url: changelog/postiz-changelog.yml
+- type: Sandbox
+  url: sandbox/postiz-sandbox.yml
+- type: Webhooks
+  url: asyncapi/postiz-webhooks.yml
+- type: Overlay
+  url: overlays/postiz-public-api-overlay.yaml
+- type: VulnerabilityDisclosure
+  url: security/postiz-vulnerability-disclosure.yml
+- type: Security
+  url: https://github.com/gitroomhq/postiz-app/blob/main/SECURITY.md
+- type: DeveloperPortal
+  url: https://docs.postiz.com/public-api/introduction
+- type: APIReference
+  url: https://docs.postiz.com/public-api/introduction
+- type: GettingStarted
+  url: https://docs.postiz.com/quickstart
+- type: Support
+  url: https://docs.postiz.com/support
+- type: Community
+  url: https://discord.postiz.com
+- type: Roadmap
+  url: https://roadmap.postiz.com
+- type: Pricing
+  url: https://postiz.com/pricing
+- type: SignUp
+  url: https://platform.postiz.com/auth
+- type: TermsOfService
+  url: https://postiz.com/terms
+- type: PrivacyPolicy
+  url: https://postiz.com/privacy
+- type: SourceCode
+  url: https://github.com/gitroomhq/postiz-app
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 30
+  pass: local-v1
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
