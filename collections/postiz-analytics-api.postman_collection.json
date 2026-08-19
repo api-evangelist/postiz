@@ -1,0 +1,267 @@
+{
+  "item": [
+    {
+      "id": "a4ff7473-58de-4b19-94c4-34407122bccd",
+      "name": "Analytics",
+      "description": {
+        "content": "Platform- and post-level analytics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "eef8236c-cdf3-4a03-a55e-cb588e00e5aa",
+          "name": "Get platform analytics",
+          "request": {
+            "name": "Get platform analytics",
+            "description": {
+              "content": "Returns analytics for a connected channel over a date window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                ":integration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "Number of days to report on."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "integration",
+                  "description": "(Required) Integration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b60a5f30-b7b0-4595-ac43-df879a2cd86a",
+              "name": "Platform analytics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    ":integration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "integration",
+                      "description": "(Required) Integration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d62c68a-17ae-4445-b4e8-d6264d24911b",
+          "name": "Get post analytics",
+          "request": {
+            "name": "Get post analytics",
+            "description": {
+              "content": "Returns analytics for a single published post.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "post",
+                ":postId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<string>",
+                  "description": "Number of days to report on."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "postId",
+                  "description": "(Required) Post ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b40999ca-4643-4199-adc7-f8be0ecad6d0",
+              "name": "Post analytics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "post",
+                    ":postId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "date",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "postId",
+                      "description": "(Required) Post ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.postiz.com/public/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "97671562-22e6-4bbd-8149-a954f67f5dfb",
+    "name": "Postiz Public Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST API for Postiz, the open-source social media scheduling and management platform. The same API surface is served by Postiz Cloud (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance (https://{your-domain}/api/public/v1). Authenticate by sending your API key in the Authorization header. The API lets you list connected channels (integrations), find scheduling slots, upload media, and create, list, and delete posts across 30+ supported social, video, community, and blogging platforms.\n\nContact Support:\n Name: Postiz Support",
+      "type": "text/plain"
+    }
+  }
+}

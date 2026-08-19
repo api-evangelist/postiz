@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Postiz Public Analytics Integrations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/integrations",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "query",
+                "description": "Filter integrations by customer (group) ID."
+              }
+            ]
+          },
+          "docs": "Returns all connected social media channels for your organization."
+        },
+        {
+          "info": {
+            "name": "List all groups (customers)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/groups"
+          },
+          "docs": "Returns the customer groups configured for your organization."
+        },
+        {
+          "info": {
+            "name": "Delete a channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/integrations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID"
+              }
+            ]
+          },
+          "docs": "Disconnects and deletes a connected channel by integration ID."
+        },
+        {
+          "info": {
+            "name": "Get OAuth connect URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/social/:integration",
+            "params": [
+              {
+                "name": "integration",
+                "value": "",
+                "type": "path",
+                "description": "Provider identifier (e.g. x, linkedin, facebook)."
+              },
+              {
+                "name": "refresh",
+                "value": "",
+                "type": "query",
+                "description": "Whether to refresh an existing connection."
+              }
+            ]
+          },
+          "docs": "Returns the OAuth URL used to connect a new channel for the given provider."
+        },
+        {
+          "info": {
+            "name": "Get settings and tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/integration-settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID"
+              }
+            ]
+          },
+          "docs": "Returns the available settings and tools for a connected channel."
+        },
+        {
+          "info": {
+            "name": "Trigger an integration tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/integration-trigger/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invokes a named tool/method exposed by a connected channel."
+        },
+        {
+          "info": {
+            "name": "Check connection status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/is-connected"
+          },
+          "docs": "Verifies that the API key is valid and the account is reachable."
+        },
+        {
+          "info": {
+            "name": "Find next available slot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/find-slot/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID"
+              }
+            ]
+          },
+          "docs": "Get the next available time slot for posting to a specific channel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

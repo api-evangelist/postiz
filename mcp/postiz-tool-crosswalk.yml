@@ -1,0 +1,144 @@
+generated: '2026-08-13'
+method: derived
+source:
+- mcp/postiz-mcp.yml
+- openapi/postiz-public-api-openapi.json
+- https://docs.postiz.com/mcp/tools
+note: >-
+  Derived by binding each published Postiz MCP tool to the Public API operationId(s)
+  that back it. The live MCP tools/list is auth-gated (HTTP 401 on 2026-08-13), so the
+  binding is by documented name, parameter set and return shape rather than by an
+  observed inputSchema; confidence is recorded accordingly. Where a tool has a
+  one-to-one REST twin with matching parameters the provider says so in its own docs
+  (postsListTool "returns the same posts as the List Posts API endpoint"), and those
+  rows are high confidence.
+surfaces:
+  openapi:
+    file: openapi/postiz-public-api-openapi.json
+    source: https://docs.postiz.com/public-api/openapi.json
+    version: 3.1.0
+    operations: 23
+    gated: false
+  mcp:
+    url: https://api.postiz.com/mcp
+    tools_list_gated: true
+    tools_list_status: 401
+    tool_count: 11
+  graphql:
+    present: false
+    note: Postiz publishes no GraphQL surface.
+crosswalk:
+- tool: integrationList
+  category: channels
+  rest: [listIntegrations]
+  binding: rest
+  confidence: high
+  note: GET /integrations; the optional `group` parameter maps to the customer/group filter.
+- tool: groupList
+  category: channels
+  rest: [listGroups]
+  binding: rest
+  confidence: high
+  note: GET /groups — the same customers/groups list.
+- tool: integrationSchema
+  category: channels
+  rest: [getIntegrationSettings]
+  binding: rest
+  confidence: medium
+  note: >-
+    GET /integration-settings/{id} returns posting rules, maxLength, the settings
+    JSON schema and the tools array. The MCP tool is keyed on `platform` +
+    `isPremium` rather than an integration id, so the shapes are close but not
+    identical.
+- tool: triggerTool
+  category: channels
+  rest: [triggerIntegrationTool]
+  binding: rest
+  confidence: high
+  note: POST /integration-trigger/{id}; methodName + dataSchema map directly.
+- tool: schedulePostTool
+  category: posts
+  rest: [createPost]
+  binding: rest
+  confidence: high
+  note: >-
+    POST /posts. The MCP tool flattens the REST body — socialPost[] carries
+    integrationId, date, type, postsAndComments and settings as key/value pairs,
+    where REST takes a nested posts[].integration.id + value[] + settings object.
+- tool: postsListTool
+  category: posts
+  rest: [listPosts]
+  binding: rest
+  confidence: high
+  note: >-
+    GET /posts. Provider-documented equivalence, with the channel flattened into
+    integrationId / platform / integrationName instead of a nested integration object.
+- tool: postSettingsTool
+  category: posts
+  rest: [updatePostSettings]
+  binding: rest
+  confidence: high
+  note: PUT /posts/{id}/settings — merge-only settings update on unpublished posts.
+- tool: generateVideoOptions
+  category: media
+  rest: [videoFunction]
+  binding: rest
+  confidence: low
+  note: >-
+    POST /video/function is the REST entry point for video-related lookups. The docs
+    do not name a dedicated REST operation that returns the video type catalogue, so
+    this binding is by semantics only.
+- tool: videoFunctionTool
+  category: media
+  rest: [videoFunction]
+  binding: rest
+  confidence: high
+  note: POST /video/function — identifier + functionName map directly.
+- tool: generateVideoTool
+  category: media
+  rest: [generateVideo]
+  binding: rest
+  confidence: high
+  note: POST /generate-video with identifier, output and customParams.
+mcp_only:
+- tool: generateImageTool
+  reason: >-
+    AI image generation is exposed to agents through MCP but has no operation in the
+    published Public API OpenAPI. The REST spec covers media upload (uploadFile,
+    uploadFromUrl) and video generation, not image generation.
+rest_only:
+- capability: media upload
+  operations: [uploadFile, uploadFromUrl]
+  reason: >-
+    No MCP tool uploads media. Agents must supply already-hosted attachment URLs to
+    schedulePostTool, or upload out of band through REST or the CLI.
+- capability: channel lifecycle
+  operations: [getIntegrationUrl, deleteChannel, isConnected]
+  reason: >-
+    Connecting a channel via OAuth, deleting a channel and checking key validity are
+    REST-only; the MCP surface deliberately does not let an agent disconnect a channel.
+- capability: scheduling helper
+  operations: [findSlot]
+  reason: Next-available-slot lookup has no MCP tool.
+- capability: post lifecycle
+  operations: [deletePost, deletePostByGroup, changePostStatus, getMissingContent, updateReleaseId]
+  reason: >-
+    Deleting posts, moving a post between draft and schedule, and the missing-releaseId
+    reconciliation flow are REST-only. The MCP surface can create and re-settings a post
+    but cannot delete one.
+- capability: analytics
+  operations: [getAnalytics, getPostAnalytics]
+  reason: Platform- and post-level analytics have no MCP tool; they are REST and CLI only.
+- capability: notifications
+  operations: [listNotifications]
+  reason: No MCP tool for organization notifications.
+coverage:
+  tools_named: 11
+  tools_bound_to_rest: 10
+  mcp_only: 1
+  rest_operations_total: 23
+  rest_operations_with_a_tool: 10
+  rest_only_operations: 13
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

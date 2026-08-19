@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.postiz.com/cli/introduction
+docs:
+- https://docs.postiz.com/cli/introduction
+- https://docs.postiz.com/cli/authentication
+- https://docs.postiz.com/cli/managing-posts
+- https://docs.postiz.com/cli/integrations
+- https://docs.postiz.com/cli/analytics
+- https://docs.postiz.com/cli/media-upload
+- https://docs.postiz.com/cli/platform-examples
+name: postiz
+description: >-
+  First-party command-line interface that wraps the Postiz Public API, for scheduling
+  posts across 28+ platforms from a terminal or shell script. Every command outputs
+  JSON, which makes it the scripting and agent-automation surface for Postiz.
+repository: https://github.com/gitroomhq/postiz-agent
+package: packages/postiz-packages.yml#postiz
+version: 2.0.16
+published: '2026-08-11'
+install:
+- {method: npm, command: npm install -g postiz}
+- {method: pnpm, command: pnpm install -g postiz}
+verify: postiz --help
+authentication:
+  preferred:
+    method: oauth2-device-flow
+    command: postiz auth:login
+    behaviour: shows a one-time code, opens the browser to authorize, stores credentials at ~/.postiz/credentials.json
+    auth_server: https://cli-auth.postiz.com
+    self_hostable: true
+  fallback:
+    method: api-key
+    env: POSTIZ_API_KEY
+  precedence: OAuth2 credentials take priority over POSTIZ_API_KEY when both are set.
+environment:
+- {name: POSTIZ_API_KEY, required: false, default: null, description: Your Postiz API key}
+- {name: POSTIZ_API_URL, required: false, default: 'https://api.postiz.com', description: Custom API endpoint for self-hosted Postiz}
+- {name: POSTIZ_AUTH_SERVER, required: false, default: 'https://cli-auth.postiz.com', description: Custom auth server for the device flow}
+commands:
+- group: auth
+  commands:
+  - {name: 'auth:login', description: Authenticate via OAuth2 device flow}
+  - {name: 'auth:status', description: Check current authentication status}
+  - {name: 'auth:logout', description: Remove stored credentials}
+- group: integrations
+  commands:
+  - {name: 'integrations:list', description: List all connected social media accounts, backs listIntegrations}
+  - {name: 'integrations:settings', description: Get the settings schema for an integration, backs getIntegrationSettings}
+  - {name: 'integrations:trigger', description: Trigger a dynamic tool on an integration, backs triggerIntegrationTool}
+- group: posts
+  commands:
+  - {name: 'posts:create', description: Create a new post, backs createPost; flags -c content, -s schedule datetime, -i integration id, -m media path}
+  - {name: 'posts:list', description: List posts with optional date filtering, backs listPosts}
+  - {name: 'posts:delete', description: Delete a post by ID, backs deletePost}
+  - {name: 'posts:missing', description: List available provider content for a post with a missing release id, backs getMissingContent}
+  - {name: 'posts:connect', description: Connect a post to its published content by release id, backs updateReleaseId}
+- group: analytics
+  commands:
+  - {name: 'analytics:platform', description: Get analytics for an integration/channel, backs getAnalytics}
+  - {name: 'analytics:post', description: Get analytics for a specific post, backs getPostAnalytics}
+- group: media
+  commands:
+  - {name: upload, description: Upload a media file, backs uploadFile}
+key_flows:
+- name: upload-then-post
+  description: >-
+    Media MUST be uploaded through `postiz upload` first; raw filesystem paths and
+    external URLs are rejected by the publishing pipeline. Take the `.path` from the
+    upload response and pass it to posts:create -m.
+- name: discover-before-schedule
+  description: >-
+    Call `postiz integrations:settings <id>` before scheduling and honour the returned
+    rules and per-field descriptions — a setting that does not apply is silently
+    discarded rather than rejected.
+output: JSON on every command, for use in scripts and automation pipelines.
+agent_skill:
+  install: npx skills add gitroomhq/postiz-agent
+  file: skills/postiz-agent-SKILL.md
+  note: The CLI ships with a provider-authored Agent Skill that teaches an agent to drive it correctly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

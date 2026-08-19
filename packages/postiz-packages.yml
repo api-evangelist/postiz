@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.postiz.com/public-api/introduction
+notes: >-
+  Postiz publishes its client tooling on npm under the gitroomhq GitHub organization.
+  The `postiz` package is the first-party CLI/agent runner (repo gitroomhq/postiz-agent),
+  `@postiz/node` is the official NodeJS SDK linked from the Public API overview, and
+  `n8n-nodes-postiz` is the first-party n8n community node (repo gitroomhq/postiz-n8n).
+  Versions and publish dates were read from registry.npmjs.org on 2026-08-13. There is
+  no PyPI, RubyGems, Maven, NuGet, crates.io or Go module distribution — pypi.org/pypi/postiz/json
+  returned 404.
+packages:
+- language: javascript
+  registry: npm
+  name: postiz
+  url: https://www.npmjs.com/package/postiz
+  install: npm install -g postiz
+  official: true
+  version: 2.0.16
+  published: '2026-08-11'
+  license: AGPL-3.0
+  repository: https://github.com/gitroomhq/postiz-agent
+  role: cli
+  note: >-
+    Postiz CLI — command line interface for the Postiz Public API. Also the delivery
+    vehicle for the published Agent Skill (`npx skills add gitroomhq/postiz-agent`).
+    Actively released; the latest publish is two days before this pass.
+- language: javascript
+  registry: npm
+  name: "@postiz/node"
+  url: https://www.npmjs.com/package/@postiz/node
+  install: npm install @postiz/node
+  official: true
+  version: 1.0.8
+  published: '2025-07-27'
+  license: AGPL-3.0
+  role: sdk
+  note: >-
+    Official NodeJS SDK, linked as "NodeJS SDK" from the Public API overview page.
+    Last published 2025-07-27 — it predates the 2026 Public API additions
+    (updatePostSettings, generateVideo, videoFunction) and the OAuth2 token flow,
+    so the SDK trails the API it wraps.
+- language: javascript
+  registry: npm
+  name: n8n-nodes-postiz
+  url: https://www.npmjs.com/package/n8n-nodes-postiz
+  install: npm install n8n-nodes-postiz
+  official: true
+  version: 0.2.17
+  published: '2025-10-07'
+  license: MIT
+  repository: https://github.com/gitroomhq/postiz-n8n
+  role: integration-node
+  note: First-party n8n community node, linked from the Public API overview page.
+- language: n/a
+  registry: ghcr
+  name: ghcr.io/gitroomhq/postiz-app
+  url: https://github.com/gitroomhq/postiz-app/pkgs/container/postiz-app
+  install: docker pull ghcr.io/gitroomhq/postiz-app:latest
+  official: true
+  version: null
+  published: null
+  role: container
+  note: >-
+    Official self-host container image. Tags are epoch-stamped build IDs plus a
+    floating `latest`, with no semver tag matching the GitHub release train, so there
+    is no registry field that names the shipped release — recorded as null rather
+    than guessed. Verified present via the anonymous GHCR v2 tags list.
+- language: n/a
+  registry: helm
+  name: postiz
+  url: https://github.com/gitroomhq/postiz-helmchart
+  install: see https://docs.postiz.com/installation/kubernetes-helm
+  official: true
+  version: null
+  published: null
+  role: deployment-chart
+  note: >-
+    Official Helm chart for Kubernetes installs. Distributed from the GitHub repo
+    rather than a versioned chart registry endpoint we could query, so version is
+    recorded null (checked, nothing machine-readable to record).
+registries_checked:
+- {registry: npm, url: 'https://registry.npmjs.org/', status: 200, result: 3 first-party packages}
+- {registry: pypi, url: 'https://pypi.org/pypi/postiz/json', status: 404, result: none}
+- {registry: rubygems, url: 'https://rubygems.org/api/v1/gems/postiz.json', status: 404, result: none}
+- {registry: crates.io, url: 'https://crates.io/api/v1/crates/postiz', status: 404, result: none}
+- {registry: packagist, url: 'https://repo.packagist.org/p2/postiz/postiz.json', status: 404, result: none}
+- {registry: ghcr, url: 'https://ghcr.io/v2/gitroomhq/postiz-app/tags/list', status: 200, result: image present, no semver tags}
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

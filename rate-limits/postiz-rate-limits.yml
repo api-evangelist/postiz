@@ -4,8 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Postiz
 providerId: postiz
 created: '2026-06-25'
-modified: '2026-06-25'
-reconciled: false
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://docs.postiz.com/public-api/introduction
+reconciled: true
 tags:
 - Social Media
 - Scheduling
@@ -16,44 +19,75 @@ tags:
 - Quotas
 - Throttling
 description: >-
-  The Postiz Public API applies an hourly request rate limit per API key. Postiz
-  documents a default limit on the order of ~30 requests per hour; this counts API
-  requests, not published posts, so a single request can schedule many posts. On
-  self-hosted deployments the limit is configurable. Separately, Postiz Cloud plans
-  impose monthly post-volume and channel quotas (see plans), which are commercial
-  quotas rather than per-second API throttles.
+  Postiz applies a single global per-hour request limit that, as documented, applies
+  only to the create-post endpoint: 90 requests per hour, raised to 100 on Postiz
+  Cloud. The limit counts API requests, not published posts — one createPost call can
+  schedule many posts across many channels, which is the documented way to maximise
+  throughput. The limit is a single instance-wide value and does NOT tier by
+  subscription plan; plans tier on channel count and monthly post volume instead.
+  Self-hosters set their own value with the API_LIMIT environment variable.
 notes: >-
-  Exact request-per-hour values are not fully reconciled and differ between Cloud
-  and self-hosted (where the limit can be tuned). Verify current values in the Postiz
-  Public API documentation. Plan-level post and channel quotas live in the plans
-  artifact.
+  Corrected on 2026-08-13. The previous version of this artifact recorded "~30 requests
+  per hour" as an unreconciled figure across all endpoints; the provider's current API
+  overview documents 90/hour (100 on Cloud) scoped to the create-post endpoint. Postiz
+  publishes no rate-limit response headers, so a client cannot read remaining quota —
+  only the 429 is observable.
 sources:
-- https://docs.postiz.com/public-api
 - https://docs.postiz.com/public-api/introduction
+- https://docs.postiz.com/configuration/reference
 - https://postiz.com/pricing
 responseCodes:
   throttled: 429
+headers:
+  published: []
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers are documented on any Postiz
+    endpoint. An agent has no runtime signal ahead of exhaustion and must treat the 429
+    itself as the signal, backing off exponentially with jitter.
 limits:
-- name: Requests Per Hour
-  scope: api_key
+- name: Create Post Requests Per Hour (self-hosted default)
+  scope: instance
   metric: requests
-  limit: see provider documentation (~30/hour default)
-  notes: Counts API requests, not posts; configurable on self-hosted instances.
-- name: Monthly Posts (Cloud quota)
+  endpoint: POST /public/v1/posts
+  limit: 90
+  window: hour
+  burst: null
+  configurable: true
+  configured_by: API_LIMIT environment variable
+  notes: Counts API requests, not posts. Batch multiple posts into one request to maximise throughput.
+- name: Create Post Requests Per Hour (Postiz Cloud)
+  scope: instance
+  metric: requests
+  endpoint: POST /public/v1/posts
+  limit: 100
+  window: hour
+  burst: null
+  configurable: false
+  notes: Single global value for the whole instance; does not tier by subscription plan.
+- name: Request Body Size
+  scope: request
+  metric: bytes
+  endpoint: POST /public/v1/posts
+  limit: 50 MB
+  notes: Exceeding it returns 413. Pre-upload media instead of base64-inlining images.
+- name: Monthly Posts (Cloud plan quota)
   scope: account
   metric: posts
-  limit: per plan (e.g. 400/month on Standard, unlimited on Team and above)
-  notes: Commercial plan quota, not a per-second API throttle.
-- name: Channels (Cloud quota)
+  limit: per plan (400/month on Standard; unlimited on Team and above)
+  notes: Commercial plan quota, not a per-hour API throttle. See plans/postiz-plans-pricing.yml.
+- name: Channels (Cloud plan quota)
   scope: account
   metric: channels
   limit: per plan (5 / 10 / 30 / 100)
-  notes: Number of connectable integrations; unlimited concept does not apply on self-hosted.
+  notes: Number of connectable integrations. No channel cap on self-hosted.
+limit_count: 5
 policies:
 - name: Configurable Self-Hosted Limits
-  description: Self-hosted operators can adjust the API rate limit for their own instance.
+  description: Self-hosted operators set the per-hour limit with the API_LIMIT environment variable.
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter on HTTP 429 responses.
+  description: Clients should implement exponential backoff with jitter on HTTP 429; no Retry-After is returned.
+- name: Batch To Maximise Throughput
+  description: The limit counts requests. Schedule many posts in a single createPost call rather than one call per post.
 - name: Idempotent Deletes
   description: A 404 on a delete means the post is already gone and is safe to ignore.
 maintainers:

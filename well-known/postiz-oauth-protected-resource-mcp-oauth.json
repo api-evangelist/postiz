@@ -1,0 +1,1 @@
+{"resource":"https://api.postiz.com/mcp-oauth","authorization_servers":["https://api.postiz.com/mcp-oauth"],"scopes_supported":["mcp:read","mcp:write"],"bearer_methods_supported":["header"]}

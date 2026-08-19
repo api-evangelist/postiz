@@ -1,0 +1,137 @@
+# Postiz Documentation
+
+## Docs
+
+- [Introduction](https://docs.postiz.com/introduction.md): Welcome to Postiz documentation
+- [How it works](https://docs.postiz.com/howitworks.md): Learn the architecture of the project
+- [Quickstart](https://docs.postiz.com/quickstart.md): Get started with Postiz installation
+- [System Requirements](https://docs.postiz.com/installation/system-requirements.md): Hardware, services, ports, and network requirements for self-hosting Postiz
+- [Docker Compose](https://docs.postiz.com/installation/docker-compose.md): Install Postiz using Docker Compose
+- [Docker](https://docs.postiz.com/installation/docker.md): Install Postiz using Docker standalone
+- [Helm](https://docs.postiz.com/installation/kubernetes-helm.md): Install Postiz using Kubernetes and Helm
+- [Development Environment](https://docs.postiz.com/installation/development.md): Set up Postiz for local development
+- [Dev Container](https://docs.postiz.com/installation/devcontainer.md): Install Postiz using Dev Container
+- [Migration to Temporal](https://docs.postiz.com/installation/migration.md): A guide to migrating to the new Temporal infrastructure
+- [Configuration Reference](https://docs.postiz.com/configuration/reference.md): Environment variables reference for Postiz
+- [Docker Compose Configuration](https://docs.postiz.com/configuration/docker.md): How to configure your docker-compose file for Postiz
+- [Email Notifications](https://docs.postiz.com/configuration/emails.md): How to send notifications to users
+- [Uploads & Storage](https://docs.postiz.com/configuration/uploads.md): Local filesystem vs Cloudflare R2 for media uploads
+- [R2 Configuration](https://docs.postiz.com/configuration/r2.md): How to use Cloudflare R2 for file storage
+- [Image & Video Editing (Polotno)](https://docs.postiz.com/configuration/polotno.md): Enable in-app image and video editing in Postiz via the Polotno SDK
+- [OIDC Configuration](https://docs.postiz.com/configuration/oauth.md): How to configure OIDC for Postiz
+- [Chrome Extension](https://docs.postiz.com/configuration/chrome-extension.md): Set up the Postiz browser extension for cookie-based integrations
+- [Caddy](https://docs.postiz.com/reverse-proxies/caddy.md): Configure Caddy as a reverse proxy for Postiz
+- [Nginx](https://docs.postiz.com/reverse-proxies/nginx.md): Configure Nginx as a reverse proxy for Postiz
+- [Traefik + Docker Compose](https://docs.postiz.com/reverse-proxies/traefik.md): Configure Traefik as a reverse proxy for Postiz
+- [WebSockets, HMR, and Dev Tunnels](https://docs.postiz.com/reverse-proxies/websockets-and-dev.md): Running Postiz behind ngrok or a reverse proxy with WebSocket support
+- [Troubleshooting](https://docs.postiz.com/troubleshooting/overview.md): Common Postiz problems and how to resolve them
+- [OAuth & Channel Connect Errors](https://docs.postiz.com/troubleshooting/oauth-connect.md): Invalid state, invalid_grant, and fetch failed during the connect flow
+- [Uploads & Media](https://docs.postiz.com/troubleshooting/uploads.md): Payload limits, upload-from-url, video, and cancel-in-flight behaviour
+- [Activation & Login](https://docs.postiz.com/troubleshooting/activation-and-login.md): Expired activation links, "jwt malformed", and login API responses
+- [Billing (Cloud)](https://docs.postiz.com/troubleshooting/billing.md): Stripe.js blocked, billing page in incognito, discount errors
+- [Channel Limits (Cloud)](https://docs.postiz.com/troubleshooting/channel-limits.md): "You have reached the maximum number of channels"
+- [Known Issues](https://docs.postiz.com/troubleshooting/known-issues.md): Live tracker of bugs we are aware of, with workarounds where possible
+- [Self-Host Gotchas](https://docs.postiz.com/troubleshooting/self-host.md): Common problems specific to running Postiz yourself
+- [Providers Overview](https://docs.postiz.com/providers/overview.md): Configure social media providers for Postiz
+- [How to add a new provider](https://docs.postiz.com/configuration/create-provider.md): How to add a new provider to Postiz
+- [X (Twitter)](https://docs.postiz.com/providers/x-twitter.md): How to add X to your system
+- [LinkedIn](https://docs.postiz.com/providers/linkedin.md): How to add LinkedIn to your system
+- [LinkedIn Page](https://docs.postiz.com/providers/linkedin-page.md): How to add a LinkedIn Page to your system
+- [Facebook](https://docs.postiz.com/providers/facebook.md): How to add Facebook to your system
+- [Instagram](https://docs.postiz.com/providers/instagram.md): How to add Instagram to your system
+- [Threads](https://docs.postiz.com/providers/threads.md): How to add Threads to your system
+- [Bluesky](https://docs.postiz.com/providers/bluesky.md): How to add Bluesky to Postiz
+- [Mastodon](https://docs.postiz.com/providers/mastodon.md): How to add Mastodon to your system
+- [Google My Business](https://docs.postiz.com/providers/google-my-business.md): How to add Google My Business to your system
+- [MeWe](https://docs.postiz.com/providers/mewe.md): How to add MeWe to your system
+- [Farcaster](https://docs.postiz.com/providers/farcaster.md): How to add Farcaster (Warpcast) to your system
+- [YouTube](https://docs.postiz.com/providers/youtube.md): How to Add YouTube to Your System
+- [TikTok](https://docs.postiz.com/providers/tiktok.md): How to add TikTok to your system
+- [Reddit](https://docs.postiz.com/providers/reddit.md): How to add Reddit to your system
+- [Pinterest](https://docs.postiz.com/providers/pinterest.md): How to add Pinterest to your system
+- [Discord](https://docs.postiz.com/providers/discord.md): How to add Discord to your system
+- [Slack](https://docs.postiz.com/providers/slack.md): How to add Slack to your system
+- [Telegram](https://docs.postiz.com/providers/telegram.md): How to add Telegram to your system
+- [Dribbble](https://docs.postiz.com/providers/dribbble.md): How to add Dribbble to your system
+- [Skool](https://docs.postiz.com/providers/skool.md): How to add Skool to Postiz
+- [Whop](https://docs.postiz.com/providers/whop.md): How to add Whop to Postiz
+- [API Overview](https://docs.postiz.com/public-api/introduction.md): Getting started with the Postiz Public API
+- [List Integrations](https://docs.postiz.com/public-api/integrations/list.md): Returns all connected social media channels for your organization.
+- [List Groups (Customers)](https://docs.postiz.com/public-api/integrations/groups.md): Returns all customers (groups) for your organization. Use a group ID to filter the integrations list.
+- [Connect Channel (OAuth)](https://docs.postiz.com/public-api/integrations/connect.md): Generate an OAuth authorization URL for a given integration. Use this to connect a new social media channel. Only OAuth-based integrations are supported (integrations that require an external URL, such as Mastodon, are not available via this endpoint).
+- [Get Settings & Tools](https://docs.postiz.com/public-api/integrations/settings.md): Returns the posting rules, maximum content length, settings schema, and available provider tools for a connected channel. Use this to discover which tools can be executed with the trigger endpoint.
+- [Trigger a Tool](https://docs.postiz.com/public-api/integrations/trigger.md): Executes a provider-specific tool on a connected channel, for example searching Instagram audio for Reels, listing Discord channels, or fetching Reddit flairs. Discover available tools with the integration settings endpoint.
+- [Delete Channel](https://docs.postiz.com/public-api/integrations/delete.md): Delete a connected channel by its integration ID. Any scheduled posts associated with this channel will also be deleted.
+- [Check Connection](https://docs.postiz.com/public-api/integrations/is-connected.md): Verify if your API key is valid and connected.
+- [Find Available Slot](https://docs.postiz.com/public-api/integrations/find-slot.md): Get the next available time slot for posting to a specific channel.
+- [List Posts](https://docs.postiz.com/public-api/posts/list.md): Get posts within a date range.
+- [Create Post](https://docs.postiz.com/public-api/posts/create.md): Create or schedule a new post. Each social media platform has its own settings schema.
+- [Delete Post](https://docs.postiz.com/public-api/posts/delete.md): Delete a post by its ID. The API will look up the post and delete all posts in the same group.
+- [Delete Post by Group](https://docs.postiz.com/public-api/posts/delete-by-group.md): Delete all posts in a group by the group identifier.
+- [Get Missing Content](https://docs.postiz.com/public-api/posts/missing-content.md): When a post has been published but the platform did not return a usable post ID (the `releaseId` is set to `"missing"`), this endpoint fetches recent content from the provider so you can match and connect the correct one to the post.
+- [Update Release ID](https://docs.postiz.com/public-api/posts/update-release-id.md): Updates the `releaseId` of a post that currently has its release ID set to `"missing"`. This connects the post to its actual published content on the platform, enabling analytics and statistics tracking.
+- [Change Post Status](https://docs.postiz.com/public-api/posts/change-status.md): Moves a post between `draft` and `schedule` state.
+- [Update Post Settings](https://docs.postiz.com/public-api/posts/settings.md): Merges the given keys into the post's existing provider settings. Only the keys you pass are changed; content and publish date are untouched, so a running publishing workflow is not restarted. The merged settings are re-validated. Works only on not-yet-published posts (scheduled or draft).
+- [Platform Analytics](https://docs.postiz.com/public-api/analytics/platform.md): Get analytics data for a specific integration/channel. Returns metrics like followers, impressions, engagement, etc. depending on the platform.
+- [Post Analytics](https://docs.postiz.com/public-api/analytics/post.md): Get analytics data for a specific published post. Returns metrics like likes, comments, shares, impressions, etc. depending on the platform.
+- [List Notifications](https://docs.postiz.com/public-api/notifications/list.md): Get paginated notifications for your organization, sorted by most recent first. Returns 100 notifications per page.
+- [Upload File](https://docs.postiz.com/public-api/uploads/upload-file.md): Upload a media file using multipart form data.
+- [Upload from URL](https://docs.postiz.com/public-api/uploads/upload-from-url.md): Upload a file from an existing URL.
+- [Generate Video](https://docs.postiz.com/public-api/video/generate.md): Create AI-generated videos for your posts.
+- [Video Function](https://docs.postiz.com/public-api/video/function.md): Execute video-related functions like loading available voices.
+- [X (Twitter) Settings](https://docs.postiz.com/public-api/providers/x.md): API settings for posting to X/Twitter
+- [LinkedIn Settings](https://docs.postiz.com/public-api/providers/linkedin.md): API settings for posting to LinkedIn
+- [LinkedIn Page Settings](https://docs.postiz.com/public-api/providers/linkedin-page.md): API settings for posting to LinkedIn company pages
+- [Facebook Settings](https://docs.postiz.com/public-api/providers/facebook.md): Provider settings for Facebook posts
+- [Instagram Settings](https://docs.postiz.com/public-api/providers/instagram.md): API settings for posting to Instagram
+- [Instagram Standalone Settings](https://docs.postiz.com/public-api/providers/instagram-standalone.md): API settings for posting to standalone Instagram accounts
+- [Threads Settings](https://docs.postiz.com/public-api/providers/threads.md): API settings for posting to Threads
+- [Bluesky Settings](https://docs.postiz.com/public-api/providers/bluesky.md): API settings for posting to Bluesky
+- [Mastodon Settings](https://docs.postiz.com/public-api/providers/mastodon.md): API settings for posting to Mastodon
+- [Warpcast (Farcaster) Settings](https://docs.postiz.com/public-api/providers/warpcast.md): Provider settings for Warpcast/Farcaster posts
+- [Nostr Settings](https://docs.postiz.com/public-api/providers/nostr.md): API settings for posting to Nostr
+- [VK Settings](https://docs.postiz.com/public-api/providers/vk.md): API settings for posting to VK (VKontakte)
+- [YouTube Settings](https://docs.postiz.com/public-api/providers/youtube.md): API settings for posting to YouTube
+- [TikTok Settings](https://docs.postiz.com/public-api/providers/tiktok.md): API settings for posting to TikTok
+- [Reddit Settings](https://docs.postiz.com/public-api/providers/reddit.md): API settings for posting to Reddit
+- [Lemmy Settings](https://docs.postiz.com/public-api/providers/lemmy.md): Provider settings for Lemmy posts
+- [Pinterest Settings](https://docs.postiz.com/public-api/providers/pinterest.md): API settings for posting to Pinterest
+- [Discord Settings](https://docs.postiz.com/public-api/providers/discord.md): API settings for posting to Discord
+- [Slack Settings](https://docs.postiz.com/public-api/providers/slack.md): API settings for posting to Slack
+- [Telegram Settings](https://docs.postiz.com/public-api/providers/telegram.md): API settings for posting to Telegram
+- [Dribbble Settings](https://docs.postiz.com/public-api/providers/dribbble.md): API settings for posting to Dribbble
+- [Medium Settings](https://docs.postiz.com/public-api/providers/medium.md): Provider settings for Medium articles
+- [Dev.to Settings](https://docs.postiz.com/public-api/providers/devto.md): Provider settings for Dev.to articles
+- [Hashnode Settings](https://docs.postiz.com/public-api/providers/hashnode.md): Provider settings for Hashnode articles
+- [WordPress Settings](https://docs.postiz.com/public-api/providers/wordpress.md): Provider settings for WordPress posts
+- [Listmonk Settings](https://docs.postiz.com/public-api/providers/listmonk.md): Provider settings for Listmonk newsletter campaigns
+- [Google My Business Settings](https://docs.postiz.com/public-api/providers/gmb.md): Provider settings for Google My Business posts
+- [Whop Settings](https://docs.postiz.com/public-api/providers/whop.md): API settings for posting to Whop forums
+- [Skool Settings](https://docs.postiz.com/public-api/providers/skool.md): API settings for posting to Skool communities
+- [Kick Settings](https://docs.postiz.com/public-api/providers/kick.md): API settings for posting to Kick
+- [Twitch Settings](https://docs.postiz.com/public-api/providers/twitch.md): API settings for posting to Twitch chat
+- [Moltbook Settings](https://docs.postiz.com/public-api/providers/moltbook.md): API settings for posting to Moltbook
+- [Introduction](https://docs.postiz.com/cli/introduction.md): Automate social media posting from the command line with the Postiz CLI
+- [Authentication](https://docs.postiz.com/cli/authentication.md): Set up OAuth2 or API key authentication for the Postiz CLI
+- [Managing Posts](https://docs.postiz.com/cli/managing-posts.md): Create, list, and delete social media posts from the command line
+- [Integrations](https://docs.postiz.com/cli/integrations.md): Discover connected accounts, settings schemas, and dynamic tools
+- [Analytics](https://docs.postiz.com/cli/analytics.md): View platform and post-level analytics from the command line
+- [Media Upload](https://docs.postiz.com/cli/media-upload.md): Upload images, videos, and other media files for use in posts
+- [Platform Examples](https://docs.postiz.com/cli/platform-examples.md): Ready-to-use examples for posting to specific platforms
+- [Introduction](https://docs.postiz.com/mcp/introduction.md): Connect AI agents to Postiz using the Model Context Protocol (MCP)
+- [Client Setup](https://docs.postiz.com/mcp/setup.md): Configure your AI client to connect to the Postiz MCP server
+- [Tools Reference](https://docs.postiz.com/mcp/tools.md): Complete reference for all Postiz MCP tools
+- [Examples](https://docs.postiz.com/mcp/examples.md): Common workflows when using Postiz through MCP
+- [OAuth2 Authentication](https://docs.postiz.com/public-api/oauth.md): Let users authorize your app to access Postiz on their behalf
+- [Developer Guide](https://docs.postiz.com/developer-guide.md): How to get started developing with Postiz
+- [Support](https://docs.postiz.com/support.md): Get help with Postiz
+
+## OpenAPI Specs
+
+- [openapi](https://docs.postiz.com/public-api/openapi.json)
+
+## Optional
+
+- [GitHub](https://github.com/gitroomhq/postiz-app)
+- [Discord](https://discord.postiz.com)
+- [YouTube](https://youtube.com/@postizofficial)

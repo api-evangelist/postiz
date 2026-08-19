@@ -1,0 +1,105 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://docs.postiz.com/mcp/introduction
+docs:
+- https://docs.postiz.com/mcp/introduction
+- https://docs.postiz.com/mcp/setup
+- https://docs.postiz.com/mcp/tools
+- https://docs.postiz.com/mcp/examples
+deployment:
+  mode: remote
+  endpoint: https://api.postiz.com/mcp
+  auth: oauth
+  verified: probed
+  note: >-
+    Postiz runs a hosted, remote MCP server as part of its own backend — an agent
+    can POST to it today with no local install. Three published entry points:
+    https://api.postiz.com/mcp (Bearer API key or OAuth token),
+    https://api.postiz.com/mcp/{apiKey} (key embedded in the URL, for clients that
+    cannot set headers), and https://api.postiz.com/mcp-oauth (OAuth-protected,
+    with RFC 8414/9728 discovery). Transport is streamable HTTP. Self-hosted
+    instances expose the same three paths on their own NEXT_PUBLIC_BACKEND_URL.
+    There is no stdio/npx package for the MCP server itself — `npm install -g postiz`
+    is the CLI, not an MCP transport, so mode is remote rather than both.
+server:
+  name: postiz
+  transport: http
+  transport_detail: streamable HTTP (Transfer-Encoding chunked)
+  endpoints:
+  - {url: 'https://api.postiz.com/mcp', auth: bearer-token, note: 'API key or OAuth token (pos_ prefix) as Bearer'}
+  - {url: 'https://api.postiz.com/mcp/{apiKey}', auth: api-key-in-url, note: 'For clients that only accept a URL'}
+  - {url: 'https://api.postiz.com/mcp-oauth', auth: oauth2, note: 'OAuth-protected resource; discovery at /.well-known/oauth-protected-resource/mcp-oauth'}
+  self_hosted: '{NEXT_PUBLIC_BACKEND_URL}/mcp'
+authentication:
+  methods: [api-key, oauth2]
+  oauth:
+    authorization_server: https://api.postiz.com/mcp-oauth
+    authorization_endpoint: https://platform.postiz.com/oauth/authorize
+    token_endpoint: https://api.postiz.com/oauth/token
+    grant_types: [authorization_code]
+    pkce: [S256]
+    scopes: [mcp:read, mcp:write]
+    token_prefix: pos_
+    discovery:
+    - well-known/postiz-oauth-authorization-server-mcp-oauth.json
+    - well-known/postiz-oauth-protected-resource-mcp-oauth.json
+introspection:
+  tools_list_probed: '2026-08-13'
+  tools_list_status: 401
+  tools_list_result: >-
+    POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to https://api.postiz.com/mcp
+    returned HTTP 401 "Missing Authorization header"; the same call to
+    https://api.postiz.com/mcp-oauth returned 401 {"error":"unauthorized",
+    "error_description":"Bearer token required"}. The live tool schemas are therefore
+    auth-gated. The tool list below is transcribed from the provider's published
+    Tools Reference (names, descriptions and parameter tables) — real input JSON
+    Schemas require an authenticated tools/list call.
+tool_count: 11
+tools:
+- name: integrationList
+  description: List all connected social media accounts (channels) for your organization.
+  parameters: [{name: group, type: string, required: false}]
+- name: groupList
+  description: List all groups (customers) for your organization.
+  parameters: []
+- name: integrationSchema
+  description: Get posting rules, character limits, required settings and available helper tools for a platform.
+  parameters: [{name: isPremium, type: boolean, required: true}, {name: platform, type: string, required: true}]
+- name: triggerTool
+  description: Execute a platform-specific helper function discovered via integrationSchema (list Discord channels, search subreddits, list LinkedIn pages).
+  parameters: [{name: integrationId, type: string, required: true}, {name: methodName, type: string, required: true}, {name: dataSchema, type: array, required: true}]
+- name: schedulePostTool
+  description: Schedule, draft, or immediately publish posts to social media platforms.
+  parameters: [{name: socialPost, type: array, required: true}]
+- name: postsListTool
+  description: List the organization's posts scheduled between two dates, with their current settings.
+  parameters: [{name: startDate, type: string, required: true}, {name: endDate, type: string, required: true}, {name: customer, type: string, required: false}]
+- name: postSettingsTool
+  description: Update the provider settings of a scheduled post or draft that has not published yet.
+  parameters: [{name: id, type: string, required: true}, {name: settings, type: array, required: true}]
+- name: generateImageTool
+  description: Generate AI images for posts.
+  parameters: [{name: prompt, type: string, required: true}]
+- name: generateVideoOptions
+  description: List available video generation options and their custom parameter schemas.
+  parameters: []
+- name: videoFunctionTool
+  description: Get video generator settings, for example the available voices for a video type.
+  parameters: [{name: identifier, type: string, required: true}, {name: functionName, type: string, required: true}]
+- name: generateVideoTool
+  description: Generate videos for posts.
+  parameters: [{name: identifier, type: string, required: true}, {name: output, type: string, required: true}, {name: customParams, type: array, required: true}]
+limitations:
+  documented_by_provider:
+  - >-
+    No comment read or reply tools. The provider states the tool set is read-only on
+    integrations and write-only on posts/media; there is no getComments or
+    replyToComment, so comment replies must go through the Postiz UI.
+  - >-
+    Regenerating an API key in Settings breaks every MCP client using the old key
+    until its config is updated; Postiz keys do not auto-rotate.
+crosswalk: mcp/postiz-tool-crosswalk.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

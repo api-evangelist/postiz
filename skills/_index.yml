@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: searched
+note: >-
+  Postiz publishes its own Agent Skills — one served from its documentation host at
+  the /.well-known/agent-skills path (and referenced by its A2A agent card), and a
+  fuller one in the gitroomhq/postiz-agent repository installed with
+  `npx skills add gitroomhq/postiz-agent`. Both are saved here VERBATIM. The four
+  API-Evangelist-authored skills below are generated from the provider's published
+  OpenAPI 3.1.0 and cover flows the provider skill does not (release-id reconciliation,
+  channel audit, video generation); every operationId in them was grepped from
+  openapi/postiz-public-api-openapi.json.
+skills:
+- file: postiz-provider-skill.md
+  name: postiz
+  method: searched
+  source: https://docs.postiz.com/.well-known/agent-skills/postiz/skill.md
+  http_status: 200
+  api: openapi/postiz-public-api-openapi.json
+  description: >-
+    Provider-published Agent Skill served from the Postiz docs host and referenced as
+    the single skill on the Postiz A2A agent card. curl-based walkthrough of the Public
+    API — channels, slots, uploads, post list/create/delete.
+- file: postiz-agent-SKILL.md
+  name: postiz
+  method: searched
+  source: https://github.com/gitroomhq/postiz-agent/blob/main/SKILL.md
+  http_status: 200
+  install: npx skills add gitroomhq/postiz-agent
+  description: >-
+    The full provider-authored CLI skill (28KB) shipped with the `postiz` npm package.
+    Opens with four hard rules — authenticate first, upload every file through
+    `postiz upload`, use DIRECT_POST on TikTok, and read `integrations:settings` before
+    scheduling because inapplicable settings are silently discarded.
+- file: postiz-schedule-post-with-media.md
+  name: Schedule a Postiz post with media
+  method: generated
+  api: openapi/postiz-public-api-openapi.json
+  operations: [isConnected, listIntegrations, getIntegrationSettings, uploadFile, uploadFromUrl, findSlot, createPost, listPosts]
+- file: postiz-reconcile-published-posts.md
+  name: Reconcile published Postiz posts
+  method: generated
+  api: openapi/postiz-public-api-openapi.json
+  operations: [listPosts, getMissingContent, updateReleaseId, getPostAnalytics, getAnalytics, changePostStatus]
+- file: postiz-audit-channels.md
+  name: Audit and prepare Postiz channels
+  method: generated
+  api: openapi/postiz-public-api-openapi.json
+  operations: [isConnected, listGroups, listIntegrations, getIntegrationSettings, triggerIntegrationTool, getIntegrationUrl, getAnalytics, deleteChannel]
+- file: postiz-generate-video-post.md
+  name: Generate a video and post it with Postiz
+  method: generated
+  api: openapi/postiz-public-api-openapi.json
+  operations: [videoFunction, generateVideo, listIntegrations, getIntegrationSettings, uploadFromUrl, createPost]
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

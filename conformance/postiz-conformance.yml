@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: derived
+source:
+- openapi/postiz-public-api-openapi.json
+- well-known/postiz-oauth-authorization-server-mcp-oauth.json
+- well-known/postiz-oauth-protected-resource-mcp-oauth.json
+- a2a/postiz-agent-card.json
+- https://docs.postiz.com/public-api/oauth
+note: >-
+  Cross-cutting standards conformance, derived from the artifacts harvested in this
+  repo plus the provider's own documentation. Only standards with observable evidence
+  are marked conforms:true; everything else is recorded as false with the reason.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi/postiz-public-api-openapi.json declares openapi 3.1.0, 22 paths / 23 operations, 39 component schemas, all operations carry operationIds and tags.
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/postiz-platform-swagger-openapi.json declares openapi 3.0.0 (NestJS-generated backend swagger served at https://api.postiz.com/docs-json).
+- id: oauth2-rfc6749
+  conforms: true
+  evidence: authorization-code flow with authorize/token endpoints documented at https://docs.postiz.com/public-api/oauth and advertised in the MCP authorization-server metadata.
+- id: oauth2-pkce-rfc7636
+  conforms: true
+  evidence: code_challenge_methods_supported ["S256"] in well-known/postiz-oauth-authorization-server-mcp-oauth.json.
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: https://api.postiz.com/.well-known/oauth-authorization-server/mcp-oauth returned 200 with issuer, authorization_endpoint, token_endpoint, grant_types_supported.
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: https://api.postiz.com/.well-known/oauth-protected-resource/mcp-oauth returned 200 with resource, authorization_servers, scopes_supported, bearer_methods_supported.
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: bearer_methods_supported ["header"]; the MCP endpoint returns 401 "Bearer token required" on an unauthenticated tools/list.
+- id: mcp
+  conforms: true
+  evidence: hosted streamable-HTTP MCP server at https://api.postiz.com/mcp with 11 published tools; see mcp/postiz-mcp.yml.
+- id: a2a-agent-card
+  conforms: true
+  evidence: https://docs.postiz.com/.well-known/agent-card.json returned 200 with protocolVersion 0.3, capabilities object and skills array; graded conformant in a2a/postiz-a2a.yml.
+- id: agent-skills
+  conforms: true
+  evidence: provider-published skill at https://docs.postiz.com/.well-known/agent-skills/postiz/skill.md and github.com/gitroomhq/postiz-agent SKILL.md.
+- id: llms-txt
+  conforms: true
+  evidence: https://docs.postiz.com/llms.txt returned 200 with the full documentation index and an OpenAPI Specs section.
+- id: cve-cna
+  conforms: true
+  evidence: >-
+    Postiz operates as a CVE Numbering Authority for its own products and manages the
+    full reserve/assign/publish lifecycle; stated in SECURITY.md and published at
+    https://postiz.gadvisory.org/advisories.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are plain JSON ({"message","error","statusCode"} from the NestJS backend); no application/problem+json media type appears in either spec.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on api.postiz.com, postiz.com and docs.postiz.com.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support and no deprecation policy is documented; see lifecycle/postiz-lifecycle.yml.
+- id: openid-connect
+  conforms: false
+  evidence: >-
+    No /.well-known/openid-configuration is served. Postiz supports OIDC for signing
+    end users INTO a self-hosted app instance (docs.postiz.com/configuration/oauth),
+    which is app SSO configuration, not an OIDC provider surface of its own.
+- id: idempotency-key
+  conforms: false
+  evidence: No client-supplied idempotency key header or parameter in either spec or the docs; see conventions/postiz-conventions.yml.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document published. Webhooks exist but carry no event catalogue or payload schema; see asyncapi/postiz-webhooks.yml.
+- id: graphql
+  conforms: false
+  evidence: No GraphQL endpoint published or documented.
+- id: json-api
+  conforms: false
+  evidence: Responses are ad-hoc JSON objects, not application/vnd.api+json.
+compliance_certifications:
+  published: false
+  note: >-
+    Postiz publishes no SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP or CSA STAR
+    attestation and runs no trust center (trust.postiz.com and security.postiz.com do
+    not resolve; postiz.com/security and /compliance both 404). No Compliance pointer
+    is emitted. What it does publish is a security policy, a coordinated-disclosure
+    process and CNA status — captured in security/postiz-vulnerability-disclosure.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

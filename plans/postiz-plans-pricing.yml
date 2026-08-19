@@ -4,7 +4,11 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Postiz
 providerId: postiz
 created: '2026-06-25'
-modified: '2026-06-25'
+modified: '2026-08-13'
+generated: '2026-08-13'
+method: searched
+source: https://postiz.com/pricing
+plan_count: 5
 reconciled: true
 tags:
 - Social Media

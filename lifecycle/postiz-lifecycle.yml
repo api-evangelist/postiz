@@ -1,0 +1,64 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://github.com/gitroomhq/postiz-app/releases
+- https://raw.githubusercontent.com/gitroomhq/postiz-app/main/SECURITY.md
+- https://status.postiz.com
+- openapi/postiz-public-api-openapi.json
+versioning:
+  scheme: uri-path
+  current: v1
+  api_version_note: >-
+    The Public API is pinned at /public/v1 on both Cloud and self-hosted. There is no
+    date-based or header-based version negotiation. The product itself versions
+    independently on semver (v2.23.0 at the time of this pass) through GitHub releases
+    of gitroomhq/postiz-app; API changes ride those product releases.
+  product_current: v2.23.0
+  product_released: '2026-08-04'
+  releases: https://github.com/gitroomhq/postiz-app/releases
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no notice window, and no RFC 8594 Sunset/Deprecation header
+    support is documented, and no operation in either OpenAPI carries deprecated:true.
+    The closest published statement is SECURITY.md's "Supported Versions: this project
+    currently only supports the latest release" — a support-window statement for
+    self-hosters, not an API deprecation contract. No Deprecation pointer is emitted.
+support_policy:
+  supported_versions: latest release only
+  source: https://github.com/gitroomhq/postiz-app/blob/main/SECURITY.md
+  note: CVE IDs are assigned only to vulnerabilities affecting currently supported versions.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No published SLA or uptime commitment was found for Postiz Cloud. Plans are flat
+    monthly tiers with no availability guarantee attached.
+status_page:
+  url: https://status.postiz.com
+  status: 200
+  title: General Status - Postiz
+  machine_readable: false
+  note: >-
+    A live public status page is served on Postiz's own subdomain. No summary.json /
+    history.json feed is exposed (both 404), so the page is human-readable only.
+roadmap:
+  url: https://roadmap.postiz.com
+  status: 200
+  platform: Canny
+  note: Public feature-request and roadmap board.
+release_cadence:
+  recent:
+  - {version: v2.23.0, date: '2026-08-04'}
+  - {version: v2.22.1, date: '2026-07-25'}
+  - {version: v2.21.10, date: '2026-06-22'}
+  - {version: v2.21.9, date: '2026-06-18'}
+  - {version: v2.21.8, date: '2026-05-22'}
+  observation: Roughly monthly minor/patch releases across the last quarter; see changelog/postiz-changelog.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,68 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://docs.postiz.com/public-api/introduction
+- https://api.postiz.com/docs
+- https://docs.postiz.com/installation/docker-compose
+note: >-
+  Postiz publishes NO test/live key separation, no sandbox tenant, no magic test
+  identifiers and no time simulation. What it does publish is three genuine
+  developer-testing surfaces: an interactive Swagger UI console on the API host, a
+  hosted payload-generation wizard, and a first-class self-hosted instance that
+  doubles as a private test environment. Recorded honestly — nothing here is invented.
+test_live_separation:
+  supported: false
+  key_prefixes: []
+  note: >-
+    One key type only. Public API keys have no documented prefix; OAuth tokens are
+    prefixed pos_, OAuth client ids pca_ and client secrets pcs_ — those are token-type
+    markers, not test/live modes. Every API call acts on real connected social accounts.
+magic_test_values:
+  published: false
+  note: >-
+    No test card numbers, test accounts, sentinel ids or simulator values exist. This is
+    a scheduling API against live third-party social platforms; there is no provider
+    fixture layer.
+safe_testing_pattern:
+  supported: true
+  mechanism: draft state
+  description: >-
+    The closest thing to a dry run. createPost accepts type "draft", which stores the
+    post without publishing it; changePostStatus moves a post between draft and
+    schedule. An integration test can create a draft, verify the validated settings,
+    then delete it — no live post is ever emitted.
+  operations: [createPost, changePostStatus, updatePostSettings, deletePost]
+consoles:
+- name: Swagger UI (backend)
+  url: https://api.postiz.com/docs
+  status: 200
+  type: interactive-api-console
+  description: >-
+    Live Swagger UI served on the API host itself, backed by the machine-readable spec
+    at https://api.postiz.com/docs-json. Covers the whole backend surface including the
+    /public/v1 Public API.
+- name: Payload generation wizard
+  url: https://platform.postiz.com/modal/dark/all
+  status: 200
+  type: hosted-payload-builder
+  description: >-
+    The same composer the Postiz app uses to schedule posts, running in a mode that
+    emits the JSON payload for the API instead of scheduling. Embedded in the API
+    overview page as an iframe. Requires being logged in for Cloud; self-hosters run the
+    local equivalent at {instance}/modal/dark/all.
+- name: Self-hosted instance
+  url: https://docs.postiz.com/installation/docker-compose
+  type: local-environment
+  description: >-
+    The AGPL-3.0 app runs locally via Docker Compose, Docker, Helm or a dev container,
+    exposing the identical /public/v1 API at {NEXT_PUBLIC_BACKEND_URL}. This is the
+    supported way to develop and test against Postiz without touching Cloud quotas, and
+    it also lets a developer raise the per-hour API_LIMIT for load testing.
+  compose_default_port: 4007
+  source_mode_default_port: 4200
+time_simulation:
+  supported: false
+  note: No test clocks. Scheduling is real wall-clock; use a near-future date and the draft state to inspect behaviour.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

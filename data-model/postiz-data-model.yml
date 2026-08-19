@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/postiz-public-api-openapi.json
+docs: https://docs.postiz.com/public-api/introduction
+note: >-
+  Entity-relationship graph derived from the 39 component schemas and their $ref links
+  in the provider's published OpenAPI 3.1.0. Ids are opaque strings — Postiz publishes
+  no typed id prefixes on Public API resources (the pca_/pcs_/pos_ prefixes belong to
+  OAuth credentials, not to entities).
+id_convention:
+  style: opaque string
+  prefixes: {}
+  note: Integration, post, group, media and notification ids are unprefixed opaque strings.
+entities:
+- name: Organization
+  implicit: true
+  description: >-
+    The account boundary. Never returned as a standalone resource on the Public API, but
+    every entity is scoped to it — an API key or OAuth token authenticates exactly one
+    organization, and 403 is what you get for reaching across the boundary.
+- name: Integration
+  schema: Integration
+  aka: channel
+  description: A connected social media account.
+  fields: [id, name, identifier, picture, disabled, profile, customer]
+  key_field: identifier
+  key_note: '`identifier` is the platform id (x, linkedin, reddit, …) and is what drives the settings __type discriminator.'
+- name: Group
+  schema: Group
+  aka: customer
+  description: A customer grouping used to segment channels, for agencies managing several clients.
+  fields: [id, name]
+- name: Post
+  schema: Post
+  description: A scheduled, drafted or published item on one channel.
+  fields: [id, content, settings, publishDate, releaseURL, state, integration]
+  states: [QUEUE, DRAFT, PUBLISHED, ERROR]
+- name: PostGroup
+  schema: PostItem.group
+  description: >-
+    The identifier shared by a post and its per-channel variations. Deleting by id
+    deletes the whole group; deletePostByGroup targets it directly.
+- name: PostContent
+  schema: PostContent
+  description: One content block within a post — the thread item on X/Threads/Bluesky, or the post-then-comments sequence on LinkedIn/Facebook.
+  fields: [content, id, image]
+- name: Media
+  schema: MediaFile
+  description: An uploaded media file, referenced by posts via its path.
+  fields: [id, name, path, organizationId, createdAt, updatedAt]
+- name: ProviderSettings
+  schema: 'XSettings | LinkedInSettings | InstagramSettings | YouTubeSettings | TikTokSettings | RedditSettings | LemmySettings | PinterestSettings | DiscordSettings | SlackSettings | DribbbleSettings | MediumSettings | DevToSettings | HashnodeSettings | WordpressSettings | ListmonkSettings | GmbSettings | FacebookSettings | WarpcastSettings | TwitchSettings | MoltbookSettings | SkoolSettings | WhopSettings | EmptySettings'
+  discriminator: __type
+  variants: 24
+  description: >-
+    A discriminated union of per-platform settings objects. 23 platforms carry custom
+    settings; EmptySettings covers the seven that need only the __type marker.
+- name: Tag
+  schema: Tag
+  fields: [value, label]
+- name: Notification
+  schema: Notification
+  fields: [id, content, link, createdAt]
+- name: AnalyticsData
+  schema: AnalyticsData
+  fields: [label, data, percentageChange]
+  description: A single analytics series for a channel or a published post.
+- name: MissingContentItem
+  schema: MissingContentItem
+  fields: [id, url]
+  description: Candidate published content on the provider, returned so a post whose releaseId is "missing" can be reconnected.
+relationships:
+- {from: Organization, to: Integration, kind: has_many, via: organization scope}
+- {from: Organization, to: Group, kind: has_many, via: organization scope}
+- {from: Organization, to: Media, kind: has_many, via: organizationId}
+- {from: Organization, to: Notification, kind: has_many, via: organization scope}
+- {from: Group, to: Integration, kind: has_many, via: Integration.customer}
+- {from: Integration, to: Group, kind: belongs_to, via: customer}
+- {from: Post, to: Integration, kind: belongs_to, via: integration}
+- {from: Post, to: PostGroup, kind: belongs_to, via: group}
+- {from: PostGroup, to: Post, kind: has_many, via: group}
+- {from: Post, to: PostContent, kind: has_many, via: value}
+- {from: PostContent, to: Media, kind: has_many, via: image}
+- {from: Post, to: ProviderSettings, kind: has_one, via: 'settings.__type'}
+- {from: Post, to: Tag, kind: has_many, via: tags}
+- {from: Post, to: AnalyticsData, kind: has_many, via: getPostAnalytics}
+- {from: Integration, to: AnalyticsData, kind: has_many, via: getAnalytics}
+- {from: Post, to: MissingContentItem, kind: has_many, via: getMissingContent}
+lifecycle_notes:
+- Deleting an Integration cascades to every scheduled Post on that channel.
+- Deleting a Post by id deletes every Post in the same PostGroup.
+- A published Post whose releaseId is "missing" is reconnected with updateReleaseId, which re-enables analytics for it.
+render: null
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

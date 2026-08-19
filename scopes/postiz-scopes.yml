@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.postiz.com/.well-known/oauth-protected-resource/mcp-oauth
+docs: https://docs.postiz.com/public-api/oauth
+note: >-
+  The Postiz OpenAPI documents apiKey auth only and declares no oauth2 securityScheme,
+  so derive-oauth-scopes.py found nothing. Postiz nevertheless runs a real OAuth 2.0
+  authorization-code flow, and its MCP resource publishes RFC 8414 and RFC 9728
+  discovery documents that name the scopes. Those two documents — fetched live and
+  saved verbatim under well-known/ — are the authoritative scope source, not the spec.
+  The Public API OAuth docs page describes the same flow for third-party apps but does
+  not document a scope parameter: consent is app-wide, tokens are prefixed pos_ and
+  do not expire, and users revoke them from Settings > Approved Apps.
+schemes:
+- name: PostizOAuth2
+  type: oauth2
+  source: https://api.postiz.com/.well-known/oauth-authorization-server/mcp-oauth
+  issuer: https://api.postiz.com/mcp-oauth
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://platform.postiz.com/oauth/authorize
+    tokenUrl: https://api.postiz.com/oauth/token
+    pkce: [S256]
+    response_types: [code]
+    grant_types: [authorization_code]
+scopes:
+- scope: mcp:read
+  description: >-
+    Read access through the Postiz MCP resource — listing channels, groups, platform
+    settings schemas and scheduled posts.
+  flows: [authorizationCode]
+  resource: https://api.postiz.com/mcp-oauth
+  sources: [well-known/postiz-oauth-protected-resource-mcp-oauth.json, well-known/postiz-oauth-authorization-server-mcp-oauth.json]
+- scope: mcp:write
+  description: >-
+    Write access through the Postiz MCP resource — scheduling, drafting and publishing
+    posts, updating post settings, and generating images and video.
+  flows: [authorizationCode]
+  resource: https://api.postiz.com/mcp-oauth
+  sources: [well-known/postiz-oauth-protected-resource-mcp-oauth.json, well-known/postiz-oauth-authorization-server-mcp-oauth.json]
+public_api_scopes:
+  documented: false
+  note: >-
+    The two scopes above govern the MCP resource. For the Public API itself, Postiz
+    documents no scope parameter on /oauth/authorize — an approved app receives a
+    pos_ token that works against every Public API endpoint. Recorded as an honest
+    absence rather than inferred scopes.
+x-evidence:
+- {url: 'https://api.postiz.com/.well-known/oauth-protected-resource/mcp-oauth', status: 200, fetched: '2026-08-13'}
+- {url: 'https://api.postiz.com/.well-known/oauth-authorization-server/mcp-oauth', status: 200, fetched: '2026-08-13'}
+- {url: 'https://docs.postiz.com/public-api/oauth', status: 200, fetched: '2026-08-13'}
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

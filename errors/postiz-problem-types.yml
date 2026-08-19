@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: searched
+source:
+- openapi/postiz-public-api-openapi.json
+- https://docs.postiz.com/public-api/introduction
+- https://docs.postiz.com/troubleshooting/known-issues
+format: json
+format_note: >-
+  Postiz does NOT use RFC 9457 problem+json. Errors come back as the NestJS default
+  JSON envelope — {"message": "...", "error": "...", "statusCode": n} — with no
+  application/problem+json media type, no `type` URI and no per-error registry.
+  Confirmed live: an unauthenticated GET to api.postiz.com returns
+  {"message":"Cannot GET /...","error":"Not Found","statusCode":404}.
+envelope:
+  fields:
+  - name: message
+    type: string
+    note: Human-readable description; on validation failures it can be an array of strings.
+  - name: error
+    type: string
+    note: Short reason phrase, e.g. "Not Found" or "Unauthorized".
+  - name: statusCode
+    type: integer
+    note: Repeats the HTTP status.
+  mcp_variant:
+    fields: [error, error_description]
+    example: '{"error":"unauthorized","error_description":"Bearer token required"}'
+    note: The OAuth-protected MCP resource returns the OAuth-style error envelope instead.
+  validation_variant:
+    note: >-
+      schedulePostTool and createPost return validation failures as {"errors": "..."}
+      describing what went wrong (e.g. content exceeds the platform character limit).
+problems:
+- status: 400
+  title: Bad Request
+  meaning: The request body or path parameter is malformed — wrong shape, unknown enum, or a missing required field.
+  remediation: Fetch the platform's settings schema with getIntegrationSettings and match the `__type` and required keys before retrying.
+  source_operations: [getIntegrationUrl, changePostStatus, updatePostSettings]
+  documented_variants:
+  - {operation: getIntegrationUrl, description: Integration not allowed or requires an external URL}
+  - {operation: changePostStatus, description: Invalid status or post not found}
+  - {operation: updatePostSettings, description: The id belongs to a comment (pass the root post id), the post is already published or its publish time passed, or the merged settings failed validation}
+- status: 401
+  title: Unauthorized
+  meaning: The Authorization header is missing, or the API key / OAuth token is unrecognised.
+  remediation: Send the raw key (no Bearer prefix) on the Public API, or "Bearer <token>" on the MCP endpoint. Regenerated keys invalidate the old one immediately.
+  source_operations: [triggerIntegrationTool]
+  documented_variants:
+  - {operation: triggerIntegrationTool, description: Channel disconnected due to expired token}
+- status: 403
+  title: Forbidden
+  meaning: The API key is valid but does not own the resource — for example deleting a post in another organization.
+  remediation: Confirm the resource belongs to the authenticated organization; do not retry.
+  source: https://docs.postiz.com/public-api/introduction
+- status: 404
+  title: Not Found
+  meaning: The endpoint does not exist, or the path parameter was well formed but matched no row.
+  remediation: >-
+    On DELETE endpoints a 404 always means "already deleted" and is safe to ignore.
+    On GET/PUT, re-read the id from listIntegrations or listPosts.
+  source_operations: [deleteChannel, getIntegrationSettings, triggerIntegrationTool, updatePostSettings]
+- status: 413
+  title: Payload Too Large
+  meaning: The request body exceeded 50 MB on /posts — usually because images were base64-inlined instead of pre-uploaded.
+  remediation: Upload media first with uploadFile or uploadFromUrl and reference the returned path in the post payload.
+  source: https://docs.postiz.com/troubleshooting/uploads
+- status: 429
+  title: Too Many Requests
+  meaning: The per-hour API_LIMIT on the create-post endpoint was exceeded.
+  remediation: Back off exponentially with jitter. Batch multiple posts into one createPost call — the limit counts requests, not posts.
+  source: https://docs.postiz.com/public-api/introduction
+- status: 500
+  title: Server Error
+  meaning: Unhandled server error. Retry with exponential backoff.
+  remediation: >-
+    Do not blanket-suppress. Postiz documents a known issue where a missing post id on
+    a delete surfaces as 500 instead of 404; only treat a 500 as "already gone" when it
+    matches that specific signature, and treat every other 500 as a real server error.
+  source: https://docs.postiz.com/troubleshooting/known-issues
+silent_failure_modes:
+  note: >-
+    Postiz's own Agent Skill warns about two non-error failures that never surface as a
+    4xx and are the highest-risk agent traps on this API.
+  cases:
+  - >-
+    A provider setting that does not apply to the chosen posting method or media type
+    is SILENTLY DISCARDED — the post still reports success. Always call
+    getIntegrationSettings first and honour the returned rules and field descriptions.
+  - >-
+    On TikTok, content_posting_method "UPLOAD" does not publish; it drops the media into
+    the account inbox for manual completion within 24 hours while the API reports
+    success. Use "DIRECT_POST" to actually publish.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

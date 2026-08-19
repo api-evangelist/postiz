@@ -1,0 +1,103 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://docs.postiz.com/public-api/introduction
+- https://docs.postiz.com/public-api/oauth
+- openapi/postiz-public-api-openapi.json
+note: >-
+  Cross-cutting request/response semantics for the Postiz Public API, searched from
+  the provider's API overview and derived from the published OpenAPI 3.1.0.
+base_urls:
+  cloud: https://api.postiz.com/public/v1
+  self_hosted: https://{NEXT_PUBLIC_BACKEND_URL}/public/v1
+  templated: true
+authentication:
+  style: raw key in the Authorization header (no Bearer prefix on the Public API)
+  alternatives: OAuth2 pos_ token, used identically; Bearer prefix only on the MCP endpoint
+  detail: authentication/postiz-authentication.yml
+idempotency:
+  supported: false
+  key_header: null
+  note: >-
+    Postiz publishes NO client-supplied idempotency key. There is no Idempotency-Key
+    header or parameter in either OpenAPI document or anywhere in the docs, so a
+    retried createPost can produce a duplicate post. Two server-side mitigations exist
+    and are worth knowing, but neither is a client idempotency contract:
+    (1) v2.23.0 added a pending-post workflow that resolves the state of in-flight
+    posts before publishing, to prevent duplicates when a publish attempt is
+    interrupted server-side;
+    (2) DELETE is naturally idempotent — a 404 on delete means "already deleted" and
+    is safe to ignore.
+    No Idempotency pointer is emitted for this provider.
+  mitigations:
+  - {kind: server-side-dedupe, since: v2.23.0, description: pending-post workflow resolving in-flight publish state}
+  - {kind: idempotent-delete, description: 404 on DELETE means already deleted, safe to ignore}
+  agent_guidance: >-
+    Treat createPost as at-most-once from the client side: on a timeout or 5xx, call
+    listPosts over the target date range and match before retrying, rather than
+    blindly re-POSTing.
+pagination:
+  style: date-range and fixed-page
+  operations:
+  - {operation: listPosts, params: [startDate, endDate, customer], style: date-range, note: Posts are filtered by a UTC ISO datetime window rather than cursor or offset.}
+  - {operation: listNotifications, style: page, page_size: 100, note: Returns 100 notifications per page, sorted most recent first.}
+  cursor: false
+  link_header: false
+field_expansion:
+  supported: false
+  note: No expand / fields / include parameters. Response shapes are fixed per operation.
+metadata:
+  supported: partial
+  note: >-
+    Posts accept a `tags` array and a `group` identifier that ties a post to its
+    per-channel variations. There is no free-form customer metadata object.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id or correlation header is documented. Postiz Cloud runs behind Railway
+    and returns x-railway-request-id on responses, but that is infrastructure-emitted
+    and undocumented — do not depend on it.
+versioning:
+  style: uri-path
+  current: v1
+  detail: lifecycle/postiz-lifecycle.yml
+error_envelope:
+  shape: '{"message": string|string[], "error": string, "statusCode": integer}'
+  problem_json: false
+  detail: errors/postiz-problem-types.yml
+rate_limit_signaling:
+  headers_documented: []
+  status_on_exhaustion: 429
+  note: >-
+    Postiz documents the limit (per hour, on the create-post endpoint) but publishes NO
+    X-RateLimit-* / RateLimit-* response headers, so a client cannot read remaining
+    quota — it can only observe the 429. Detail in rate-limits/postiz-rate-limits.yml.
+payload_limits:
+  post_body_max: 50 MB on /posts
+  guidance: Pre-upload media with uploadFile/uploadFromUrl rather than base64-inlining images; a 413 is the symptom.
+content_conventions:
+  post_content_format: HTML, restricted tag set
+  allowed_tags: [p, h1, h2, h3, strong, u, ul, li]
+  rules:
+  - Each line of text must be wrapped in <p>.
+  - <u> and <strong> cannot be combined in the same element.
+  platform_settings:
+    discriminator: settings.__type
+    note: >-
+      Every post carries a per-platform settings object keyed by a `__type`
+      discriminator (x, linkedin, reddit, tiktok, …). 25 of 32 supported platforms
+      have custom settings; 7 need only {"__type": "<platform>"}. Fetch the live schema
+      with getIntegrationSettings — inapplicable keys are silently discarded, not rejected.
+  terminology:
+    ui: channel
+    api: integration
+    note: The UI says "channel", the API says "integration"; they are the same thing.
+cross_links:
+  errors: errors/postiz-problem-types.yml
+  lifecycle: lifecycle/postiz-lifecycle.yml
+  authentication: authentication/postiz-authentication.yml
+  rate_limits: rate-limits/postiz-rate-limits.yml
+  scopes: scopes/postiz-scopes.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

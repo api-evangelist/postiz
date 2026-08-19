@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Postiz Public Analytics Posts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Posts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List posts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/posts",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "2024-12-01T00:00:00.000Z",
+                "type": "query",
+                "description": "Start date in UTC ISO format."
+              },
+              {
+                "name": "endDate",
+                "value": "2024-12-31T23:59:59.000Z",
+                "type": "query",
+                "description": "End date in UTC ISO format."
+              },
+              {
+                "name": "customer",
+                "value": "",
+                "type": "query",
+                "description": "Filter by customer ID."
+              }
+            ]
+          },
+          "docs": "Get posts within a date range."
+        },
+        {
+          "info": {
+            "name": "Create a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.postiz.com/public/v1/posts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or schedule a new post. Set type to draft, schedule, or now. Each social media platform has its own settings schema selected via the settings.__type discriminator."
+        },
+        {
+          "info": {
+            "name": "Delete a post",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/posts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Post ID"
+              }
+            ]
+          },
+          "docs": "Deletes a post by ID. A 404 means the post is already deleted and is safe to ignore."
+        },
+        {
+          "info": {
+            "name": "Delete posts by group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.postiz.com/public/v1/posts/group/:group",
+            "params": [
+              {
+                "name": "group",
+                "value": "",
+                "type": "path",
+                "description": "Group ID"
+              }
+            ]
+          },
+          "docs": "Deletes all posts that share the given group ID."
+        },
+        {
+          "info": {
+            "name": "Get missing content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/posts/:id/missing",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Post ID"
+              }
+            ]
+          },
+          "docs": "Returns content fields that still need to be supplied for a post."
+        },
+        {
+          "info": {
+            "name": "Update release ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.postiz.com/public/v1/posts/:id/release-id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Post ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the external release identifier associated with a post."
+        },
+        {
+          "info": {
+            "name": "Change post status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.postiz.com/public/v1/posts/:id/status",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Post ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Changes a post's status between draft and schedule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

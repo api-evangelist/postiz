@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Postiz Public API
+  version: 1.0.0
+extends: openapi/postiz-public-api-openapi.json
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Captures the API Evangelist enrichment findings for the Postiz Public API as an
+  Overlay 1.0.0 document rather than mutating the provider's harvested spec, which is
+  saved verbatim from https://docs.postiz.com/public-api/openapi.json.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: postiz
+    x-apievangelist-reviewed: '2026-08-13'
+    x-apievangelist-spec-source: https://docs.postiz.com/public-api/openapi.json
+    x-apievangelist-artifacts:
+      authentication: authentication/postiz-authentication.yml
+      scopes: scopes/postiz-scopes.yml
+      conventions: conventions/postiz-conventions.yml
+      errors: errors/postiz-problem-types.yml
+      rate_limits: rate-limits/postiz-rate-limits.yml
+      lifecycle: lifecycle/postiz-lifecycle.yml
+      data_model: data-model/postiz-data-model.yml
+      mcp: mcp/postiz-mcp.yml
+      tool_crosswalk: mcp/postiz-tool-crosswalk.yml
+      skills: skills/_index.yml
+      a2a: a2a/postiz-a2a.yml
+- target: $.info
+  update:
+    x-agent-notes:
+      idempotency: >-
+        No client-supplied idempotency key exists. Retrying createPost after a timeout
+        can duplicate a post; reconcile with listPosts before retrying.
+      silent_discard: >-
+        Provider settings that do not apply to the chosen posting method or media type
+        are silently discarded and the call still returns success. Call
+        getIntegrationSettings first and honour the returned rules.
+      rate_limit_headers: >-
+        No RateLimit-* or Retry-After headers are emitted. The 429 itself is the only
+        runtime signal.
+- target: $.components.securitySchemes.ApiKeyAuth
+  update:
+    x-token-formats:
+    - {kind: api-key, prefix: null, note: Raw key, no Bearer prefix on the Public API}
+    - {kind: oauth2-access-token, prefix: pos_, note: Sent identically to an API key; Bearer prefix only on the MCP endpoint}
+    x-oauth2:
+      authorizationUrl: https://platform.postiz.com/oauth/authorize
+      tokenUrl: https://api.postiz.com/oauth/token
+      pkce: S256
+      scopes: [mcp:read, mcp:write]
+      scopes_note: Scopes govern the MCP resource; the Public API OAuth flow documents no scope parameter.
+- target: $.paths['/posts'].post
+  update:
+    x-idempotency: none
+    x-batching: >-
+      The per-hour rate limit counts requests on this endpoint, not posts. Batch many
+      posts into one call.
+    x-payload-limit: 50MB (413 on exceed)
+- target: $.paths['/upload'].post
+  update:
+    x-required-before: createPost
+    x-note: >-
+      Media must be Postiz-hosted. Raw filesystem paths and third-party URLs are
+      rejected by the publishing pipeline.
+- target: $.paths['/posts/{id}'].delete
+  update:
+    x-idempotent: true
+    x-note: >-
+      404 means already deleted and is safe to ignore. A 500 can mean the same thing
+      due to a documented known issue — verify the signature before suppressing.

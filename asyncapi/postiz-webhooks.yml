@@ -1,0 +1,69 @@
+generated: '2026-08-13'
+method: searched
+source:
+- https://api.postiz.com/docs-json
+- https://github.com/gitroomhq/postiz-app/releases
+- review.yml
+spec_type: null
+asyncapi_published: false
+asyncapi_note: >-
+  Postiz publishes NO AsyncAPI document. It was searched for on docs.postiz.com,
+  api.postiz.com and the gitroomhq GitHub org; /asyncapi.yaml and /asyncapi.json are
+  absent everywhere and the llms.txt documentation index lists an OpenAPI spec only.
+  Nothing is fabricated here — this artifact captures the real webhook surface instead.
+event_surface:
+  transport: http-callback
+  direction: outbound
+  protocol: HTTPS POST to a subscriber-configured URL
+  websocket: false
+  sse: false
+  note: >-
+    Postiz fires an outbound HTTP POST to a URL you configure when a post is published,
+    so downstream systems (a spreadsheet, Slack, a CRM) can stay in sync. This is a
+    webhook, not a streaming transport — the repo's review.yml confirms there is no
+    documented WebSocket or SSE endpoint on the Public API.
+management:
+  surface: platform backend, not the /public/v1 Public API
+  spec: openapi/postiz-platform-swagger-openapi.json
+  ui: Postiz app settings
+  operations:
+  - {method: GET, path: /webhooks, operationId: WebhookController_getStatistics, description: Webhook statistics / list}
+  - {method: POST, path: /webhooks, operationId: WebhookController_createAWebhook, description: Create a webhook subscription}
+  - {method: PUT, path: /webhooks, operationId: WebhookController_updateWebhook, description: Update a webhook subscription}
+  - {method: DELETE, path: '/webhooks/{id}', operationId: WebhookController_deleteWebhook, description: Delete a webhook subscription}
+  - {method: POST, path: /webhooks/send, operationId: WebhookController_sendWebhook, description: Send/trigger a webhook delivery}
+  note: >-
+    These operations exist in the auto-generated backend swagger served at
+    https://api.postiz.com/docs-json and back the in-app webhook settings screen. They
+    are NOT part of the documented /public/v1 Public API contract, so treat them as
+    observed rather than supported.
+events:
+  catalogue_published: false
+  documented:
+  - name: post.published
+    trigger: A scheduled post is published to its channel.
+    payload_schema: null
+    note: >-
+      The trigger is documented in prose; Postiz publishes no event name, no payload
+      schema and no delivery/retry semantics. The name above is descriptive, not a
+      provider-published event identifier.
+  gap: >-
+    The single largest event-surface gap for this provider — a subscriber cannot know
+    the payload shape without receiving one. An AsyncAPI 3.x document with one channel
+    and one message schema would close it.
+security:
+  ssrf_protection:
+    since: v2.23.0
+    description: >-
+      Webhook and media-path fetches go through a safe request dispatcher that blocks
+      SSRF, added in the 2026-08-04 release.
+  signing:
+    documented: false
+    note: No webhook signature header or shared-secret verification scheme is documented.
+delivery:
+  retries: undocumented
+  ordering: undocumented
+  timeout: undocumented
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

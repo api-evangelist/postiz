@@ -1,16 +1,79 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/postiz-openapi.yml
+generated: '2026-08-13'
+method: searched
+source: openapi/postiz-public-api-openapi.json
+docs:
+- https://docs.postiz.com/public-api/introduction
+- https://docs.postiz.com/public-api/oauth
+- https://docs.postiz.com/mcp/introduction
+- https://docs.postiz.com/cli/authentication
+note: >-
+  Upgraded from the spec-derived profile. The OpenAPI declares one apiKey scheme, but
+  Postiz documents three authentication paths in practice: a raw API key, an OAuth2
+  authorization-code token for third-party apps, and an OAuth2 device flow used by the
+  CLI. All three are sent in the same Authorization header, and OAuth tokens are
+  accepted anywhere an API key is.
 summary:
-  types:
-  - apiKey
-  api_key_in:
-  - header
+  types: [apiKey, oauth2]
+  api_key_in: [header]
+  oauth2_flows: [authorizationCode, deviceFlow]
+  transport: https
+  key_rotation: manual (regenerate in Settings; keys do not auto-rotate)
 schemes:
 - name: ApiKeyAuth
   type: apiKey
   in: header
   parameter: Authorization
-  description: Your Postiz API key, sent as the raw value of the Authorization header.
-  sources:
-  - openapi/postiz-openapi.yml
+  scheme_note: >-
+    The raw key is the entire header value — there is no Bearer prefix on the Public
+    API. Obtained from Settings > Developers > Public API.
+  description: Your Postiz API key.
+  sources: [openapi/postiz-public-api-openapi.json, openapi/_original/postiz-openapi.yml]
+- name: PostizOAuth2
+  type: oauth2
+  flow: authorizationCode
+  authorizationUrl: https://platform.postiz.com/oauth/authorize
+  tokenUrl: https://api.postiz.com/oauth/token
+  token_prefix: pos_
+  client_id_prefix: pca_
+  client_secret_prefix: pcs_
+  pkce: S256 (advertised in the MCP authorization-server metadata)
+  code_lifetime: 10 minutes, single use
+  token_lifetime: does not expire; user-revocable from Settings > Approved Apps
+  state_parameter: supported, recommended for CSRF protection
+  scopes: [mcp:read, mcp:write]
+  scopes_note: >-
+    Scopes are advertised for the MCP resource only; the Public API OAuth flow
+    documents no scope parameter. See scopes/postiz-scopes.yml.
+  usage: >-
+    The pos_ token is sent as the Authorization header value, exactly like an API key,
+    and works against every Public API endpoint. On the MCP endpoint it is sent as
+    "Authorization: Bearer <token>".
+  sources: [https://docs.postiz.com/public-api/oauth, well-known/postiz-oauth-authorization-server-mcp-oauth.json]
+- name: PostizCLIDeviceFlow
+  type: oauth2
+  flow: deviceCode
+  auth_server: https://cli-auth.postiz.com
+  description: >-
+    `postiz auth:login` runs an OAuth2 device flow through a hosted auth server that
+    mediates the standard authorization-code exchange, so CLI users never handle a
+    client id or secret. Credentials are stored at ~/.postiz/credentials.json.
+    Self-hosters can run their own auth server (gitroomhq/postiz-agent, server/).
+  precedence: OAuth2 credentials take priority over POSTIZ_API_KEY when both are present.
+  sources: [https://docs.postiz.com/cli/authentication]
+self_hosted:
+  note: >-
+    Self-hosted instances authenticate identically against {NEXT_PUBLIC_BACKEND_URL}.
+    Postiz separately supports OIDC for signing in to the application itself
+    (https://docs.postiz.com/configuration/oauth) — that is end-user SSO into the app,
+    not API authentication, and is not modelled as an API scheme here.
+errors:
+  401: Authorization header missing or the API key is unrecognised.
+  403: Key is valid but does not own the resource.
+  oauth:
+    invalid_client: client id or secret wrong at token exchange
+    invalid_grant: code invalid, expired or already used
+    unsupported_grant_type: grant_type is not authorization_code
+    access_denied: user denied the authorization request
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

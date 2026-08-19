@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Postiz Public Analytics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get platform analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/analytics/:integration",
+            "params": [
+              {
+                "name": "integration",
+                "value": "",
+                "type": "path",
+                "description": "Integration ID"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to report on."
+              }
+            ]
+          },
+          "docs": "Returns analytics for a connected channel over a date window."
+        },
+        {
+          "info": {
+            "name": "Get post analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.postiz.com/public/v1/analytics/post/:postId",
+            "params": [
+              {
+                "name": "postId",
+                "value": "",
+                "type": "path",
+                "description": "Post ID"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Number of days to report on."
+              }
+            ]
+          },
+          "docs": "Returns analytics for a single published post."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

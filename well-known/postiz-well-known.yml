@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: probed
+source: live probe of every apis.yml host on 2026-08-13
+summary: >-
+  Postiz serves no security.txt, no api-catalog, no ai-plugin.json and no top-level
+  OIDC or OAuth discovery document on any host. It DOES serve two real RFC 8414 /
+  RFC 9728 discovery documents at path-suffixed well-known locations scoped to its
+  MCP OAuth resource — /.well-known/oauth-authorization-server/mcp-oauth and
+  /.well-known/oauth-protected-resource/mcp-oauth — both of which returned 200 with
+  parsed JSON and are saved here verbatim. docs.postiz.com additionally serves an
+  A2A agent card at /.well-known/agent-card.json (captured under a2a/) and an agent
+  skill at /.well-known/agent-skills/postiz/skill.md (captured under skills/).
+hosts:
+- host: https://api.postiz.com
+  documents:
+  - {path: /.well-known/oauth-authorization-server/mcp-oauth, status: 200, file: postiz-oauth-authorization-server-mcp-oauth.json, kind: rfc8414-authorization-server-metadata}
+  - {path: /.well-known/oauth-protected-resource/mcp-oauth, status: 200, file: postiz-oauth-protected-resource-mcp-oauth.json, kind: rfc9728-protected-resource-metadata}
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/oauth-protected-resource/mcp, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://postiz.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://docs.postiz.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 200, file: ../a2a/postiz-agent-card.json, kind: a2a-agent-card}
+  - {path: /.well-known/agent-skills/postiz/skill.md, status: 200, file: ../skills/postiz-provider-skill.md, kind: agent-skill}
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+security_txt:
+  served: false
+  note: >-
+    No /.well-known/security.txt on any host. Postiz does publish a full security
+    policy and a coordinated-disclosure channel — see security/postiz-vulnerability-disclosure.yml
+    — it is simply not advertised at the RFC 9116 location.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
