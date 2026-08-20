@@ -22,6 +22,17 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/postiz.png
 tags:
+- Social-Media
+- Scheduling
+- Open-Source
+- Content
+- Marketing
+- Agents
+- MCP
+- Automation
+- Publishing
+- Analytics
+tags_raw:
 - Social Media
 - Scheduling
 - Open Source
@@ -39,6 +50,10 @@ apis:
 - aid: postiz:webhooks
   name: Postiz Webhooks
   tags:
+  - Webhook
+  - Event
+  - Notification
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -72,6 +87,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -86,6 +103,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -133,6 +152,12 @@ apis:
   humanURL: https://docs.postiz.com/public-api/introduction
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Social-Media
+  - Scheduling
+  - Posts
+  - Analytics
+  - Uploads
+  tags_raw:
   - Social Media
   - Scheduling
   - Posts
@@ -159,6 +184,10 @@ apis:
   humanURL: https://docs.postiz.com/mcp/introduction
   baseURL: https://api.postiz.com/mcp
   tags:
+  - MCP
+  - Agents
+  - Social-Media
+  tags_raw:
   - MCP
   - Agents
   - Social Media
