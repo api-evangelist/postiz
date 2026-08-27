@@ -141,46 +141,14 @@ apis:
     url: https://docs.postiz.com/public-api
   - type: APIReference
     url: https://docs.postiz.com/public-api/introduction
-- aid: postiz:postiz-public-api
-  name: Postiz Public API
-  description: >-
-    The complete, provider-published Postiz Public API — 23 operations across
-    integrations (channels), groups, posts, uploads, analytics, notifications and AI
-    video generation, served at https://api.postiz.com/public/v1 on Cloud and at
-    {NEXT_PUBLIC_BACKEND_URL}/public/v1 on any self-hosted instance. Harvested verbatim
-    from the OpenAPI 3.1.0 document Postiz links from its own llms.txt.
-  humanURL: https://docs.postiz.com/public-api/introduction
-  baseURL: https://api.postiz.com/public/v1
-  tags:
-  - Social-Media
-  - Scheduling
-  - Posts
-  - Analytics
-  - Uploads
-  tags_raw:
-  - Social Media
-  - Scheduling
-  - Posts
-  - Analytics
-  - Uploads
-  properties:
-  - type: OpenAPI
-    url: openapi/postiz-public-api-openapi.json
-  - type: Overlay
-    url: overlays/postiz-public-api-overlay.yaml
-  - type: Documentation
-    url: https://docs.postiz.com/public-api
-  - type: APIReference
-    url: https://docs.postiz.com/public-api/introduction
 - aid: postiz:postiz-mcp-server
   name: Postiz MCP Server
   description: >-
-    Hosted, remote Model Context Protocol server run as part of the Postiz backend,
-    exposing 11 tools for listing channels, reading platform settings schemas,
-    scheduling and re-settings posts, and generating AI images and video. Reachable
-    today at https://api.postiz.com/mcp with an API key or OAuth token as a Bearer
-    credential, at /mcp/{apiKey} for clients that only accept a URL, and at /mcp-oauth
-    as an OAuth-protected resource with RFC 8414 and RFC 9728 discovery.
+    Hosted, remote Model Context Protocol server run as part of the Postiz backend, exposing 11 tools
+    for listing channels, reading platform settings schemas, scheduling and re-settings posts, and generating
+    AI images and video. Reachable today at https://api.postiz.com/mcp with an API key or OAuth token
+    as a Bearer credential, at /mcp/{apiKey} for clients that only accept a URL, and at /mcp-oauth as
+    an OAuth-protected resource with RFC 8414 and RFC 9728 discovery.
   humanURL: https://docs.postiz.com/mcp/introduction
   baseURL: https://api.postiz.com/mcp
   tags:
@@ -198,23 +166,372 @@ apis:
     url: mcp/postiz-tool-crosswalk.yml
   - type: Documentation
     url: https://docs.postiz.com/mcp/introduction
-- aid: postiz:postiz-platform-api
-  name: Postiz Platform API
-  description: >-
-    The full Postiz backend surface as published by the provider's own Swagger UI at
-    https://api.postiz.com/docs, machine-readable at /docs-json — 205 operations across
-    auth, integrations, posts, media, billing, settings, webhooks, notifications, admin
-    and the /public/v1 Public API. Auto-generated from the NestJS controllers and
-    served publicly; only the /public/v1 subset is a documented, supported contract.
-  humanURL: https://api.postiz.com/docs
-  baseURL: https://api.postiz.com
+- aid: postiz:postiz-admin-api
+  name: Postiz Admin API
+  description: The Admin API from Postiz — 3 operation(s) for admin.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
   tags:
-  - Platform
-  - Internal
-  - Swagger
+  - Admin
   properties:
   - type: OpenAPI
-    url: openapi/postiz-platform-swagger-openapi.json
+    url: openapi/postiz-admin-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-announcements-api
+  name: Postiz Announcements API
+  description: The Announcements API from Postiz — 2 operation(s) for announcements.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Announcements
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-announcements-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-approved-apps-api
+  name: Postiz Approved Apps API
+  description: The Approved Apps API from Postiz — 2 operation(s) for approved apps.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Approved Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-approved-apps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-auth-api
+  name: Postiz Auth API
+  description: The Auth API from Postiz — 10 operation(s) for auth.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-auth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-autopost-api
+  name: Postiz Autopost API
+  description: The Autopost API from Postiz — 4 operation(s) for autopost.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Autopost
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-autopost-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-billing-api
+  name: Postiz Billing API
+  description: The Billing API from Postiz — 20 operation(s) for billing.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Billing
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-billing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-copilot-api
+  name: Postiz Copilot API
+  description: The Copilot API from Postiz — 5 operation(s) for copilot.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Copilot
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-copilot-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-enterprise-api
+  name: Postiz Enterprise API
+  description: The Enterprise API from Postiz — 3 operation(s) for enterprise.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Enterprise
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-enterprise-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-media-api
+  name: Postiz Media API
+  description: The Media API from Postiz — 13 operation(s) for media.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-media-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-monitor-api
+  name: Postiz Monitor API
+  description: The Monitor API from Postiz — 1 operation(s) for monitor.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Monitor
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-monitor-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-oauth-api
+  name: Postiz O Auth API
+  description: The OAuth API from Postiz — 2 operation(s) for oauth.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-oauth-app-api
+  name: Postiz OAuth App API
+  description: The OAuth App API from Postiz — 2 operation(s) for oauth app.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - OAuth App
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-oauth-app-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-public-api-api
+  name: Postiz Public API
+  description: The Public API API from Postiz — 22 operation(s) for public api.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Public API
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-public-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-public-api
+  name: Postiz Public API
+  description: The Public API from Postiz — 6 operation(s) for public.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Public
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-public-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-root-api
+  name: Postiz Root API
+  description: The Root API from Postiz — 1 operation(s) for root.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Root
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-root-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-sets-api
+  name: Postiz Sets API
+  description: The Sets API from Postiz — 2 operation(s) for sets.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Sets
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-sets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-settings-api
+  name: Postiz Settings API
+  description: The Settings API from Postiz — 4 operation(s) for settings.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-signatures-api
+  name: Postiz Signatures API
+  description: The Signatures API from Postiz — 3 operation(s) for signatures.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Signatures
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-signatures-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-stripe-api
+  name: Postiz Stripe API
+  description: The Stripe API from Postiz — 1 operation(s) for stripe.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Stripe
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-stripe-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-third-party-api
+  name: Postiz Third Party API
+  description: The Third Party API from Postiz — 7 operation(s) for third party.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Third Party
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-third-party-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-user-api
+  name: Postiz User API
+  description: The User API from Postiz — 15 operation(s) for user.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-video-generation-api
+  name: Postiz Video Generation API
+  description: Generate videos with AI
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Video Generation
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-video-generation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-webhooks-api
+  name: Postiz Webhooks API
+  description: The Webhooks API from Postiz — 3 operation(s) for webhooks.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
   - type: Documentation
     url: https://api.postiz.com/docs
 common:
