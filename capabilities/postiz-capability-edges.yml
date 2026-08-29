@@ -1,0 +1,80 @@
+slug: postiz
+provider: Postiz
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Auth
+  spec_file: postiz-auth-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /auth/login  AuthController_login
+  reason: Registration, login, password reset, activation and OAuth provider linking — authentication
+    and account access management. Arguably pure plumbing, but it plainly realises identity and access
+    management.
+- tag: Public API
+  spec_file: postiz-public-api-api-openapi.yml
+  capability_id: BC-400
+  capability_id_l1: BC-400
+  capability_name: Marketing Management
+  confidence: 0.8
+  evidence: 'POST /public/v1/posts PublicIntegrationsController_createPost; GET /public/v1/is-connected
+    ...getActiveIntegrations; vendor: "social media scheduling and management platform for posting across
+    30+ social, video, community, and blogging channels"'
+  reason: The operations create, schedule, list and delete social posts across connected channels — this
+    is marketing publishing on social/digital channels. Ambiguous between Digital Marketing (social publishing)
+    and Content Marketing (editorial planning/distribution), so only the L1 is asserted.
+- tag: Billing
+  spec_file: postiz-billing-api-openapi.yml
+  capability_id: BC-4250
+  capability_id_l1: BC-4250
+  capability_name: Subscription Billing & Revenue Management
+  confidence: 0.75
+  evidence: POST /billing/subscribe, POST /billing/cancel, POST /billing/prorate, GET /billing/charges,
+    POST /billing/finish-trial
+  reason: Operations perform recurring subscription billing for the vendor's paid Cloud tier — subscribe,
+    prorate, discounts, charges, trial conversion. Spans both subscription lifecycle and billing, so only
+    the L1 is asserted.
+- tag: Posts
+  spec_file: postiz-posts-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.72
+  evidence: POST /posts PostsController_createPost, GET /posts/find-slot, GET /posts/{id}/statistics,
+    schemas RedditSettings, YouTubeSettings, DiscordSettings
+  reason: Creating, scheduling and measuring posts across social channels is social media publishing —
+    digital marketing execution. Some overlap with content marketing planning keeps confidence short of
+    certainty on the sub-capability.
+- tag: Analytics
+  spec_file: postiz-analytics-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: GET /analytics/{integration}  getAnalytics  Get platform analytics
+  reason: Returns per-channel and per-post social media performance analytics for scheduled posts — social/digital
+    marketing measurement. Sub-capability choice between digital marketing and marketing operations measurement
+    is somewhat ambiguous.
+- tag: Webhooks
+  spec_file: postiz-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /webhooks WebhookController_createAWebhook; PUT /webhooks WebhookController_updateWebhook;
+    DELETE /webhooks/{id}; GET /webhooks WebhookController_getStatistics
+  reason: Full lifecycle of outbound webhook subscriptions plus delivery statistics, which matches Webhook
+    & Event Subscription Management directly. Confidence held moderate because this is generic platform
+    plumbing exposed to customers.

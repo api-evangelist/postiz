@@ -548,6 +548,9 @@ apis:
   - type: Documentation
     url: https://api.postiz.com/docs
 common:
+- type: CapabilityMap
+  url: capabilities/postiz-capability-edges.yml
+  name: Postiz Business Capability Map
 - type: AgenticAccess
   url: agentic-access/postiz-agentic-access.yml
 - type: DomainSecurity
