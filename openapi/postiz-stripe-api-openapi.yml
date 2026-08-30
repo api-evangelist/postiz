@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Stripe API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Stripe
+paths:
+  /stripe:
+    post:
+      operationId: StripeController_stripe
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Stripe

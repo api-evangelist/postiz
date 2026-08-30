@@ -1,0 +1,72 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file OAuth App API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: OAuth App
+paths:
+  /user/oauth-app:
+    get:
+      operationId: OAuthAppController_getApp
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - OAuth App
+    post:
+      operationId: OAuthAppController_createApp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOAuthAppDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - OAuth App
+    put:
+      operationId: OAuthAppController_updateApp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOAuthAppDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - OAuth App
+    delete:
+      operationId: OAuthAppController_deleteApp
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - OAuth App
+  /user/oauth-app/rotate-secret:
+    post:
+      operationId: OAuthAppController_rotateSecret
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - OAuth App
+components:
+  schemas:
+    UpdateOAuthAppDto:
+      type: object
+      properties: {}
+    CreateOAuthAppDto:
+      type: object
+      properties: {}

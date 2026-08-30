@@ -1,0 +1,94 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Autopost API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Autopost
+paths:
+  /autopost:
+    get:
+      operationId: AutopostController_getAutoposts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Autopost
+    post:
+      operationId: AutopostController_createAutopost
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutopostDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Autopost
+  /autopost/{id}:
+    put:
+      operationId: AutopostController_updateAutopost
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutopostDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Autopost
+    delete:
+      operationId: AutopostController_deleteAutopost
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Autopost
+  /autopost/{id}/active:
+    post:
+      operationId: AutopostController_changeActive
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Autopost
+  /autopost/send:
+    post:
+      operationId: AutopostController_sendWebhook
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Autopost
+components:
+  schemas:
+    AutopostDto:
+      type: object
+      properties: {}

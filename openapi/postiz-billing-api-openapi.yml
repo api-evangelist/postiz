@@ -1,0 +1,227 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Billing API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Billing
+paths:
+  /billing/check/{id}:
+    get:
+      operationId: BillingController_checkId
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/check-discount:
+    get:
+      operationId: BillingController_checkDiscount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/apply-discount:
+    post:
+      operationId: BillingController_applyDiscount
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/finish-trial:
+    post:
+      operationId: BillingController_finishTrial
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/is-trial-finished:
+    get:
+      operationId: BillingController_isTrialFinished
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/embedded:
+    post:
+      operationId: BillingController_embedded
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingSubscribeDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/subscribe:
+    post:
+      operationId: BillingController_subscribe
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingSubscribeDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/portal:
+    get:
+      operationId: BillingController_modifyPayment
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing:
+    get:
+      operationId: BillingController_getCurrentBilling
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/cancel:
+    post:
+      operationId: BillingController_cancel
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/prorate:
+    post:
+      operationId: BillingController_prorate
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingSubscribeDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/charges:
+    get:
+      operationId: BillingController_getCharges
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/refund-charges:
+    post:
+      operationId: BillingController_refundCharges
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/cancel-subscription:
+    post:
+      operationId: BillingController_cancelSubscription
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/coupon-info:
+    get:
+      operationId: BillingController_couponInfo
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/apply-coupon:
+    post:
+      operationId: BillingController_applyCoupon
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminApplyCouponDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/cancel-coupon:
+    post:
+      operationId: BillingController_cancelCoupon
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/chatbase-refund/preview:
+    get:
+      operationId: BillingController_chatbaseRefundPreview
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Billing
+  /billing/chatbase-refund:
+    post:
+      operationId: BillingController_chatbaseRefund
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+  /billing/add-subscription:
+    post:
+      operationId: BillingController_addSubscription
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Billing
+components:
+  schemas:
+    AdminApplyCouponDto:
+      type: object
+      properties: {}
+    BillingSubscribeDto:
+      type: object
+      properties: {}

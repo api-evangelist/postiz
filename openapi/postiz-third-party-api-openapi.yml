@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Third Party API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Third Party
+paths:
+  /third-party/list:
+    get:
+      operationId: ThirdPartyController_getThirdPartyList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Third Party
+  /third-party:
+    get:
+      operationId: ThirdPartyController_getSavedThirdParty
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Third Party
+  /third-party/{id}:
+    delete:
+      operationId: ThirdPartyController_deleteById
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Third Party
+  /third-party/{id}/submit:
+    post:
+      operationId: ThirdPartyController_generate
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Third Party
+  /third-party/function/{id}/{functionName}:
+    post:
+      operationId: ThirdPartyController_callFunction
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: functionName
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Third Party
+  /third-party/{id}/import:
+    post:
+      operationId: ThirdPartyController_importMedia
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportMediaDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Third Party
+  /third-party/{identifier}:
+    post:
+      operationId: ThirdPartyController_addApiKey
+      parameters:
+      - name: identifier
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Third Party
+components:
+  schemas:
+    ImportMediaDto:
+      type: object
+      properties: {}

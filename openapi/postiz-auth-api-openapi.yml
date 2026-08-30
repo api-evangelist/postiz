@@ -1,0 +1,167 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Auth API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Auth
+paths:
+  /auth/can-register:
+    get:
+      operationId: AuthController_canRegister
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      operationId: AuthController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgUserDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/login:
+    post:
+      operationId: AuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/forgot:
+    post:
+      operationId: AuthController_forgot
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/forgot-return:
+    post:
+      operationId: AuthController_forgotReturn
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotReturnPasswordDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/oauth-mobile-callback:
+    get:
+      operationId: AuthController_mobileCallback
+      parameters:
+      - name: code
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: state
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Auth
+  /auth/oauth/{provider}:
+    get:
+      operationId: AuthController_oauthLink
+      parameters:
+      - name: provider
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Auth
+  /auth/activate:
+    post:
+      operationId: AuthController_activate
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/resend-activation:
+    post:
+      operationId: AuthController_resendActivation
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendActivationDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+  /auth/oauth/{provider}/exists:
+    post:
+      operationId: AuthController_oauthExists
+      parameters:
+      - name: provider
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Auth
+components:
+  schemas:
+    LoginUserDto:
+      type: object
+      properties: {}
+    ResendActivationDto:
+      type: object
+      properties: {}
+    CreateOrgUserDto:
+      type: object
+      properties: {}
+    ForgotPasswordDto:
+      type: object
+      properties: {}
+    ForgotReturnPasswordDto:
+      type: object
+      properties: {}

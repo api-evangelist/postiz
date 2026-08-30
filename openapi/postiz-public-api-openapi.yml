@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Public API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Public
+paths:
+  /public/agent:
+    post:
+      operationId: PublicController_createAgent
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Public
+  /public/posts/{id}:
+    get:
+      operationId: PublicController_getPreview
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Public
+  /public/posts/{id}/comments:
+    get:
+      operationId: PublicController_getComments
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Public
+  /public/t:
+    post:
+      operationId: PublicController_trackEvent
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Public
+  /public/modify-subscription:
+    post:
+      operationId: PublicController_modifySubscription
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Public
+  /public/stream:
+    get:
+      operationId: PublicController_streamFile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Public

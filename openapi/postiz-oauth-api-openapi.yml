@@ -1,0 +1,56 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file O Auth API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: OAuth
+paths:
+  /oauth/authorize:
+    get:
+      operationId: OAuthController_authorize
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - OAuth
+    post:
+      operationId: OAuthAuthorizedController_approveOrDeny
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveOAuthDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - OAuth
+  /oauth/token:
+    post:
+      operationId: OAuthController_token
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenExchangeDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - OAuth
+components:
+  schemas:
+    TokenExchangeDto:
+      type: object
+      properties: {}
+    ApproveOAuthDto:
+      type: object
+      properties: {}

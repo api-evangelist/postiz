@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Root API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Root
+paths:
+  /:
+    get:
+      operationId: RootController_getRoot
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Root

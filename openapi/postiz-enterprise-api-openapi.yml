@@ -1,0 +1,37 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Enterprise API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Enterprise
+paths:
+  /enterprise/create-user:
+    post:
+      operationId: EnterpriseController_createUser
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Enterprise
+  /enterprise/url:
+    post:
+      operationId: EnterpriseController_redirectParams
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Enterprise
+  /enterprise/delete-channel:
+    post:
+      operationId: EnterpriseController_deleteChannel
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Enterprise

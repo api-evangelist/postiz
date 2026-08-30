@@ -1,0 +1,77 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Admin API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Admin
+paths:
+  /admin/errors:
+    get:
+      operationId: AdminController_listErrors
+      parameters:
+      - name: page
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: limit
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: platform
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: email
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: unknownFirst
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Admin
+  /admin/errors/platforms:
+    get:
+      operationId: AdminController_listPlatforms
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Admin
+  /admin/stats:
+    get:
+      operationId: AdminController_getStats
+      parameters:
+      - name: from
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: to
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: unknownOnly
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Admin

@@ -1,0 +1,181 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Media API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Media
+paths:
+  /media/{id}:
+    delete:
+      operationId: MediaController_deleteMedia
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Media
+  /media/generate-video:
+    post:
+      operationId: MediaController_generateVideo
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/generate-image:
+    post:
+      operationId: MediaController_generateImage
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/generate-image-with-prompt:
+    post:
+      operationId: MediaController_generateImageFromText
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/upload-server:
+    post:
+      operationId: MediaController_uploadServer
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/save-media:
+    post:
+      operationId: MediaController_saveMedia
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/information:
+    post:
+      operationId: MediaController_saveMediaInformation
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveMediaInformationDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/upload-simple:
+    post:
+      operationId: MediaController_uploadSimple
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/{endpoint}:
+    post:
+      operationId: MediaController_uploadFile
+      parameters:
+      - name: endpoint
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media:
+    get:
+      operationId: MediaController_getMedia
+      parameters:
+      - name: page
+        required: true
+        in: query
+        schema:
+          type: number
+      - name: search
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Media
+  /media/video-options:
+    get:
+      operationId: MediaController_getVideos
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Media
+  /media/video/function:
+    post:
+      operationId: MediaController_videoFunction
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VideoFunctionDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Media
+  /media/generate-video/{type}/allowed:
+    get:
+      operationId: MediaController_generateVideoAllowed
+      parameters:
+      - name: type
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Media
+components:
+  schemas:
+    VideoFunctionDto:
+      type: object
+      properties: {}
+    SaveMediaInformationDto:
+      type: object
+      properties: {}
+    VideoDto:
+      type: object
+      properties: {}

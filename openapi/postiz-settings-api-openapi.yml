@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Settings API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Settings
+paths:
+  /settings/team:
+    get:
+      operationId: SettingsController_getTeam
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Settings
+    post:
+      operationId: SettingsController_inviteTeamMember
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTeamMemberDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Settings
+  /settings/team/add:
+    post:
+      operationId: SettingsController_addTeamMember
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminAddTeamMemberDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Settings
+  /settings/team/{id}:
+    delete:
+      operationId: SettingsController_deleteTeamMember
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Settings
+  /settings/shortlink:
+    get:
+      operationId: SettingsController_getShortlinkPreference
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Settings
+    post:
+      operationId: SettingsController_updateShortlinkPreference
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShortlinkPreferenceDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Settings
+components:
+  schemas:
+    ShortlinkPreferenceDto:
+      type: object
+      properties: {}
+    AddTeamMemberDto:
+      type: object
+      properties: {}
+    AdminAddTeamMemberDto:
+      type: object
+      properties: {}

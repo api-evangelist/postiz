@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Copilot API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Copilot
+paths:
+  /copilot/chat:
+    post:
+      operationId: CopilotController_chatAgent
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Copilot
+  /copilot/agent:
+    post:
+      operationId: CopilotController_agent
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Copilot
+  /copilot/credits:
+    get:
+      operationId: CopilotController_calculateCredits
+      parameters:
+      - name: type
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Copilot
+  /copilot/{thread}/list:
+    get:
+      operationId: CopilotController_getMessagesList
+      parameters:
+      - name: thread
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Copilot
+  /copilot/list:
+    get:
+      operationId: CopilotController_getList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Copilot

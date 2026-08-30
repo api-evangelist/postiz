@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  title: Postiz Swagger file Webhooks API
+  description: API description
+  version: '1.0'
+  contact: {}
+servers: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    get:
+      operationId: WebhookController_getStatistics
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Webhooks
+    post:
+      operationId: WebhookController_createAWebhook
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhooksDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Webhooks
+    put:
+      operationId: WebhookController_updateWebhook
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Webhooks
+  /webhooks/{id}:
+    delete:
+      operationId: WebhookController_deleteWebhook
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Webhooks
+  /webhooks/send:
+    post:
+      operationId: WebhookController_sendWebhook
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Webhooks
+components:
+  schemas:
+    UpdateDto:
+      type: object
+      properties: {}
+    WebhooksDto:
+      type: object
+      properties: {}
