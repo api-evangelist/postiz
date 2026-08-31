@@ -233,6 +233,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -329,6 +331,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Monitors
+  tags_raw:
   - Monitor
   properties:
   - type: OpenAPI
@@ -345,6 +349,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -489,6 +495,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Third-Party
+  tags_raw:
   - Third Party
   properties:
   - type: OpenAPI
@@ -537,6 +545,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
