@@ -495,7 +495,7 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
-  - Third-Party
+  - Third Party
   tags_raw:
   - Third Party
   properties:
@@ -558,6 +558,9 @@ apis:
   - type: Documentation
     url: https://api.postiz.com/docs
 common:
+- type: License
+  name: AGPL-3.0
+  url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
 - type: CapabilityMap
   url: capabilities/postiz-capability-edges.yml
   name: Postiz Business Capability Map
