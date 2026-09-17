@@ -343,24 +343,6 @@ apis:
     url: https://docs.postiz.com/public-api/introduction
   - type: Documentation
     url: https://api.postiz.com/docs
-- aid: postiz:postiz-oauth-api
-  name: Postiz O Auth API
-  description: The OAuth API from Postiz — 2 operation(s) for oauth.
-  humanURL: https://docs.postiz.com/public-api
-  baseURL: https://api.postiz.com/public/v1
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/postiz-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.postiz.com/public-api
-  - type: APIReference
-    url: https://docs.postiz.com/public-api/introduction
-  - type: Documentation
-    url: https://api.postiz.com/docs
 - aid: postiz:postiz-oauth-app-api
   name: Postiz OAuth App API
   description: The OAuth App API from Postiz — 2 operation(s) for oauth app.
@@ -551,6 +533,22 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/postiz-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.postiz.com/public-api
+  - type: APIReference
+    url: https://docs.postiz.com/public-api/introduction
+  - type: Documentation
+    url: https://api.postiz.com/docs
+- aid: postiz:postiz-oauth-api
+  name: Postiz O Auth API
+  description: The OAuth API from Postiz — 2 operation(s) for oauth.
+  humanURL: https://docs.postiz.com/public-api
+  baseURL: https://api.postiz.com/public/v1
+  tags:
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/postiz-oauth-api-openapi.yml
   - type: Documentation
     url: https://docs.postiz.com/public-api
   - type: APIReference
