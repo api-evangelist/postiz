@@ -365,6 +365,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Public APIs
+  tags_raw:
   - Public API
   properties:
   - type: OpenAPI
@@ -545,6 +547,8 @@ apis:
   humanURL: https://docs.postiz.com/public-api
   baseURL: https://api.postiz.com/public/v1
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
