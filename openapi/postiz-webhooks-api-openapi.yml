@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Webhook controller get statistics
+      x-summary-source: derived
     post:
       operationId: WebhookController_createAWebhook
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Webhook controller create AWebhook
+      x-summary-source: derived
     put:
       operationId: WebhookController_updateWebhook
       parameters: []
@@ -45,6 +49,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Webhook controller update webhook
+      x-summary-source: derived
   /webhooks/{id}:
     delete:
       operationId: WebhookController_deleteWebhook
@@ -59,6 +65,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Webhook controller delete webhook
+      x-summary-source: derived
   /webhooks/send:
     post:
       operationId: WebhookController_sendWebhook
@@ -68,6 +76,8 @@ paths:
           description: ''
       tags:
       - Webhooks
+      summary: Webhook controller send webhook
+      x-summary-source: derived
 components:
   schemas:
     UpdateDto:

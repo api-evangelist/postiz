@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Approved Apps
+      summary: Approved apps controller list
+      x-summary-source: derived
   /user/approved-apps/{id}:
     delete:
       operationId: ApprovedAppsController_revoke
@@ -31,3 +33,5 @@ paths:
           description: ''
       tags:
       - Approved Apps
+      summary: Approved apps controller revoke
+      x-summary-source: derived

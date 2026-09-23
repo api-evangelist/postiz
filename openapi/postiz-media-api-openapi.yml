@@ -22,6 +22,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller delete media
+      x-summary-source: derived
   /media/generate-video:
     post:
       operationId: MediaController_generateVideo
@@ -37,6 +39,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller generate video
+      x-summary-source: derived
   /media/generate-image:
     post:
       operationId: MediaController_generateImage
@@ -46,6 +50,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller generate image
+      x-summary-source: derived
   /media/generate-image-with-prompt:
     post:
       operationId: MediaController_generateImageFromText
@@ -55,6 +61,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller generate image from text
+      x-summary-source: derived
   /media/upload-server:
     post:
       operationId: MediaController_uploadServer
@@ -64,6 +72,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller upload server
+      x-summary-source: derived
   /media/save-media:
     post:
       operationId: MediaController_saveMedia
@@ -73,6 +83,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller save media
+      x-summary-source: derived
   /media/information:
     post:
       operationId: MediaController_saveMediaInformation
@@ -88,6 +100,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller save media information
+      x-summary-source: derived
   /media/upload-simple:
     post:
       operationId: MediaController_uploadSimple
@@ -97,6 +111,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller upload simple
+      x-summary-source: derived
   /media/{endpoint}:
     post:
       operationId: MediaController_uploadFile
@@ -111,6 +127,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller upload file
+      x-summary-source: derived
   /media:
     get:
       operationId: MediaController_getMedia
@@ -130,6 +148,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller get media
+      x-summary-source: derived
   /media/video-options:
     get:
       operationId: MediaController_getVideos
@@ -139,6 +159,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller get videos
+      x-summary-source: derived
   /media/video/function:
     post:
       operationId: MediaController_videoFunction
@@ -154,6 +176,8 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller video function
+      x-summary-source: derived
   /media/generate-video/{type}/allowed:
     get:
       operationId: MediaController_generateVideoAllowed
@@ -168,14 +192,16 @@ paths:
           description: ''
       tags:
       - Media
+      summary: Media controller generate video allowed
+      x-summary-source: derived
 components:
   schemas:
     VideoFunctionDto:
       type: object
       properties: {}
-    SaveMediaInformationDto:
+    VideoDto:
       type: object
       properties: {}
-    VideoDto:
+    SaveMediaInformationDto:
       type: object
       properties: {}

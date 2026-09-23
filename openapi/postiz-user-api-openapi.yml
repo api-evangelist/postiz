@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get chatbase token
+      x-summary-source: derived
   /user/agent-media-sso:
     get:
       operationId: UsersController_getAgentMediaSsoUrl
@@ -26,6 +28,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get agent media sso url
+      x-summary-source: derived
   /user/self:
     get:
       operationId: UsersController_getSelf
@@ -35,6 +39,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get self
+      x-summary-source: derived
   /user/personal:
     get:
       operationId: UsersController_getPersonalInformation
@@ -44,6 +50,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get personal information
+      x-summary-source: derived
     post:
       operationId: UsersController_changePersonal
       parameters: []
@@ -58,6 +66,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller change personal
+      x-summary-source: derived
   /user/impersonate:
     get:
       operationId: UsersController_getImpersonate
@@ -72,6 +82,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get impersonate
+      x-summary-source: derived
     post:
       operationId: UsersController_setImpersonate
       parameters: []
@@ -80,6 +92,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller set impersonate
+      x-summary-source: derived
   /user/switch:
     post:
       operationId: UsersController_switchUser
@@ -89,6 +103,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller switch user
+      x-summary-source: derived
   /user/email-notifications:
     get:
       operationId: UsersController_getEmailNotifications
@@ -98,6 +114,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get email notifications
+      x-summary-source: derived
     post:
       operationId: UsersController_updateEmailNotifications
       parameters: []
@@ -112,6 +130,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller update email notifications
+      x-summary-source: derived
   /user/api-key/rotate:
     post:
       operationId: UsersController_rotateApiKey
@@ -121,6 +141,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller rotate api key
+      x-summary-source: derived
   /user/subscription:
     get:
       operationId: UsersController_getSubscription
@@ -130,6 +152,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get subscription
+      x-summary-source: derived
   /user/subscription/tiers:
     get:
       operationId: UsersController_tiers
@@ -139,6 +163,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller tiers
+      x-summary-source: derived
   /user/join-org:
     post:
       operationId: UsersController_joinOrg
@@ -148,6 +174,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller join org
+      x-summary-source: derived
   /user/organizations:
     get:
       operationId: UsersController_getOrgs
@@ -157,6 +185,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller get orgs
+      x-summary-source: derived
   /user/change-org:
     post:
       operationId: UsersController_changeOrg
@@ -166,6 +196,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller change org
+      x-summary-source: derived
   /user/logout:
     post:
       operationId: UsersController_logout
@@ -175,6 +207,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller logout
+      x-summary-source: derived
   /user/t:
     post:
       operationId: UsersController_trackEvent
@@ -184,6 +218,8 @@ paths:
           description: ''
       tags:
       - User
+      summary: Users controller track event
+      x-summary-source: derived
 components:
   schemas:
     EmailNotificationsDto:

@@ -1,15 +1,8 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Postiz Public Analytics Integrations API
-  description: Public REST API for Postiz, the open-source social media scheduling and management platform. The same API surface is served by Postiz Cloud (https://api.postiz.com/public/v1) and by any self-hosted Postiz instance (https://{your-domain}/api/public/v1). Authenticate by sending your API key in the Authorization header. The API lets you list connected channels (integrations), find scheduling slots, upload media, and create, list, and delete posts across 30+ supported social, video, community, and blogging platforms.
-  termsOfService: https://postiz.com/terms
-  contact:
-    name: Postiz Support
-    url: https://docs.postiz.com/public-api
-  license:
-    name: AGPL-3.0
-    url: https://github.com/gitroomhq/postiz-app/blob/main/LICENSE
+  title: Postiz Integrations API
   version: '1.0'
+  description: 'Operations tagged Integrations across 2 of this provider''s published API definitions: postiz-platform-swagger-openapi.json, postiz-public-api-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.postiz.com/public/v1
   description: Postiz Cloud
@@ -19,41 +12,467 @@ servers:
     your-domain:
       default: localhost:5000
       description: Your Postiz instance domain
-security:
-- ApiKeyAuth: []
 tags:
 - name: Integrations
-  description: Connected social media channels and scheduling slots.
 paths:
   /integrations:
     get:
+      operationId: NoAuthIntegrationsController_getIntegrations
+      parameters: []
+      responses:
+        '200':
+          description: ''
       tags:
       - Integrations
-      summary: List all integrations
-      description: Returns all connected social media channels for your organization.
-      operationId: listIntegrations
+      summary: No auth integrations controller get integrations
+      x-summary-source: derived
+    delete:
+      operationId: IntegrationsController_deleteChannel
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller delete channel
+      x-summary-source: derived
+  /integrations/social-connect/{integration}:
+    post:
+      operationId: NoAuthIntegrationsController_connectSocialMedia
       parameters:
-      - name: group
-        in: query
-        required: false
-        description: Filter integrations by customer (group) ID.
+      - name: integration
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConnectIntegrationDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: No auth integrations controller connect social media
+      x-summary-source: derived
+  /integrations/public/provider/{id}/connect:
+    post:
+      operationId: NoAuthIntegrationsController_saveProviderPage
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: No auth integrations controller save provider page
+      x-summary-source: derived
+  /integrations/extension-refresh:
+    post:
+      operationId: NoAuthIntegrationsController_extensionRefreshCookies
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: No auth integrations controller extension refresh cookies
+      x-summary-source: derived
+  /integrations/provider/{id}/connect:
+    post:
+      operationId: IntegrationsController_saveProviderPage
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller save provider page
+      x-summary-source: derived
+  /integrations/{identifier}/internal-plugs:
+    get:
+      operationId: IntegrationsController_getInternalPlugs
+      parameters:
+      - name: identifier
+        required: true
+        in: path
         schema:
           type: string
       responses:
         '200':
-          description: List of integrations
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get internal plugs
+      x-summary-source: derived
+  /integrations/customers:
+    get:
+      operationId: IntegrationsController_getCustomers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get customers
+      x-summary-source: derived
+  /integrations/{id}/group:
+    put:
+      operationId: IntegrationsController_updateIntegrationGroup
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller update integration group
+      x-summary-source: derived
+  /integrations/{id}/customer-name:
+    put:
+      operationId: IntegrationsController_updateOnCustomerName
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller update on customer name
+      x-summary-source: derived
+  /integrations/list:
+    get:
+      operationId: IntegrationsController_getIntegrationList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get integration list
+      x-summary-source: derived
+  /integrations/{id}/settings:
+    post:
+      operationId: IntegrationsController_updateProviderSettings
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller update provider settings
+      x-summary-source: derived
+  /integrations/{id}/nickname:
+    post:
+      operationId: IntegrationsController_setNickname
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller set nickname
+      x-summary-source: derived
+  /integrations/{id}:
+    get:
+      operationId: IntegrationsController_getSingleIntegration
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: order
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get single integration
+      x-summary-source: derived
+    delete:
+      tags:
+      - Integrations
+      summary: Delete a channel
+      description: Delete a connected channel by its integration ID. Any scheduled posts associated with this channel will also be deleted.
+      operationId: deleteChannel
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Integration ID of the channel to delete
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Channel deleted successfully
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Integration'
+                type: object
+                properties:
+                  id:
+                    type: string
+              example:
+                id: cm4ean69r0003w8w1cdomox9n
+        '404':
+          description: Channel not found
+  /integrations/social/{integration}:
+    get:
+      operationId: IntegrationsController_getIntegrationUrl
+      parameters:
+      - name: integration
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: refresh
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: externalUrl
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: redirectUrl
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: onboarding
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get integration url
+      x-summary-source: derived
+  /integrations/{id}/time:
+    post:
+      operationId: IntegrationsController_setTime
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationTimeDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller set time
+      x-summary-source: derived
+  /integrations/mentions:
+    post:
+      operationId: IntegrationsController_mentions
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationFunctionDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller mentions
+      x-summary-source: derived
+  /integrations/function:
+    post:
+      operationId: IntegrationsController_functionIntegration
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationFunctionDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller function integration
+      x-summary-source: derived
+  /integrations/disable:
+    post:
+      operationId: IntegrationsController_disableChannel
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller disable channel
+      x-summary-source: derived
+  /integrations/enable:
+    post:
+      operationId: IntegrationsController_enableChannel
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller enable channel
+      x-summary-source: derived
+  /integrations/plug/list:
+    get:
+      operationId: IntegrationsController_getPlugList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get plug list
+      x-summary-source: derived
+  /integrations/{id}/plugs:
+    get:
+      operationId: IntegrationsController_getPlugsByIntegrationId
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get plugs by integration id
+      x-summary-source: derived
+    post:
+      operationId: IntegrationsController_postPlugsByIntegrationId
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlugDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller post plugs by integration id
+      x-summary-source: derived
+  /integrations/plugs/{id}/activate:
+    put:
+      operationId: IntegrationsController_changePlugActivation
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller change plug activation
+      x-summary-source: derived
+  /integrations/telegram/updates:
+    get:
+      operationId: IntegrationsController_getUpdates
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller get updates
+      x-summary-source: derived
+  /integrations/moltbook/register:
+    post:
+      operationId: IntegrationsController_moltbookRegister
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller moltbook register
+      x-summary-source: derived
+  /integrations/moltbook/status:
+    get:
+      operationId: IntegrationsController_moltbookStatus
+      parameters:
+      - name: apiKey
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Integrations
+      summary: Integrations controller moltbook status
+      x-summary-source: derived
   /groups:
     get:
       tags:
       - Integrations
       summary: List all groups (customers)
-      description: Returns the customer groups configured for your organization.
+      description: Returns all customers (groups) for your organization. Use a group ID to filter the integrations list.
       operationId: listGroups
       responses:
         '200':
@@ -64,46 +483,43 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Group'
-  /integrations/{id}:
-    delete:
-      tags:
-      - Integrations
-      summary: Delete a channel
-      description: Disconnects and deletes a connected channel by integration ID.
-      operationId: deleteChannel
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: Integration ID
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Channel deleted
+              example:
+              - id: customer-id
+                name: My Company
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
   /social/{integration}:
     get:
       tags:
       - Integrations
-      summary: Get OAuth connect URL
-      description: Returns the OAuth URL used to connect a new channel for the given provider.
+      summary: Get OAuth URL for a channel
+      description: Generate an OAuth authorization URL for a given integration. Use this to connect a new social media channel. Only OAuth-based integrations are supported (integrations that require an external URL, such as Mastodon, are not available via this endpoint).
       operationId: getIntegrationUrl
       parameters:
       - name: integration
         in: path
         required: true
-        description: Provider identifier (e.g. x, linkedin, facebook).
+        description: The integration identifier (e.g. x, linkedin, facebook, instagram, youtube, tiktok, reddit, etc.)
         schema:
           type: string
       - name: refresh
         in: query
         required: false
-        description: Whether to refresh an existing connection.
+        description: Pass an existing integration ID to refresh its OAuth token instead of creating a new connection
         schema:
-          type: boolean
+          type: string
       responses:
         '200':
-          description: OAuth connect URL
+          description: OAuth authorization URL
           content:
             application/json:
               schema:
@@ -111,35 +527,110 @@ paths:
                 properties:
                   url:
                     type: string
+                    description: The OAuth authorization URL to redirect the user to
+              example:
+                url: https://twitter.com/i/oauth2/authorize?response_type=code&client_id=...
+        '400':
+          description: Integration not allowed or requires an external URL
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
   /integration-settings/{id}:
     get:
       tags:
       - Integrations
-      summary: Get settings and tools
-      description: Returns the available settings and tools for a connected channel.
+      summary: Get integration settings and tools
+      description: Returns the posting rules, maximum content length, settings schema, and available provider tools for a connected channel. Use this to discover which tools can be executed with the trigger endpoint.
       operationId: getIntegrationSettings
       parameters:
       - name: id
         in: path
         required: true
-        description: Integration ID
+        description: The integration ID
         schema:
           type: string
       responses:
         '200':
-          description: Integration settings and tools
+          description: Settings and tools for the integration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: object
+                    properties:
+                      rules:
+                        type: string
+                        description: Platform-specific posting rules
+                      maxLength:
+                        type: number
+                        description: Maximum content length
+                      settings:
+                        description: JSON schema of the provider settings, or a string when no settings are required
+                      tools:
+                        type: array
+                        description: Provider tools that can be executed via the trigger endpoint
+                        items:
+                          type: object
+                          properties:
+                            methodName:
+                              type: string
+                            description:
+                              type: string
+                            dataSchema:
+                              type: array
+                              items:
+                                type: object
+              example:
+                output:
+                  rules: Instagram should have at least one attachment, if it's a story, it can have only one picture
+                  maxLength: 2200
+                  settings:
+                    type: object
+                  tools:
+                  - methodName: audioSearch
+                    description: Search audio (music or original sounds) to attach to a Reel via the "audio" setting, an empty query returns trending audio
+                    dataSchema:
+                    - key: q
+                      type: string
+                      description: Search query, leave empty for trending audio
+                    - key: type
+                      type: string
+                      description: Either "music" or "original_sound", defaults to "music"
+        '404':
+          description: Integration not found
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
   /integration-trigger/{id}:
     post:
       tags:
       - Integrations
       summary: Trigger an integration tool
-      description: Invokes a named tool/method exposed by a connected channel.
+      description: Executes a provider-specific tool on a connected channel, for example searching Instagram audio for Reels, listing Discord channels, or fetching Reddit flairs. Discover available tools with the integration settings endpoint.
       operationId: triggerIntegrationTool
       parameters:
       - name: id
         in: path
         required: true
-        description: Integration ID
+        description: The integration ID
         schema:
           type: string
       requestBody:
@@ -148,24 +639,85 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+              - methodName
               properties:
                 methodName:
                   type: string
+                  description: The tool method name, as returned by the integration settings endpoint
                 data:
                   type: object
+                  description: Key-value parameters for the tool
+                  additionalProperties:
+                    type: string
+            example:
+              methodName: audioSearch
+              data:
+                q: summer vibes
+                type: music
       responses:
         '200':
-          description: Tool triggered
+          description: Tool executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    description: The tool result, shape depends on the tool
+              example:
+                output:
+                - id: '587784541076604'
+                  title: Summer Vibes
+                  artist: Some Artist
+                  image: https://scontent.cdninstagram.com/cover.jpg
+                  duration: 30000
+                  previewUrl: https://scontent.cdninstagram.com/preview.mp4
+        '401':
+          description: Channel disconnected due to expired token
+        '404':
+          description: Integration or tool not found
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
   /is-connected:
     get:
       tags:
       - Integrations
       summary: Check connection status
-      description: Verifies that the API key is valid and the account is reachable.
+      description: Verify if your API key is valid and connected.
       operationId: isConnected
       responses:
         '200':
           description: Connection status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connected:
+                    type: boolean
+              example:
+                connected: true
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
   /find-slot/{id}:
     get:
       tags:
@@ -193,27 +745,52 @@ paths:
                     format: date-time
               example:
                 date: '2025-01-15T10:00:00.000Z'
+      security:
+      - ApiKeyAuth: []
+    servers:
+    - url: https://api.postiz.com/public/v1
+      description: Postiz Cloud
+    - url: https://{your-domain}/api/public/v1
+      description: Self-hosted
+      variables:
+        your-domain:
+          default: localhost:5000
+          description: Your Postiz instance domain
 components:
   schemas:
+    IntegrationTimeDto:
+      type: object
+      properties: {}
+    PlugDto:
+      type: object
+      properties: {}
+    ConnectIntegrationDto:
+      type: object
+      properties: {}
+    IntegrationFunctionDto:
+      type: object
+      properties: {}
     Group:
       type: object
       properties:
         id:
           type: string
+          description: Unique group (customer) ID
         name:
           type: string
+          description: Group (customer) display name
     Integration:
       type: object
       properties:
         id:
           type: string
-          description: Unique integration ID.
+          description: Unique integration ID
         name:
           type: string
-          description: Display name of the account.
+          description: Display name of the account
         identifier:
           type: string
-          description: Provider identifier.
+          description: Provider identifier (27 platforms supported)
           enum:
           - x
           - linkedin
@@ -249,13 +826,13 @@ components:
           - whop
         picture:
           type: string
-          description: Profile picture URL.
+          description: Profile picture URL
         disabled:
           type: boolean
-          description: Whether the integration is disabled.
+          description: Whether the integration is disabled
         profile:
           type: string
-          description: Profile handle/username.
+          description: Profile handle/username
         customer:
           type: object
           properties:
@@ -268,4 +845,7 @@ components:
       type: apiKey
       in: header
       name: Authorization
-      description: Your Postiz API key, sent as the raw value of the Authorization header.
+      description: Your Postiz API key
+x-refined-from:
+- postiz-platform-swagger-openapi.json
+- postiz-public-api-openapi.json

@@ -17,3 +17,5 @@ paths:
           description: ''
       tags:
       - Stripe
+      summary: Stripe controller stripe
+      x-summary-source: derived

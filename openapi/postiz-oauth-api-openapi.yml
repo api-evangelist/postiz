@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - OAuth
+      summary: OAuth controller authorize
+      x-summary-source: derived
     post:
       operationId: OAuthAuthorizedController_approveOrDeny
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - OAuth
+      summary: OAuth authorized controller approve or deny
+      x-summary-source: derived
   /oauth/token:
     post:
       operationId: OAuthController_token
@@ -46,11 +50,13 @@ paths:
           description: ''
       tags:
       - OAuth
+      summary: OAuth controller token
+      x-summary-source: derived
 components:
   schemas:
-    TokenExchangeDto:
+    ApproveOAuthDto:
       type: object
       properties: {}
-    ApproveOAuthDto:
+    TokenExchangeDto:
       type: object
       properties: {}

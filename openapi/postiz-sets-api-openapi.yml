@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Sets
+      summary: Sets controller get sets
+      x-summary-source: derived
     post:
       operationId: SetsController_createASet
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Sets
+      summary: Sets controller create ASet
+      x-summary-source: derived
     put:
       operationId: SetsController_updateSet
       parameters: []
@@ -45,6 +49,8 @@ paths:
           description: ''
       tags:
       - Sets
+      summary: Sets controller update set
+      x-summary-source: derived
   /sets/{id}:
     delete:
       operationId: SetsController_deleteSet
@@ -59,11 +65,13 @@ paths:
           description: ''
       tags:
       - Sets
+      summary: Sets controller delete set
+      x-summary-source: derived
 components:
   schemas:
-    UpdateSetsDto:
+    SetsDto:
       type: object
       properties: {}
-    SetsDto:
+    UpdateSetsDto:
       type: object
       properties: {}

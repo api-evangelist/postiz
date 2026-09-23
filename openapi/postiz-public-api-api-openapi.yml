@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller upload simple
+      x-summary-source: derived
   /public/v1/upload-from-url:
     post:
       operationId: PublicIntegrationsController_uploadsFromUrl
@@ -32,6 +34,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller uploads from url
+      x-summary-source: derived
   /public/v1/find-slot/{id}:
     get:
       operationId: PublicIntegrationsController_findSlotIntegration
@@ -46,6 +50,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller find slot integration
+      x-summary-source: derived
   /public/v1/posts:
     get:
       operationId: PublicIntegrationsController_getPosts
@@ -55,6 +61,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get posts
+      x-summary-source: derived
     post:
       operationId: PublicIntegrationsController_createPost
       parameters: []
@@ -63,6 +71,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller create post
+      x-summary-source: derived
   /public/v1/posts/{id}:
     delete:
       operationId: PublicIntegrationsController_deletePost
@@ -77,6 +87,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller delete post
+      x-summary-source: derived
   /public/v1/posts/group/{group}:
     delete:
       operationId: PublicIntegrationsController_deletePostByGroup
@@ -91,6 +103,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller delete post by group
+      x-summary-source: derived
   /public/v1/is-connected:
     get:
       operationId: PublicIntegrationsController_getActiveIntegrations
@@ -100,6 +114,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get active integrations
+      x-summary-source: derived
   /public/v1/groups:
     get:
       operationId: PublicIntegrationsController_listGroups
@@ -109,6 +125,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller list groups
+      x-summary-source: derived
   /public/v1/integrations:
     get:
       operationId: PublicIntegrationsController_listIntegration
@@ -123,6 +141,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller list integration
+      x-summary-source: derived
   /public/v1/social/{integration}:
     get:
       operationId: PublicIntegrationsController_getIntegrationUrl
@@ -142,6 +162,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get integration url
+      x-summary-source: derived
   /public/v1/notifications:
     get:
       operationId: PublicIntegrationsController_getNotifications
@@ -151,6 +173,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get notifications
+      x-summary-source: derived
   /public/v1/generate-video:
     post:
       operationId: PublicIntegrationsController_generateVideo
@@ -166,6 +190,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller generate video
+      x-summary-source: derived
   /public/v1/video/function:
     post:
       operationId: PublicIntegrationsController_videoFunction
@@ -181,6 +207,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller video function
+      x-summary-source: derived
   /public/v1/integrations/{id}:
     delete:
       operationId: PublicIntegrationsController_deleteChannel
@@ -195,6 +223,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller delete channel
+      x-summary-source: derived
   /public/v1/integration-settings/{id}:
     get:
       operationId: PublicIntegrationsController_getIntegrationSettings
@@ -209,6 +239,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get integration settings
+      x-summary-source: derived
   /public/v1/posts/{id}/missing:
     get:
       operationId: PublicIntegrationsController_getMissingContent
@@ -223,6 +255,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get missing content
+      x-summary-source: derived
   /public/v1/posts/{id}/settings:
     put:
       operationId: PublicIntegrationsController_updatePostSettings
@@ -243,6 +277,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller update post settings
+      x-summary-source: derived
   /public/v1/posts/{id}/status:
     put:
       operationId: PublicIntegrationsController_changePostStatus
@@ -263,6 +299,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller change post status
+      x-summary-source: derived
   /public/v1/posts/{id}/release-id:
     put:
       operationId: PublicIntegrationsController_updateReleaseId
@@ -277,6 +315,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller update release id
+      x-summary-source: derived
   /public/v1/analytics/{integration}:
     get:
       operationId: PublicIntegrationsController_getAnalytics
@@ -296,6 +336,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get analytics
+      x-summary-source: derived
   /public/v1/analytics/post/{postId}:
     get:
       operationId: PublicIntegrationsController_getPostAnalytics
@@ -315,6 +357,8 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller get post analytics
+      x-summary-source: derived
   /public/v1/integration-trigger/{id}:
     post:
       operationId: PublicIntegrationsController_triggerIntegrationTool
@@ -329,9 +373,14 @@ paths:
           description: ''
       tags:
       - Public API
+      summary: Public integrations controller trigger integration tool
+      x-summary-source: derived
 components:
   schemas:
     UploadDto:
+      type: object
+      properties: {}
+    ChangePostStatusDto:
       type: object
       properties: {}
     UpdatePostSettingsDto:
@@ -341,8 +390,5 @@ components:
       type: object
       properties: {}
     VideoFunctionDto:
-      type: object
-      properties: {}
-    ChangePostStatusDto:
       type: object
       properties: {}

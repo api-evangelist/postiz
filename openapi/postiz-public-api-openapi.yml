@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller create agent
+      x-summary-source: derived
   /public/posts/{id}:
     get:
       operationId: PublicController_getPreview
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller get preview
+      x-summary-source: derived
   /public/posts/{id}/comments:
     get:
       operationId: PublicController_getComments
@@ -45,6 +49,8 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller get comments
+      x-summary-source: derived
   /public/t:
     post:
       operationId: PublicController_trackEvent
@@ -54,6 +60,8 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller track event
+      x-summary-source: derived
   /public/modify-subscription:
     post:
       operationId: PublicController_modifySubscription
@@ -63,6 +71,8 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller modify subscription
+      x-summary-source: derived
   /public/stream:
     get:
       operationId: PublicController_streamFile
@@ -72,3 +82,5 @@ paths:
           description: ''
       tags:
       - Public
+      summary: Public controller stream file
+      x-summary-source: derived

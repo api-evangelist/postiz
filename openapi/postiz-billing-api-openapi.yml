@@ -22,6 +22,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller check id
+      x-summary-source: derived
   /billing/check-discount:
     get:
       operationId: BillingController_checkDiscount
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller check discount
+      x-summary-source: derived
   /billing/apply-discount:
     post:
       operationId: BillingController_applyDiscount
@@ -40,6 +44,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller apply discount
+      x-summary-source: derived
   /billing/finish-trial:
     post:
       operationId: BillingController_finishTrial
@@ -49,6 +55,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller finish trial
+      x-summary-source: derived
   /billing/is-trial-finished:
     get:
       operationId: BillingController_isTrialFinished
@@ -58,6 +66,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller is trial finished
+      x-summary-source: derived
   /billing/embedded:
     post:
       operationId: BillingController_embedded
@@ -73,6 +83,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller embedded
+      x-summary-source: derived
   /billing/subscribe:
     post:
       operationId: BillingController_subscribe
@@ -88,6 +100,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller subscribe
+      x-summary-source: derived
   /billing/portal:
     get:
       operationId: BillingController_modifyPayment
@@ -97,6 +111,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller modify payment
+      x-summary-source: derived
   /billing:
     get:
       operationId: BillingController_getCurrentBilling
@@ -106,6 +122,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller get current billing
+      x-summary-source: derived
   /billing/cancel:
     post:
       operationId: BillingController_cancel
@@ -115,6 +133,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller cancel
+      x-summary-source: derived
   /billing/prorate:
     post:
       operationId: BillingController_prorate
@@ -130,6 +150,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller prorate
+      x-summary-source: derived
   /billing/charges:
     get:
       operationId: BillingController_getCharges
@@ -139,6 +161,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller get charges
+      x-summary-source: derived
   /billing/refund-charges:
     post:
       operationId: BillingController_refundCharges
@@ -148,6 +172,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller refund charges
+      x-summary-source: derived
   /billing/cancel-subscription:
     post:
       operationId: BillingController_cancelSubscription
@@ -157,6 +183,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller cancel subscription
+      x-summary-source: derived
   /billing/coupon-info:
     get:
       operationId: BillingController_couponInfo
@@ -166,6 +194,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller coupon info
+      x-summary-source: derived
   /billing/apply-coupon:
     post:
       operationId: BillingController_applyCoupon
@@ -181,6 +211,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller apply coupon
+      x-summary-source: derived
   /billing/cancel-coupon:
     post:
       operationId: BillingController_cancelCoupon
@@ -190,6 +222,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller cancel coupon
+      x-summary-source: derived
   /billing/chatbase-refund/preview:
     get:
       operationId: BillingController_chatbaseRefundPreview
@@ -199,6 +233,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller chatbase refund preview
+      x-summary-source: derived
   /billing/chatbase-refund:
     post:
       operationId: BillingController_chatbaseRefund
@@ -208,6 +244,8 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller chatbase refund
+      x-summary-source: derived
   /billing/add-subscription:
     post:
       operationId: BillingController_addSubscription
@@ -217,11 +255,13 @@ paths:
           description: ''
       tags:
       - Billing
+      summary: Billing controller add subscription
+      x-summary-source: derived
 components:
   schemas:
-    AdminApplyCouponDto:
+    BillingSubscribeDto:
       type: object
       properties: {}
-    BillingSubscribeDto:
+    AdminApplyCouponDto:
       type: object
       properties: {}

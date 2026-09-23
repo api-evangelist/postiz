@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller get third party list
+      x-summary-source: derived
   /third-party:
     get:
       operationId: ThirdPartyController_getSavedThirdParty
@@ -26,6 +28,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller get saved third party
+      x-summary-source: derived
   /third-party/{id}:
     delete:
       operationId: ThirdPartyController_deleteById
@@ -40,6 +44,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller delete by id
+      x-summary-source: derived
   /third-party/{id}/submit:
     post:
       operationId: ThirdPartyController_generate
@@ -54,6 +60,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller generate
+      x-summary-source: derived
   /third-party/function/{id}/{functionName}:
     post:
       operationId: ThirdPartyController_callFunction
@@ -73,6 +81,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller call function
+      x-summary-source: derived
   /third-party/{id}/import:
     post:
       operationId: ThirdPartyController_importMedia
@@ -93,6 +103,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller import media
+      x-summary-source: derived
   /third-party/{identifier}:
     post:
       operationId: ThirdPartyController_addApiKey
@@ -107,6 +119,8 @@ paths:
           description: ''
       tags:
       - Third Party
+      summary: Third party controller add api key
+      x-summary-source: derived
 components:
   schemas:
     ImportMediaDto:

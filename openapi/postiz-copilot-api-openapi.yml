@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Copilot
+      summary: Copilot controller chat agent
+      x-summary-source: derived
   /copilot/agent:
     post:
       operationId: CopilotController_agent
@@ -26,6 +28,8 @@ paths:
           description: ''
       tags:
       - Copilot
+      summary: Copilot controller agent
+      x-summary-source: derived
   /copilot/credits:
     get:
       operationId: CopilotController_calculateCredits
@@ -40,6 +44,8 @@ paths:
           description: ''
       tags:
       - Copilot
+      summary: Copilot controller calculate credits
+      x-summary-source: derived
   /copilot/{thread}/list:
     get:
       operationId: CopilotController_getMessagesList
@@ -54,6 +60,8 @@ paths:
           description: ''
       tags:
       - Copilot
+      summary: Copilot controller get messages list
+      x-summary-source: derived
   /copilot/list:
     get:
       operationId: CopilotController_getList
@@ -63,3 +71,5 @@ paths:
           description: ''
       tags:
       - Copilot
+      summary: Copilot controller get list
+      x-summary-source: derived

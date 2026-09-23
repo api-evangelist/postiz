@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - OAuth App
+      summary: OAuth app controller get app
+      x-summary-source: derived
     post:
       operationId: OAuthAppController_createApp
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - OAuth App
+      summary: OAuth app controller create app
+      x-summary-source: derived
     put:
       operationId: OAuthAppController_updateApp
       parameters: []
@@ -45,6 +49,8 @@ paths:
           description: ''
       tags:
       - OAuth App
+      summary: OAuth app controller update app
+      x-summary-source: derived
     delete:
       operationId: OAuthAppController_deleteApp
       parameters: []
@@ -53,6 +59,8 @@ paths:
           description: ''
       tags:
       - OAuth App
+      summary: OAuth app controller delete app
+      x-summary-source: derived
   /user/oauth-app/rotate-secret:
     post:
       operationId: OAuthAppController_rotateSecret
@@ -62,6 +70,8 @@ paths:
           description: ''
       tags:
       - OAuth App
+      summary: OAuth app controller rotate secret
+      x-summary-source: derived
 components:
   schemas:
     UpdateOAuthAppDto:

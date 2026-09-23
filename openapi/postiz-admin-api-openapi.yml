@@ -42,6 +42,8 @@ paths:
           description: ''
       tags:
       - Admin
+      summary: Admin controller list errors
+      x-summary-source: derived
   /admin/errors/platforms:
     get:
       operationId: AdminController_listPlatforms
@@ -51,6 +53,8 @@ paths:
           description: ''
       tags:
       - Admin
+      summary: Admin controller list platforms
+      x-summary-source: derived
   /admin/stats:
     get:
       operationId: AdminController_getStats
@@ -75,3 +79,5 @@ paths:
           description: ''
       tags:
       - Admin
+      summary: Admin controller get stats
+      x-summary-source: derived

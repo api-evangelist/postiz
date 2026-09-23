@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Enterprise
+      summary: Enterprise controller create user
+      x-summary-source: derived
   /enterprise/url:
     post:
       operationId: EnterpriseController_redirectParams
@@ -26,6 +28,8 @@ paths:
           description: ''
       tags:
       - Enterprise
+      summary: Enterprise controller redirect params
+      x-summary-source: derived
   /enterprise/delete-channel:
     post:
       operationId: EnterpriseController_deleteChannel
@@ -35,3 +39,5 @@ paths:
           description: ''
       tags:
       - Enterprise
+      summary: Enterprise controller delete channel
+      x-summary-source: derived

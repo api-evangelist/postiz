@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Signatures
+      summary: Signature controller get signatures
+      x-summary-source: derived
     post:
       operationId: SignatureController_createSignature
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Signatures
+      summary: Signature controller create signature
+      x-summary-source: derived
   /signatures/default:
     get:
       operationId: SignatureController_getDefaultSignature
@@ -40,6 +44,8 @@ paths:
           description: ''
       tags:
       - Signatures
+      summary: Signature controller get default signature
+      x-summary-source: derived
   /signatures/{id}:
     delete:
       operationId: SignatureController_deleteSignature
@@ -54,6 +60,8 @@ paths:
           description: ''
       tags:
       - Signatures
+      summary: Signature controller delete signature
+      x-summary-source: derived
     put:
       operationId: SignatureController_updateSignature
       parameters:
@@ -73,6 +81,8 @@ paths:
           description: ''
       tags:
       - Signatures
+      summary: Signature controller update signature
+      x-summary-source: derived
 components:
   schemas:
     SignatureDto:

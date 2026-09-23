@@ -17,6 +17,8 @@ paths:
           description: ''
       tags:
       - Announcements
+      summary: Announcements controller get announcements
+      x-summary-source: derived
     post:
       operationId: AnnouncementsController_createAnnouncement
       parameters: []
@@ -31,6 +33,8 @@ paths:
           description: ''
       tags:
       - Announcements
+      summary: Announcements controller create announcement
+      x-summary-source: derived
   /announcements/{id}:
     delete:
       operationId: AnnouncementsController_deleteAnnouncement
@@ -45,6 +49,8 @@ paths:
           description: ''
       tags:
       - Announcements
+      summary: Announcements controller delete announcement
+      x-summary-source: derived
 components:
   schemas:
     AnnouncementDto:

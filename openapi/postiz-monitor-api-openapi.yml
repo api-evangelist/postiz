@@ -22,3 +22,5 @@ paths:
           description: ''
       tags:
       - Monitor
+      summary: Monitor controller get messages group
+      x-summary-source: derived

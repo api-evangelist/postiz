@@ -17,3 +17,5 @@ paths:
           description: ''
       tags:
       - Root
+      summary: Root controller get root
+      x-summary-source: derived
