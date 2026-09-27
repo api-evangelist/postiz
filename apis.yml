@@ -35,9 +35,9 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/postiz.png
 tags:
-- Social-Media
+- Social Media
 - Scheduling
-- Open-Source
+- Open Source
 - Content
 - Marketing
 - Agents
@@ -45,6 +45,7 @@ tags:
 - Automation
 - Publishing
 - Analytics
+- A2A
 tags_raw:
 - Social Media
 - Scheduling
@@ -56,6 +57,9 @@ tags_raw:
 - Automation
 - Publishing
 - Analytics
+- Social-Media
+- Open-Source
+- A2A
 created: '2026-06-25'
 modified: '2026-08-13'
 specificationVersion: '0.23'
@@ -167,11 +171,12 @@ apis:
   tags:
   - MCP
   - Agents
-  - Social-Media
+  - Social Media
   tags_raw:
   - MCP
   - Agents
   - Social Media
+  - Social-Media
   properties:
   - type: MCPServer
     url: mcp/postiz-mcp.yml
@@ -662,3 +667,10 @@ x-enrichment:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.postiz.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

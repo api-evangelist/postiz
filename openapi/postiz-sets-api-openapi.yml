@@ -69,9 +69,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SetsDto:
+    UpdateSetsDto:
       type: object
       properties: {}
-    UpdateSetsDto:
+    SetsDto:
       type: object
       properties: {}

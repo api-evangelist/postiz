@@ -34,9 +34,7 @@
     "postiz-uploads-api-openapi.yml",
     "postiz-video-generation-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -74,8 +72,7 @@
     "tag 'Integrations' spans 2 source specs (postiz-platform-swagger-openapi.json, postiz-public-api-openapi.json): per-path servers applied",
     "tag 'Notifications' spans 2 source specs (postiz-platform-swagger-openapi.json, postiz-public-api-openapi.json): per-path servers applied",
     "tag 'Posts' spans 2 source specs (postiz-platform-swagger-openapi.json, postiz-public-api-openapi.json): per-path servers applied",
-    "superseded outputs removed: postiz-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 30 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "_original/postiz-openapi.yml: archived document superseded by a larger archived document",
@@ -92,7 +89,7 @@
     "postiz-media-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "postiz-monitor-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "postiz-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "postiz-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "postiz-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "postiz-oauth-app-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "postiz-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "postiz-public-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",

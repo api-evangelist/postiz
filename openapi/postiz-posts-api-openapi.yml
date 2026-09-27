@@ -547,525 +547,15 @@ paths:
           description: Your Postiz instance domain
 components:
   schemas:
-    GeneratorDto:
+    CreateTagDto:
       type: object
       properties: {}
     CreateGeneratedPostsDto:
       type: object
       properties: {}
-    CreateTagDto:
+    GeneratorDto:
       type: object
       properties: {}
-    LemmySettings:
-      title: Lemmy
-      type: object
-      required:
-      - __type
-      - subreddit
-      description: Lemmy uses 'subreddit' for communities (historical naming)
-      properties:
-        __type:
-          type: string
-          enum:
-          - lemmy
-        subreddit:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            properties:
-              value:
-                type: object
-                required:
-                - subreddit
-                - id
-                - title
-                properties:
-                  subreddit:
-                    type: string
-                    minLength: 2
-                    description: Community name
-                  id:
-                    type: string
-                    description: Community ID
-                  title:
-                    type: string
-                    minLength: 2
-                    description: Post title
-                  url:
-                    type: string
-                    format: uri
-                    description: Optional URL
-    InstagramSettings:
-      title: Instagram
-      type: object
-      required:
-      - __type
-      - post_type
-      properties:
-        __type:
-          type: string
-          enum:
-          - instagram
-          - instagram-standalone
-          description: Use 'instagram' for FB-linked, 'instagram-standalone' for standalone
-        post_type:
-          type: string
-          enum:
-          - post
-          - story
-          description: Type of Instagram post
-        is_trial_reel:
-          type: boolean
-          description: Whether to post as a trial reel
-        graduation_strategy:
-          type: string
-          enum:
-          - MANUAL
-          - SS_PERFORMANCE
-          description: Graduation strategy for trial reels
-        collaborators:
-          type: array
-          items:
-            type: object
-            properties:
-              label:
-                type: string
-                description: Collaborator username
-    WarpcastSettings:
-      title: Warpcast
-      type: object
-      required:
-      - __type
-      description: Warpcast (Farcaster) post settings
-      properties:
-        __type:
-          type: string
-          enum:
-          - warpcast
-        subreddit:
-          type: array
-          description: Farcaster channels to post to
-          items:
-            type: object
-            properties:
-              value:
-                type: object
-                required:
-                - id
-                properties:
-                  id:
-                    type: string
-                    description: Channel ID
-    PostContent:
-      type: object
-      required:
-      - content
-      properties:
-        content:
-          type: string
-          description: Post text content
-        id:
-          type: string
-          description: Post ID (for updates)
-        image:
-          type: array
-          items:
-            $ref: '#/components/schemas/Media'
-    LinkedInSettings:
-      title: LinkedIn
-      type: object
-      required:
-      - __type
-      properties:
-        __type:
-          type: string
-          enum:
-          - linkedin
-          - linkedin-page
-          description: Use 'linkedin' for profiles, 'linkedin-page' for company pages
-        post_as_images_carousel:
-          type: boolean
-          description: Display multiple images as a carousel
-        carousel_name:
-          type: string
-          description: Name for the carousel document
-    HashnodeSettings:
-      title: Hashnode
-      type: object
-      required:
-      - __type
-      - title
-      - tags
-      properties:
-        __type:
-          type: string
-          enum:
-          - hashnode
-        title:
-          type: string
-          minLength: 6
-          description: Article title
-        subtitle:
-          type: string
-          minLength: 2
-          description: Article subtitle
-        main_image:
-          $ref: '#/components/schemas/Media'
-          description: Cover image
-        canonical:
-          type: string
-          format: uri
-          description: Original URL for SEO
-        publication:
-          type: string
-          description: Publication ID (required)
-        tags:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/Tag'
-    YouTubeSettings:
-      title: YouTube
-      type: object
-      required:
-      - __type
-      - title
-      - type
-      properties:
-        __type:
-          type: string
-          enum:
-          - youtube
-        title:
-          type: string
-          minLength: 2
-          maxLength: 100
-          description: Video title
-        type:
-          type: string
-          enum:
-          - public
-          - private
-          - unlisted
-          description: Video visibility
-        selfDeclaredMadeForKids:
-          type: string
-          enum:
-          - 'yes'
-          - 'no'
-          description: Made for kids declaration
-        thumbnail:
-          $ref: '#/components/schemas/Media'
-          description: Custom thumbnail
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-    SkoolSettings:
-      title: Skool
-      type: object
-      required:
-      - __type
-      - group
-      - label
-      - title
-      description: Skool post settings
-      properties:
-        __type:
-          type: string
-          enum:
-          - skool
-        group:
-          type: string
-          minLength: 1
-          description: Group ID
-        label:
-          type: string
-          minLength: 1
-          description: Label/category ID
-        title:
-          type: string
-          minLength: 1
-          description: Post title
-    MediumSettings:
-      title: Medium
-      type: object
-      required:
-      - __type
-      - title
-      - subtitle
-      properties:
-        __type:
-          type: string
-          enum:
-          - medium
-        title:
-          type: string
-          minLength: 2
-          description: Article title
-        subtitle:
-          type: string
-          minLength: 2
-          description: Article subtitle
-        canonical:
-          type: string
-          format: uri
-          description: Original URL for SEO
-        publication:
-          type: string
-          description: Publication ID to post to
-        tags:
-          type: array
-          maxItems: 4
-          items:
-            $ref: '#/components/schemas/Tag'
-    TwitchSettings:
-      title: Twitch
-      type: object
-      required:
-      - __type
-      description: Twitch post settings
-      properties:
-        __type:
-          type: string
-          enum:
-          - twitch
-        messageType:
-          type: string
-          enum:
-          - message
-          - announcement
-          description: Message type
-        announcementColor:
-          type: string
-          enum:
-          - primary
-          - blue
-          - green
-          - orange
-          - purple
-          description: Announcement color (only for announcement type)
-    XSettings:
-      title: X (Twitter)
-      type: object
-      required:
-      - __type
-      - who_can_reply_post
-      properties:
-        __type:
-          type: string
-          enum:
-          - x
-          description: Must be 'x'
-        who_can_reply_post:
-          type: string
-          enum:
-          - everyone
-          - following
-          - mentionedUsers
-          - subscribers
-          - verified
-          description: Who can reply to the post
-        community:
-          type: string
-          description: 'X Community URL (format: https://x.com/i/communities/123)'
-    PostItem:
-      type: object
-      required:
-      - integration
-      - value
-      properties:
-        integration:
-          type: object
-          required:
-          - id
-          properties:
-            id:
-              type: string
-              description: Integration ID
-        value:
-          type: array
-          items:
-            $ref: '#/components/schemas/PostContent'
-        group:
-          type: string
-          description: Group ID for related posts
-        settings:
-          oneOf:
-          - $ref: '#/components/schemas/XSettings'
-          - $ref: '#/components/schemas/LinkedInSettings'
-          - $ref: '#/components/schemas/InstagramSettings'
-          - $ref: '#/components/schemas/FacebookSettings'
-          - $ref: '#/components/schemas/YouTubeSettings'
-          - $ref: '#/components/schemas/TikTokSettings'
-          - $ref: '#/components/schemas/RedditSettings'
-          - $ref: '#/components/schemas/LemmySettings'
-          - $ref: '#/components/schemas/PinterestSettings'
-          - $ref: '#/components/schemas/DiscordSettings'
-          - $ref: '#/components/schemas/SlackSettings'
-          - $ref: '#/components/schemas/TwitchSettings'
-          - $ref: '#/components/schemas/DribbbleSettings'
-          - $ref: '#/components/schemas/MediumSettings'
-          - $ref: '#/components/schemas/DevToSettings'
-          - $ref: '#/components/schemas/HashnodeSettings'
-          - $ref: '#/components/schemas/WordpressSettings'
-          - $ref: '#/components/schemas/ListmonkSettings'
-          - $ref: '#/components/schemas/GmbSettings'
-          - $ref: '#/components/schemas/WarpcastSettings'
-          - $ref: '#/components/schemas/MoltbookSettings'
-          - $ref: '#/components/schemas/SkoolSettings'
-          - $ref: '#/components/schemas/WhopSettings'
-          - $ref: '#/components/schemas/EmptySettings'
-          description: Provider-specific settings
-    MoltbookSettings:
-      title: Moltbook
-      type: object
-      required:
-      - __type
-      - submolt
-      description: Moltbook post settings
-      properties:
-        __type:
-          type: string
-          enum:
-          - moltbook
-        submolt:
-          type: string
-          minLength: 1
-          description: Submolt (community) ID
-    MissingContentItem:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Platform-specific content ID
-        url:
-          type: string
-          description: Thumbnail or preview URL for the content
-    PinterestSettings:
-      title: Pinterest
-      type: object
-      required:
-      - __type
-      - board
-      properties:
-        __type:
-          type: string
-          enum:
-          - pinterest
-        board:
-          type: string
-          minLength: 1
-          description: Board ID
-        title:
-          type: string
-          maxLength: 100
-        link:
-          type: string
-          format: uri
-        dominant_color:
-          type: string
-    RedditSettings:
-      title: Reddit
-      type: object
-      required:
-      - __type
-      - subreddit
-      properties:
-        __type:
-          type: string
-          enum:
-          - reddit
-        subreddit:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            properties:
-              value:
-                type: object
-                required:
-                - subreddit
-                - title
-                - type
-                - is_flair_required
-                properties:
-                  subreddit:
-                    type: string
-                    minLength: 2
-                    description: Subreddit name without r/
-                  title:
-                    type: string
-                    minLength: 2
-                    description: Post title
-                  type:
-                    type: string
-                    enum:
-                    - self
-                    - link
-                    - image
-                    - video
-                    description: Post type
-                  url:
-                    type: string
-                    description: URL for link posts
-                  is_flair_required:
-                    type: boolean
-                  flair:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      name:
-                        type: string
-    Post:
-      type: object
-      properties:
-        id:
-          type: string
-        content:
-          type: string
-        settings:
-          type: object
-          additionalProperties: true
-          description: The post's current provider-specific settings (the same shape used when creating the post). Keys depend on the channel's platform.
-          example:
-            content_posting_method: DIRECT_POST
-        publishDate:
-          type: string
-          format: date-time
-        releaseURL:
-          type: string
-          description: URL of the published post
-        state:
-          type: string
-          enum:
-          - QUEUE
-          - PUBLISHED
-          - ERROR
-          - DRAFT
-        integration:
-          type: object
-          properties:
-            id:
-              type: string
-            providerIdentifier:
-              type: string
-            name:
-              type: string
-            picture:
-              type: string
-    Media:
-      type: object
-      required:
-      - id
-      - path
-      properties:
-        id:
-          type: string
-        path:
-          type: string
     DribbbleSettings:
       title: Dribbble
       type: object
@@ -1100,105 +590,92 @@ components:
           type: string
           minLength: 1
           description: Slack channel ID
-    GmbSettings:
-      title: Google My Business
+    WhopSettings:
+      title: Whop
       type: object
       required:
       - __type
-      description: Google My Business post settings
+      - company
+      - experience
+      description: Whop post settings
       properties:
         __type:
           type: string
           enum:
-          - gmb
-        topicType:
+          - whop
+        company:
           type: string
-          enum:
-          - STANDARD
-          - EVENT
-          - OFFER
-          description: Post type
-        callToActionType:
+          minLength: 1
+          description: Company ID
+        experience:
           type: string
-          enum:
-          - NONE
-          - BOOK
-          - ORDER
-          - SHOP
-          - LEARN_MORE
-          - SIGN_UP
-          - GET_OFFER
-          - CALL
-          description: Call-to-action button
-        callToActionUrl:
-          type: string
-          format: uri
-          description: URL for CTA (required if callToActionType is set)
-        eventTitle:
-          type: string
-          description: Event title (required for EVENT type)
-        eventStartDate:
-          type: string
-          description: Event start date
-        eventEndDate:
-          type: string
-          description: Event end date
-        eventStartTime:
-          type: string
-          description: Event start time
-        eventEndTime:
-          type: string
-          description: Event end time
-        offerCouponCode:
-          type: string
-          description: Coupon code (for OFFER type)
-        offerRedeemUrl:
-          type: string
-          format: uri
-          description: Redemption URL
-        offerTerms:
-          type: string
-          description: Offer terms and conditions
-    EmptySettings:
-      title: Other Platforms (Threads, Mastodon, Bluesky, etc.)
-      type: object
-      required:
-      - __type
-      description: For platforms that don't require additional settings
-      properties:
-        __type:
-          type: string
-          enum:
-          - threads
-          - mastodon
-          - bluesky
-          - telegram
-          - nostr
-          - vk
-          - kick
-          description: Platform identifier
-    WordpressSettings:
-      title: WordPress
-      type: object
-      required:
-      - __type
-      - title
-      - type
-      properties:
-        __type:
-          type: string
-          enum:
-          - wordpress
+          minLength: 1
+          description: Experience/forum ID
         title:
           type: string
-          minLength: 2
           description: Post title
-        main_image:
-          $ref: '#/components/schemas/Media'
-          description: Featured image
+    CreatePostRequest:
+      type: object
+      required:
+      - type
+      - date
+      - shortLink
+      - tags
+      properties:
         type:
           type: string
-          description: Post type (depends on WordPress setup)
+          enum:
+          - draft
+          - schedule
+          - now
+          description: Post type
+        date:
+          type: string
+          format: date-time
+          description: Publish date in UTC ISO format
+        shortLink:
+          type: boolean
+          description: Whether to use short links
+        order:
+          type: string
+          description: Order of posts
+        inter:
+          type: number
+          description: Interval between posts
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostItem'
+          description: Required if type is not 'draft'
+    MoltbookSettings:
+      title: Moltbook
+      type: object
+      required:
+      - __type
+      - submolt
+      description: Moltbook post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - moltbook
+        submolt:
+          type: string
+          minLength: 1
+          description: Submolt (community) ID
+    MissingContentItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Platform-specific content ID
+        url:
+          type: string
+          description: Thumbnail or preview URL for the content
     TikTokSettings:
       title: TikTok
       type: object
@@ -1259,140 +736,83 @@ components:
           - DIRECT_POST
           - UPLOAD
           description: 'Required. Use "DIRECT_POST" to actually publish the post to TikTok. "UPLOAD" does NOT publish: it only sends the media to the user''s TikTok app inbox, where they must manually finish and publish it within 24 hours or it is discarded. Only use "UPLOAD" when the user explicitly asks to review or edit the post inside the TikTok app before publishing. "UPLOAD" also makes TikTok ignore every other setting in this object except the title.'
-    FacebookSettings:
-      title: Facebook
+    LinkedInSettings:
+      title: LinkedIn
       type: object
       required:
       - __type
-      description: Facebook post settings
       properties:
         __type:
           type: string
           enum:
-          - facebook
-        url:
+          - linkedin
+          - linkedin-page
+          description: Use 'linkedin' for profiles, 'linkedin-page' for company pages
+        post_as_images_carousel:
+          type: boolean
+          description: Display multiple images as a carousel
+        carousel_name:
+          type: string
+          description: Name for the carousel document
+    GmbSettings:
+      title: Google My Business
+      type: object
+      required:
+      - __type
+      description: Google My Business post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - gmb
+        topicType:
+          type: string
+          enum:
+          - STANDARD
+          - EVENT
+          - OFFER
+          description: Post type
+        callToActionType:
+          type: string
+          enum:
+          - NONE
+          - BOOK
+          - ORDER
+          - SHOP
+          - LEARN_MORE
+          - SIGN_UP
+          - GET_OFFER
+          - CALL
+          description: Call-to-action button
+        callToActionUrl:
           type: string
           format: uri
-          description: Optional link URL to include in the post
-    WhopSettings:
-      title: Whop
-      type: object
-      required:
-      - __type
-      - company
-      - experience
-      description: Whop post settings
-      properties:
-        __type:
+          description: URL for CTA (required if callToActionType is set)
+        eventTitle:
           type: string
-          enum:
-          - whop
-        company:
+          description: Event title (required for EVENT type)
+        eventStartDate:
           type: string
-          minLength: 1
-          description: Company ID
-        experience:
+          description: Event start date
+        eventEndDate:
           type: string
-          minLength: 1
-          description: Experience/forum ID
-        title:
+          description: Event end date
+        eventStartTime:
           type: string
-          description: Post title
-    ListmonkSettings:
-      title: Listmonk
-      type: object
-      required:
-      - __type
-      - subject
-      - preview
-      - list
-      properties:
-        __type:
+          description: Event start time
+        eventEndTime:
           type: string
-          enum:
-          - listmonk
-        subject:
+          description: Event end time
+        offerCouponCode:
           type: string
-          minLength: 1
-          description: Email subject line
-        preview:
+          description: Coupon code (for OFFER type)
+        offerRedeemUrl:
           type: string
-          description: Email preview text
-        list:
+          format: uri
+          description: Redemption URL
+        offerTerms:
           type: string
-          description: List ID to send to
-        template:
-          type: string
-          description: Template ID (optional)
-    CreatePostRequest:
-      type: object
-      required:
-      - type
-      - date
-      - shortLink
-      - tags
-      properties:
-        type:
-          type: string
-          enum:
-          - draft
-          - schedule
-          - now
-          description: Post type
-        date:
-          type: string
-          format: date-time
-          description: Publish date in UTC ISO format
-        shortLink:
-          type: boolean
-          description: Whether to use short links
-        order:
-          type: string
-          description: Order of posts
-        inter:
-          type: number
-          description: Interval between posts
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
-        posts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PostItem'
-          description: Required if type is not 'draft'
-    DiscordSettings:
-      title: Discord
-      type: object
-      required:
-      - __type
-      - channel
-      properties:
-        __type:
-          type: string
-          enum:
-          - discord
-        channel:
-          type: string
-          minLength: 1
-          description: Discord channel ID
-    PostsResponse:
-      type: object
-      properties:
-        posts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Post'
-    Tag:
-      type: object
-      required:
-      - value
-      - label
-      properties:
-        value:
-          type: string
-        label:
-          type: string
+          description: Offer terms and conditions
     DevToSettings:
       title: Dev.to
       type: object
@@ -1423,6 +843,586 @@ components:
           maxItems: 4
           items:
             $ref: '#/components/schemas/Tag'
+    EmptySettings:
+      title: Other Platforms (Threads, Mastodon, Bluesky, etc.)
+      type: object
+      required:
+      - __type
+      description: For platforms that don't require additional settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - threads
+          - mastodon
+          - bluesky
+          - telegram
+          - nostr
+          - vk
+          - kick
+          description: Platform identifier
+    FacebookSettings:
+      title: Facebook
+      type: object
+      required:
+      - __type
+      description: Facebook post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - facebook
+        url:
+          type: string
+          format: uri
+          description: Optional link URL to include in the post
+    PinterestSettings:
+      title: Pinterest
+      type: object
+      required:
+      - __type
+      - board
+      properties:
+        __type:
+          type: string
+          enum:
+          - pinterest
+        board:
+          type: string
+          minLength: 1
+          description: Board ID
+        title:
+          type: string
+          maxLength: 100
+        link:
+          type: string
+          format: uri
+        dominant_color:
+          type: string
+    LemmySettings:
+      title: Lemmy
+      type: object
+      required:
+      - __type
+      - subreddit
+      description: Lemmy uses 'subreddit' for communities (historical naming)
+      properties:
+        __type:
+          type: string
+          enum:
+          - lemmy
+        subreddit:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              value:
+                type: object
+                required:
+                - subreddit
+                - id
+                - title
+                properties:
+                  subreddit:
+                    type: string
+                    minLength: 2
+                    description: Community name
+                  id:
+                    type: string
+                    description: Community ID
+                  title:
+                    type: string
+                    minLength: 2
+                    description: Post title
+                  url:
+                    type: string
+                    format: uri
+                    description: Optional URL
+    WarpcastSettings:
+      title: Warpcast
+      type: object
+      required:
+      - __type
+      description: Warpcast (Farcaster) post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - warpcast
+        subreddit:
+          type: array
+          description: Farcaster channels to post to
+          items:
+            type: object
+            properties:
+              value:
+                type: object
+                required:
+                - id
+                properties:
+                  id:
+                    type: string
+                    description: Channel ID
+    Tag:
+      type: object
+      required:
+      - value
+      - label
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+    MediumSettings:
+      title: Medium
+      type: object
+      required:
+      - __type
+      - title
+      - subtitle
+      properties:
+        __type:
+          type: string
+          enum:
+          - medium
+        title:
+          type: string
+          minLength: 2
+          description: Article title
+        subtitle:
+          type: string
+          minLength: 2
+          description: Article subtitle
+        canonical:
+          type: string
+          format: uri
+          description: Original URL for SEO
+        publication:
+          type: string
+          description: Publication ID to post to
+        tags:
+          type: array
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/Tag'
+    WordpressSettings:
+      title: WordPress
+      type: object
+      required:
+      - __type
+      - title
+      - type
+      properties:
+        __type:
+          type: string
+          enum:
+          - wordpress
+        title:
+          type: string
+          minLength: 2
+          description: Post title
+        main_image:
+          $ref: '#/components/schemas/Media'
+          description: Featured image
+        type:
+          type: string
+          description: Post type (depends on WordPress setup)
+    XSettings:
+      title: X (Twitter)
+      type: object
+      required:
+      - __type
+      - who_can_reply_post
+      properties:
+        __type:
+          type: string
+          enum:
+          - x
+          description: Must be 'x'
+        who_can_reply_post:
+          type: string
+          enum:
+          - everyone
+          - following
+          - mentionedUsers
+          - subscribers
+          - verified
+          description: Who can reply to the post
+        community:
+          type: string
+          description: 'X Community URL (format: https://x.com/i/communities/123)'
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        content:
+          type: string
+        settings:
+          type: object
+          additionalProperties: true
+          description: The post's current provider-specific settings (the same shape used when creating the post). Keys depend on the channel's platform.
+          example:
+            content_posting_method: DIRECT_POST
+        publishDate:
+          type: string
+          format: date-time
+        releaseURL:
+          type: string
+          description: URL of the published post
+        state:
+          type: string
+          enum:
+          - QUEUE
+          - PUBLISHED
+          - ERROR
+          - DRAFT
+        integration:
+          type: object
+          properties:
+            id:
+              type: string
+            providerIdentifier:
+              type: string
+            name:
+              type: string
+            picture:
+              type: string
+    SkoolSettings:
+      title: Skool
+      type: object
+      required:
+      - __type
+      - group
+      - label
+      - title
+      description: Skool post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - skool
+        group:
+          type: string
+          minLength: 1
+          description: Group ID
+        label:
+          type: string
+          minLength: 1
+          description: Label/category ID
+        title:
+          type: string
+          minLength: 1
+          description: Post title
+    TwitchSettings:
+      title: Twitch
+      type: object
+      required:
+      - __type
+      description: Twitch post settings
+      properties:
+        __type:
+          type: string
+          enum:
+          - twitch
+        messageType:
+          type: string
+          enum:
+          - message
+          - announcement
+          description: Message type
+        announcementColor:
+          type: string
+          enum:
+          - primary
+          - blue
+          - green
+          - orange
+          - purple
+          description: Announcement color (only for announcement type)
+    DiscordSettings:
+      title: Discord
+      type: object
+      required:
+      - __type
+      - channel
+      properties:
+        __type:
+          type: string
+          enum:
+          - discord
+        channel:
+          type: string
+          minLength: 1
+          description: Discord channel ID
+    RedditSettings:
+      title: Reddit
+      type: object
+      required:
+      - __type
+      - subreddit
+      properties:
+        __type:
+          type: string
+          enum:
+          - reddit
+        subreddit:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            properties:
+              value:
+                type: object
+                required:
+                - subreddit
+                - title
+                - type
+                - is_flair_required
+                properties:
+                  subreddit:
+                    type: string
+                    minLength: 2
+                    description: Subreddit name without r/
+                  title:
+                    type: string
+                    minLength: 2
+                    description: Post title
+                  type:
+                    type: string
+                    enum:
+                    - self
+                    - link
+                    - image
+                    - video
+                    description: Post type
+                  url:
+                    type: string
+                    description: URL for link posts
+                  is_flair_required:
+                    type: boolean
+                  flair:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+    InstagramSettings:
+      title: Instagram
+      type: object
+      required:
+      - __type
+      - post_type
+      properties:
+        __type:
+          type: string
+          enum:
+          - instagram
+          - instagram-standalone
+          description: Use 'instagram' for FB-linked, 'instagram-standalone' for standalone
+        post_type:
+          type: string
+          enum:
+          - post
+          - story
+          description: Type of Instagram post
+        is_trial_reel:
+          type: boolean
+          description: Whether to post as a trial reel
+        graduation_strategy:
+          type: string
+          enum:
+          - MANUAL
+          - SS_PERFORMANCE
+          description: Graduation strategy for trial reels
+        collaborators:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                description: Collaborator username
+    PostsResponse:
+      type: object
+      properties:
+        posts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    HashnodeSettings:
+      title: Hashnode
+      type: object
+      required:
+      - __type
+      - title
+      - tags
+      properties:
+        __type:
+          type: string
+          enum:
+          - hashnode
+        title:
+          type: string
+          minLength: 6
+          description: Article title
+        subtitle:
+          type: string
+          minLength: 2
+          description: Article subtitle
+        main_image:
+          $ref: '#/components/schemas/Media'
+          description: Cover image
+        canonical:
+          type: string
+          format: uri
+          description: Original URL for SEO
+        publication:
+          type: string
+          description: Publication ID (required)
+        tags:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Tag'
+    Media:
+      type: object
+      required:
+      - id
+      - path
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+    YouTubeSettings:
+      title: YouTube
+      type: object
+      required:
+      - __type
+      - title
+      - type
+      properties:
+        __type:
+          type: string
+          enum:
+          - youtube
+        title:
+          type: string
+          minLength: 2
+          maxLength: 100
+          description: Video title
+        type:
+          type: string
+          enum:
+          - public
+          - private
+          - unlisted
+          description: Video visibility
+        selfDeclaredMadeForKids:
+          type: string
+          enum:
+          - 'yes'
+          - 'no'
+          description: Made for kids declaration
+        thumbnail:
+          $ref: '#/components/schemas/Media'
+          description: Custom thumbnail
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+    PostContent:
+      type: object
+      required:
+      - content
+      properties:
+        content:
+          type: string
+          description: Post text content
+        id:
+          type: string
+          description: Post ID (for updates)
+        image:
+          type: array
+          items:
+            $ref: '#/components/schemas/Media'
+    ListmonkSettings:
+      title: Listmonk
+      type: object
+      required:
+      - __type
+      - subject
+      - preview
+      - list
+      properties:
+        __type:
+          type: string
+          enum:
+          - listmonk
+        subject:
+          type: string
+          minLength: 1
+          description: Email subject line
+        preview:
+          type: string
+          description: Email preview text
+        list:
+          type: string
+          description: List ID to send to
+        template:
+          type: string
+          description: Template ID (optional)
+    PostItem:
+      type: object
+      required:
+      - integration
+      - value
+      properties:
+        integration:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              description: Integration ID
+        value:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostContent'
+        group:
+          type: string
+          description: Group ID for related posts
+        settings:
+          oneOf:
+          - $ref: '#/components/schemas/XSettings'
+          - $ref: '#/components/schemas/LinkedInSettings'
+          - $ref: '#/components/schemas/InstagramSettings'
+          - $ref: '#/components/schemas/FacebookSettings'
+          - $ref: '#/components/schemas/YouTubeSettings'
+          - $ref: '#/components/schemas/TikTokSettings'
+          - $ref: '#/components/schemas/RedditSettings'
+          - $ref: '#/components/schemas/LemmySettings'
+          - $ref: '#/components/schemas/PinterestSettings'
+          - $ref: '#/components/schemas/DiscordSettings'
+          - $ref: '#/components/schemas/SlackSettings'
+          - $ref: '#/components/schemas/TwitchSettings'
+          - $ref: '#/components/schemas/DribbbleSettings'
+          - $ref: '#/components/schemas/MediumSettings'
+          - $ref: '#/components/schemas/DevToSettings'
+          - $ref: '#/components/schemas/HashnodeSettings'
+          - $ref: '#/components/schemas/WordpressSettings'
+          - $ref: '#/components/schemas/ListmonkSettings'
+          - $ref: '#/components/schemas/GmbSettings'
+          - $ref: '#/components/schemas/WarpcastSettings'
+          - $ref: '#/components/schemas/MoltbookSettings'
+          - $ref: '#/components/schemas/SkoolSettings'
+          - $ref: '#/components/schemas/WhopSettings'
+          - $ref: '#/components/schemas/EmptySettings'
+          description: Provider-specific settings
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

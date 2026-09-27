@@ -113,6 +113,16 @@ paths:
                           type: string
 components:
   schemas:
+    Media:
+      type: object
+      required:
+      - id
+      - path
+      properties:
+        id:
+          type: string
+        path:
+          type: string
     VideoGenerationRequest:
       type: object
       required:
@@ -147,16 +157,6 @@ components:
               items:
                 $ref: '#/components/schemas/Media'
               description: Reference images (for veo3, max 3)
-    Media:
-      type: object
-      required:
-      - id
-      - path
-      properties:
-        id:
-          type: string
-        path:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -758,16 +758,16 @@ paths:
           description: Your Postiz instance domain
 components:
   schemas:
-    IntegrationTimeDto:
+    IntegrationFunctionDto:
       type: object
       properties: {}
-    PlugDto:
+    IntegrationTimeDto:
       type: object
       properties: {}
     ConnectIntegrationDto:
       type: object
       properties: {}
-    IntegrationFunctionDto:
+    PlugDto:
       type: object
       properties: {}
     Group:
