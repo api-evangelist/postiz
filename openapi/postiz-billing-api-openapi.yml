@@ -259,9 +259,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AdminApplyCouponDto:
+    BillingSubscribeDto:
       type: object
       properties: {}
-    BillingSubscribeDto:
+    AdminApplyCouponDto:
       type: object
       properties: {}

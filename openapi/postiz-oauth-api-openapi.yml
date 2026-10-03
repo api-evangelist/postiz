@@ -54,9 +54,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TokenExchangeDto:
+    ApproveOAuthDto:
       type: object
       properties: {}
-    ApproveOAuthDto:
+    TokenExchangeDto:
       type: object
       properties: {}

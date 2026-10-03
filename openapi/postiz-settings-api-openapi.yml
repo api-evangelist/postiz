@@ -97,12 +97,12 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AddTeamMemberDto:
+    AdminAddTeamMemberDto:
       type: object
       properties: {}
     ShortlinkPreferenceDto:
       type: object
       properties: {}
-    AdminAddTeamMemberDto:
+    AddTeamMemberDto:
       type: object
       properties: {}

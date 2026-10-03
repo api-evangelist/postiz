@@ -74,9 +74,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateOAuthAppDto:
+    UpdateOAuthAppDto:
       type: object
       properties: {}
-    UpdateOAuthAppDto:
+    CreateOAuthAppDto:
       type: object
       properties: {}

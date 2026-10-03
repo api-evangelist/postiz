@@ -80,9 +80,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    WebhooksDto:
+    UpdateDto:
       type: object
       properties: {}
-    UpdateDto:
+    WebhooksDto:
       type: object
       properties: {}

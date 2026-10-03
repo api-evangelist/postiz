@@ -758,27 +758,18 @@ paths:
           description: Your Postiz instance domain
 components:
   schemas:
-    IntegrationFunctionDto:
-      type: object
-      properties: {}
-    IntegrationTimeDto:
+    PlugDto:
       type: object
       properties: {}
     ConnectIntegrationDto:
       type: object
       properties: {}
-    PlugDto:
+    IntegrationTimeDto:
       type: object
       properties: {}
-    Group:
+    IntegrationFunctionDto:
       type: object
-      properties:
-        id:
-          type: string
-          description: Unique group (customer) ID
-        name:
-          type: string
-          description: Group (customer) display name
+      properties: {}
     Integration:
       type: object
       properties:
@@ -840,6 +831,15 @@ components:
               type: string
             name:
               type: string
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique group (customer) ID
+        name:
+          type: string
+          description: Group (customer) display name
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

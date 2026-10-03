@@ -377,18 +377,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ChangePostStatusDto:
-      type: object
-      properties: {}
     UpdatePostSettingsDto:
       type: object
       properties: {}
     VideoDto:
       type: object
       properties: {}
-    UploadDto:
+    ChangePostStatusDto:
       type: object
       properties: {}
     VideoFunctionDto:
+      type: object
+      properties: {}
+    UploadDto:
       type: object
       properties: {}
