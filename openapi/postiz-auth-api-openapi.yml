@@ -170,18 +170,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ForgotReturnPasswordDto:
-      type: object
-      properties: {}
-    ForgotPasswordDto:
+    ResendActivationDto:
       type: object
       properties: {}
     LoginUserDto:
       type: object
       properties: {}
-    ResendActivationDto:
+    CreateOrgUserDto:
       type: object
       properties: {}
-    CreateOrgUserDto:
+    ForgotReturnPasswordDto:
+      type: object
+      properties: {}
+    ForgotPasswordDto:
       type: object
       properties: {}

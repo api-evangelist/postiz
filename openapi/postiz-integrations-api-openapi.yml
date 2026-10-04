@@ -761,13 +761,13 @@ components:
     PlugDto:
       type: object
       properties: {}
+    IntegrationFunctionDto:
+      type: object
+      properties: {}
     ConnectIntegrationDto:
       type: object
       properties: {}
     IntegrationTimeDto:
-      type: object
-      properties: {}
-    IntegrationFunctionDto:
       type: object
       properties: {}
     Integration:

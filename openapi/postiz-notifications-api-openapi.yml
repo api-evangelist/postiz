@@ -39,23 +39,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Notification:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique notification ID
-        content:
-          type: string
-          description: Notification message
-        link:
-          type: string
-          nullable: true
-          description: Optional link associated with the notification
-        createdAt:
-          type: string
-          format: date-time
-          description: When the notification was created
     NotificationsResponse:
       type: object
       properties:
@@ -75,6 +58,23 @@ components:
         hasMore:
           type: boolean
           description: Whether there are more pages available
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique notification ID
+        content:
+          type: string
+          description: Notification message
+        link:
+          type: string
+          nullable: true
+          description: Optional link associated with the notification
+        createdAt:
+          type: string
+          format: date-time
+          description: When the notification was created
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

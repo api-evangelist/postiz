@@ -196,12 +196,12 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SaveMediaInformationDto:
-      type: object
-      properties: {}
     VideoDto:
       type: object
       properties: {}
     VideoFunctionDto:
+      type: object
+      properties: {}
+    SaveMediaInformationDto:
       type: object
       properties: {}
